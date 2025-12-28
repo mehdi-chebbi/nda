@@ -2,6 +2,7 @@
 let currentPage = 'home';
 let allDocuments = { gcf: [], policy: [] };
 let filteredDocuments = [];
+let isSyncing = false;
 
 // ===== DOM Elements =====
 const navItems = document.querySelectorAll('.nav-item');
@@ -55,8 +56,8 @@ async function loadDocuments() {
             // Cache has data, display it
             filterDocuments();
         } else {
-            // No cache or empty, scan fresh
-            await refreshDocuments();
+            // No cache or empty, sync from server
+            await syncWithServer();
         }
     } catch (error) {
         console.error('Error loading documents:', error);
@@ -65,20 +66,13 @@ async function loadDocuments() {
 }
 
 async function refreshDocuments() {
-    showLoading();
-    try {
-        const result = await ipcRenderer.invoke('scan-documents');
-        if (result.success) {
-            allDocuments = result.documents;
-            filterDocuments();
-        } else {
-            console.error('Error scanning documents:', result.error);
-            showError('Failed to scan documents: ' + result.error);
-        }
-    } catch (error) {
-        console.error('Error refreshing documents:', error);
-        showError('Failed to refresh documents. Please try again.');
+    // Check if already syncing
+    if (isSyncing) {
+        console.log('Sync already in progress, ignoring refresh request');
+        return;
     }
+
+    await syncWithServer();
 }
 
 function filterDocuments() {
@@ -191,6 +185,155 @@ async function downloadPdf(filePath) {
     }
 }
 
+// ===== Sync Functions =====
+async function syncWithServer() {
+    // Check if already syncing
+    if (isSyncing) {
+        console.log('Sync already in progress');
+        return;
+    }
+
+    isSyncing = true;
+    console.log('Starting sync with server...');
+
+    try {
+        const result = await ipcRenderer.invoke('sync-remote-documents');
+
+        if (result.success) {
+            // Sync completed successfully
+            console.log('Sync result:', result);
+
+            // Reload cache to get updated document list
+            const cachedDocs = await ipcRenderer.invoke('get-cached-documents');
+            allDocuments = cachedDocs;
+
+            // Show success message first
+            if (result.stage === 'complete' && result.total > 0) {
+                showSyncSuccess(result.downloaded, result.failed, result.message);
+                // Auto-dismiss success message and show documents after 2 seconds
+                setTimeout(() => {
+                    filterDocuments();
+                }, 2000);
+            } else if (result.total === 0) {
+                showSyncInfo(result.message);
+                // Auto-dismiss info message and show documents after 2 seconds
+                setTimeout(() => {
+                    filterDocuments();
+                }, 2000);
+            } else {
+                // Immediately show documents if no special message needed
+                filterDocuments();
+            }
+        } else {
+            // Sync failed
+            console.error('Sync failed:', result.error, 'Stage:', result.stage);
+            showSyncError(result.message || 'Failed to sync with server');
+        }
+    } catch (error) {
+        console.error('Sync error:', error);
+        showSyncError('Failed to sync with server: ' + error.message);
+    } finally {
+        isSyncing = false;
+    }
+}
+
+function showSyncProgress(status) {
+    documentsContainer.innerHTML = `
+        <div class="sync-progress-container">
+            <div class="spinner"></div>
+            <h3>Syncing with server...</h3>
+            <p>Downloading file ${status.current} of ${status.total}</p>
+            <p class="sync-file-name">${escapeHtml(status.file)}</p>
+            ${status.percent > 0 ? `
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: ${status.percent}%"></div>
+                </div>
+                <p class="sync-percent">${status.percent}%</p>
+            ` : ''}
+        </div>
+    `;
+}
+
+function showSyncProgressUpdate(progress) {
+    const percentEl = document.querySelector('.sync-percent');
+    const barEl = document.querySelector('.progress-bar');
+    const fileEl = document.querySelector('.sync-file-name');
+
+    if (percentEl) percentEl.textContent = progress.percent + '%';
+    if (barEl) barEl.style.width = progress.percent + '%';
+    if (fileEl) fileEl.textContent = progress.file;
+}
+
+function showSyncSuccess(downloaded, failed, message) {
+    const isSuccess = failed === 0;
+
+    documentsContainer.innerHTML = `
+        <div class="sync-result-container ${isSuccess ? 'sync-success' : 'sync-partial'}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                ${isSuccess
+                    ? '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>'
+                    : '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>'
+                }
+            </svg>
+            <h3>${isSuccess ? 'Sync Complete!' : 'Sync Complete (with errors)'}</h3>
+            <p>${escapeHtml(message)}</p>
+            <div class="sync-stats">
+                <div class="sync-stat">
+                    <span class="sync-stat-number">${downloaded}</span>
+                    <span class="sync-stat-label">Downloaded</span>
+                </div>
+                ${failed > 0 ? `
+                    <div class="sync-stat sync-stat-error">
+                        <span class="sync-stat-number">${failed}</span>
+                        <span class="sync-stat-label">Failed</span>
+                    </div>
+                ` : ''}
+            </div>
+            ${failed > 0 ? `
+                <p class="sync-retry-hint">Failed files will be retried on the next refresh.</p>
+            ` : ''}
+            <button class="btn btn-primary" style="margin-top: var(--spacing-lg); max-width: 200px;" onclick="filterDocuments()">
+                View Documents
+            </button>
+        </div>
+    `;
+}
+
+function showSyncInfo(message) {
+    documentsContainer.innerHTML = `
+        <div class="sync-result-container sync-info">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <h3>Sync Info</h3>
+            <p>${escapeHtml(message)}</p>
+            <button class="btn btn-primary" style="margin-top: var(--spacing-lg); max-width: 200px;" onclick="filterDocuments()">
+                View Documents
+            </button>
+        </div>
+    `;
+}
+
+function showSyncError(message) {
+    documentsContainer.innerHTML = `
+        <div class="sync-result-container sync-error">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+            <h3>Sync Failed</h3>
+            <p>${escapeHtml(message)}</p>
+            <p class="sync-retry-hint">Click Refresh to try again.</p>
+            <button class="btn btn-primary" style="margin-top: var(--spacing-lg); max-width: 200px;" onclick="filterDocuments()">
+                View Documents
+            </button>
+        </div>
+    `;
+}
+
 // ===== UI States =====
 function showLoading() {
     documentsContainer.innerHTML = `
@@ -259,6 +402,30 @@ function debounce(func, wait) {
 // ===== Handle page changes from IPC =====
 ipcRenderer.on('page-change', (event, page) => {
     navigateToPage(page);
+});
+
+// Handle sync status updates from IPC
+ipcRenderer.on('sync-status', (event, status) => {
+    console.log('Sync status:', status);
+    showSyncProgress(status);
+});
+
+// Handle sync progress updates from IPC
+ipcRenderer.on('sync-progress', (event, progress) => {
+    console.log('Sync progress:', progress);
+    showSyncProgressUpdate(progress);
+});
+
+// Handle sync completion from IPC
+ipcRenderer.on('sync-complete', (event, result) => {
+    console.log('Sync complete:', result);
+    // Result is already handled in syncWithServer function
+});
+
+// Handle sync error from IPC
+ipcRenderer.on('sync-error', (event, error) => {
+    console.log('Sync error:', error);
+    // Error is already handled in syncWithServer function
 });
 
 // ===== Initialize =====

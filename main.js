@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { promisify } = require('util');
+const https = require('https');
 
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
@@ -15,11 +16,17 @@ const isDev = !app.isPackaged;
 const appPath = isDev ? __dirname : path.join(process.resourcesPath, 'app.asar.unpacked');
 const CACHE_FILE = path.join(appPath, 'data', 'cache.json');
 
+// Hardcoded server configuration
+const SERVER_BASE_URL = 'http://192.168.1.9:8000';
+const MANIFEST_URL = `${SERVER_BASE_URL}/manifest.json`;
+const REQUEST_TIMEOUT = 30000; // 30 seconds
+
 console.log('App starting...');
 console.log('isDev:', isDev);
 console.log('__dirname:', __dirname);
 console.log('appPath:', appPath);
 console.log('process.resourcesPath:', process.resourcesPath);
+console.log('Server URL:', SERVER_BASE_URL);
 
 function createWindow() {
   console.log('Creating window...');
@@ -327,6 +334,389 @@ ipcMain.handle('navigate-to', async (event, page) => {
     mainWindow.webContents.send('page-change', page);
   }
   return { success: true };
+});
+
+// ===== Remote Server Sync Handlers =====
+
+// Fetch manifest from remote server
+async function fetchManifest() {
+  try {
+    console.log('Fetching manifest from:', MANIFEST_URL);
+
+    const response = await fetch(MANIFEST_URL, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+    }
+
+    const manifest = await response.json();
+
+    // Validate manifest structure
+    if (!manifest || typeof manifest !== 'object') {
+      throw new Error('Invalid manifest format: not an object');
+    }
+
+    if (!Array.isArray(manifest.gcf)) {
+      throw new Error('Invalid manifest format: gcf is not an array');
+    }
+
+    if (!Array.isArray(manifest.policy)) {
+      throw new Error('Invalid manifest format: policy is not an array');
+    }
+
+    console.log('Manifest fetched successfully:', manifest);
+    return { success: true, manifest };
+  } catch (error) {
+    console.error('Error fetching manifest:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+// Format file size for display
+function formatFileSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+// Generate display name from filename
+function generateDisplayName(filename) {
+  return filename
+    .replace(/\.pdf$/i, '')
+    .replace(/[-_]/g, ' ')
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+}
+
+// Compare remote files with local cache to determine what needs downloading
+function compareFiles(manifest, localCache) {
+  const toDownload = [];
+  const localGcf = localCache.gcf || [];
+  const localPolicy = localCache.policy || [];
+
+  // Build lookup maps for local files
+  const localGcfMap = new Map(localGcf.map(doc => [doc.file, doc]));
+  const localPolicyMap = new Map(localPolicy.map(doc => [doc.file, doc]));
+
+  // Check GCF files
+  manifest.gcf.forEach(file => {
+    const localFile = localGcfMap.get(`gcf/${file.name}`);
+    const needsDownload = !localFile || localFile.syncStatus === 'failed' ||
+                          new Date(file.modified) > new Date(localFile.remoteModified || localFile.date);
+
+    if (needsDownload) {
+      toDownload.push({
+        category: 'gcf',
+        name: file.name,
+        size: file.size,
+        modified: file.modified,
+        url: `${SERVER_BASE_URL}/docs/gcf/${file.name}`,
+        localPath: path.join(appPath, 'docs', 'gcf', file.name),
+        relativePath: `gcf/${file.name}`,
+        reason: !localFile ? 'new' : (localFile.syncStatus === 'failed' ? 'retry' : 'updated')
+      });
+    }
+  });
+
+  // Check Policy files
+  manifest.policy.forEach(file => {
+    const localFile = localPolicyMap.get(`policy/${file.name}`);
+    const needsDownload = !localFile || localFile.syncStatus === 'failed' ||
+                          new Date(file.modified) > new Date(localFile.remoteModified || localFile.date);
+
+    if (needsDownload) {
+      toDownload.push({
+        category: 'policy',
+        name: file.name,
+        size: file.size,
+        modified: file.modified,
+        url: `${SERVER_BASE_URL}/docs/policy/${file.name}`,
+        localPath: path.join(appPath, 'docs', 'policy', file.name),
+        relativePath: `policy/${file.name}`,
+        reason: !localFile ? 'new' : (localFile.syncStatus === 'failed' ? 'retry' : 'updated')
+      });
+    }
+  });
+
+  return toDownload;
+}
+
+// Download a single file from the remote server
+async function downloadFile(fileInfo, onProgress) {
+  try {
+    console.log('Downloading file:', fileInfo.name, 'from:', fileInfo.url);
+
+    const response = await fetch(fileInfo.url, {
+      method: 'GET',
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+    }
+
+    const contentLength = response.headers.get('content-length');
+    const totalBytes = contentLength ? parseInt(contentLength, 10) : null;
+    let downloadedBytes = 0;
+
+    const chunks = [];
+    const reader = response.body.getReader();
+
+    while (true) {
+      const { done, value } = await reader.read();
+
+      if (done) break;
+
+      chunks.push(value);
+      downloadedBytes += value.length;
+
+      // Report progress
+      if (onProgress && totalBytes) {
+        const percent = Math.round((downloadedBytes / totalBytes) * 100);
+        onProgress(fileInfo.name, percent);
+      }
+    }
+
+    // Combine chunks and write to file
+    const buffer = Buffer.concat(chunks);
+
+    // Ensure directory exists
+    const dir = path.dirname(fileInfo.localPath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+      console.log('Created directory:', dir);
+    }
+
+    await writeFile(fileInfo.localPath, buffer);
+
+    // Verify file was written
+    if (!fs.existsSync(fileInfo.localPath)) {
+      throw new Error('File was not written successfully');
+    }
+
+    const stats = fs.statSync(fileInfo.localPath);
+
+    console.log('File downloaded successfully:', fileInfo.name, 'Size:', stats.size, 'bytes');
+
+    return {
+      success: true,
+      size: stats.size,
+      displayName: generateDisplayName(fileInfo.name),
+      date: stats.mtime.toISOString().split('T')[0]
+    };
+  } catch (error) {
+    console.error('Error downloading file:', fileInfo.name, error);
+    return {
+      success: false,
+      error: error.message
+    };
+  }
+}
+
+// Update cache with downloaded file info
+function updateCacheWithFile(cache, category, fileInfo, downloadResult) {
+  const categoryArray = cache[category];
+  if (!categoryArray) {
+    console.error('Invalid category:', category);
+    return cache;
+  }
+
+  // Find existing file in cache or create new entry
+  const existingIndex = categoryArray.findIndex(doc => doc.file === fileInfo.relativePath);
+
+  const docEntry = {
+    id: `${category}-${fileInfo.name}`,
+    title: downloadResult.displayName,
+    description: '',
+    file: fileInfo.relativePath,
+    size: formatFileSize(downloadResult.size),
+    date: downloadResult.date,
+    remoteModified: fileInfo.modified,
+    syncStatus: 'success'
+  };
+
+  if (existingIndex >= 0) {
+    categoryArray[existingIndex] = docEntry;
+  } else {
+    categoryArray.push(docEntry);
+  }
+
+  return cache;
+}
+
+// Sync with remote server
+ipcMain.handle('sync-remote-documents', async (event) => {
+  console.log('=== Starting remote document sync ===');
+
+  try {
+    // Step 1: Fetch manifest
+    const manifestResult = await fetchManifest();
+
+    if (!manifestResult.success) {
+      return {
+        success: false,
+        stage: 'fetch-manifest',
+        error: manifestResult.error,
+        message: `Failed to fetch manifest: ${manifestResult.error}`
+      };
+    }
+
+    // Step 2: Load current cache
+    let localCache;
+    try {
+      if (fs.existsSync(CACHE_FILE)) {
+        const cacheData = await readFile(CACHE_FILE, 'utf-8');
+        localCache = JSON.parse(cacheData);
+        console.log('Local cache loaded');
+      } else {
+        localCache = { gcf: [], policy: [] };
+        console.log('No local cache, starting fresh');
+      }
+    } catch (error) {
+      console.error('Error loading cache, starting fresh:', error);
+      localCache = { gcf: [], policy: [] };
+    }
+
+    // Step 3: Compare and determine what to download
+    const toDownload = compareFiles(manifestResult.manifest, localCache);
+
+    if (toDownload.length === 0) {
+      console.log('All documents are up to date');
+      return {
+        success: true,
+        stage: 'complete',
+        message: 'All documents are up to date',
+        downloaded: 0,
+        failed: 0,
+        total: 0
+      };
+    }
+
+    console.log(`Found ${toDownload.length} files to download`);
+
+    // Send initial status to renderer
+    if (mainWindow) {
+      mainWindow.webContents.send('sync-status', {
+        stage: 'downloading',
+        total: toDownload.length,
+        current: 0,
+        file: '',
+        percent: 0
+      });
+    }
+
+    // Step 4: Download files one by one
+    let downloaded = 0;
+    let failed = 0;
+
+    for (let i = 0; i < toDownload.length; i++) {
+      const fileInfo = toDownload[i];
+
+      console.log(`[${i + 1}/${toDownload.length}] Downloading:`, fileInfo.name);
+
+      // Update status before download
+      if (mainWindow) {
+        mainWindow.webContents.send('sync-status', {
+          stage: 'downloading',
+          total: toDownload.length,
+          current: i + 1,
+          file: fileInfo.name,
+          percent: 0
+        });
+      }
+
+      const downloadResult = await downloadFile(fileInfo, (filename, percent) => {
+        // Send progress updates
+        if (mainWindow) {
+          mainWindow.webContents.send('sync-progress', {
+            file: filename,
+            percent: percent
+          });
+        }
+      });
+
+      if (downloadResult.success) {
+        console.log('Download successful:', fileInfo.name);
+        downloaded++;
+
+        // Update cache with downloaded file info
+        localCache = updateCacheWithFile(localCache, fileInfo.category, fileInfo, downloadResult);
+      } else {
+        console.error('Download failed:', fileInfo.name, downloadResult.error);
+        failed++;
+
+        // Mark file as failed in cache for retry
+        const categoryArray = localCache[fileInfo.category];
+        const existingIndex = categoryArray.findIndex(doc => doc.file === fileInfo.relativePath);
+
+        if (existingIndex >= 0) {
+          categoryArray[existingIndex].syncStatus = 'failed';
+        } else {
+          categoryArray.push({
+            id: `${fileInfo.category}-${fileInfo.name}`,
+            title: generateDisplayName(fileInfo.name),
+            description: '',
+            file: fileInfo.relativePath,
+            size: formatFileSize(fileInfo.size),
+            date: new Date(fileInfo.modified).toISOString().split('T')[0],
+            remoteModified: fileInfo.modified,
+            syncStatus: 'failed'
+          });
+        }
+      }
+    }
+
+    // Step 5: Save updated cache
+    localCache.lastSync = new Date().toISOString();
+    await writeFile(CACHE_FILE, JSON.stringify(localCache, null, 2), 'utf-8');
+    console.log('Cache updated and saved');
+
+    // Send completion status
+    if (mainWindow) {
+      mainWindow.webContents.send('sync-complete', {
+        downloaded,
+        failed,
+        total: toDownload.length
+      });
+    }
+
+    console.log('=== Sync complete ===');
+    console.log(`Downloaded: ${downloaded}, Failed: ${failed}, Total: ${toDownload.length}`);
+
+    return {
+      success: true,
+      stage: 'complete',
+      message: failed > 0
+        ? `Synced ${downloaded} files, ${failed} failed. Click refresh to retry.`
+        : `Successfully synced ${downloaded} files`,
+      downloaded,
+      failed,
+      total: toDownload.length
+    };
+  } catch (error) {
+    console.error('Sync error:', error);
+
+    // Send error status
+    if (mainWindow) {
+      mainWindow.webContents.send('sync-error', {
+        message: error.message
+      });
+    }
+
+    return {
+      success: false,
+      stage: 'error',
+      error: error.message,
+      message: `Sync failed: ${error.message}`
+    };
+  }
 });
 
 // Log unhandled errors
