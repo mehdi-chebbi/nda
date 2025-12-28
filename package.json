@@ -1,0 +1,42 @@
+{
+  "name": "readiness-eritrea",
+  "version": "1.0.0",
+  "description": "Readiness Eritrea - National Designated Authority Application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "electron": "electron .",
+    "build-win": "electron-builder --win"
+  },
+  "keywords": [
+    "electron",
+    "eritrea",
+    "readiness",
+    "gcf"
+  ],
+  "author": "National Designated Authority - Eritrea",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^30.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "er.nda.readiness",
+    "productName": "Readiness Eritrea",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!dist/*",
+      "!node_modules/**/*"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
