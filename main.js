@@ -16,9 +16,9 @@ const isDev = !app.isPackaged;
 const appPath = isDev ? __dirname : path.join(process.resourcesPath, 'app.asar.unpacked');
 const CACHE_FILE = path.join(appPath, 'data', 'cache.json');
 
-// Hardcoded server configuration
-const SERVER_BASE_URL = 'http://192.168.1.9:8000';
-const MANIFEST_URL = `${SERVER_BASE_URL}/manifest.json`;
+// ✅ FIXED: Updated server configuration for localhost:3000
+const SERVER_BASE_URL = 'http://localhost:3000';
+const MANIFEST_URL = `${SERVER_BASE_URL}/docs/manifest.json`;
 const REQUEST_TIMEOUT = 30000; // 30 seconds
 
 console.log('App starting...');
@@ -27,6 +27,7 @@ console.log('__dirname:', __dirname);
 console.log('appPath:', appPath);
 console.log('process.resourcesPath:', process.resourcesPath);
 console.log('Server URL:', SERVER_BASE_URL);
+console.log('Manifest URL:', MANIFEST_URL);
 
 function createWindow() {
   console.log('Creating window...');
