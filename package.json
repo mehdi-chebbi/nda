@@ -23,20 +23,46 @@
   "build": {
     "appId": "er.nda.readiness",
     "productName": "Readiness Eritrea",
+    "asar": true,
+    "asarUnpack": [
+      "docs/**/*",
+      "data/**/*"
+    ],
     "directories": {
       "output": "dist"
     },
     "files": [
-      "**/*",
-      "!dist/*",
-      "!node_modules/**/*"
+      "main.js",
+      "renderer.js",
+      "index.html",
+      "styles.css",
+      "docs/**/*",
+      "data/**/*",
+      "assets/**/*",
+      "!node_modules/**/*",
+      "!dist/**/*"
+    ],
+    "extraFiles": [
+      {
+        "from": "docs",
+        "to": "docs",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "data",
+        "to": "data",
+        "filter": ["**/*"]
+      }
     ],
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "build/icon.ico"
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
     }
   }
 }
