@@ -48,7 +48,7 @@ async function loadDocuments() {
     showLoading();
 
     try {
-        // First, try to load from cache (fast)
+        // Load from cache only (no auto-sync)
         const cachedDocs = await ipcRenderer.invoke('get-cached-documents');
         allDocuments = cachedDocs;
 
@@ -56,8 +56,8 @@ async function loadDocuments() {
             // Cache has data, display it
             filterDocuments();
         } else {
-            // No cache or empty, sync from server
-            await syncWithServer();
+            // No cache, show empty state with hint to refresh
+            showEmptyStateWithHint();
         }
     } catch (error) {
         console.error('Error loading documents:', error);
@@ -131,7 +131,7 @@ function renderDocumentCard(doc) {
             <div class="document-body">
                 <p class="document-description">${escapeHtml(description)}</p>
                 <div class="document-footer">
-                    <button class="btn btn-primary" onclick="openPdf('${escapeHtml(doc.file)}')">
+                    <button class="btn btn-primary btn-full" onclick="openPdf('${escapeHtml(doc.file)}')">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                             <polyline points="14 2 14 8 20 8"></polyline>
@@ -140,14 +140,6 @@ function renderDocumentCard(doc) {
                             <polyline points="10 9 9 9 8 9"></polyline>
                         </svg>
                         Open PDF
-                    </button>
-                    <button class="btn btn-secondary" onclick="downloadPdf('${escapeHtml(doc.file)}')">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="7 10 12 15 17 10"></polyline>
-                            <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                        Download
                     </button>
                 </div>
             </div>
@@ -165,23 +157,6 @@ async function openPdf(filePath) {
     } catch (error) {
         console.error('Error opening PDF:', error);
         alert('Failed to open PDF. Please try again.');
-    }
-}
-
-async function downloadPdf(filePath) {
-    try {
-        const result = await ipcRenderer.invoke('check-pdf-exists', filePath);
-        
-        if (!result.exists) {
-            alert('PDF file not found.');
-            return;
-        }
-
-        // Trigger download (same as opening, user can save from PDF viewer)
-        await openPdf(filePath);
-    } catch (error) {
-        console.error('Error downloading PDF:', error);
-        alert('Failed to download PDF. Please try again.');
     }
 }
 
@@ -356,6 +331,22 @@ function showEmptyState() {
             </svg>
             <h3>No documents found</h3>
             <p>Try adjusting your filters or search terms.</p>
+        </div>
+    `;
+}
+
+function showEmptyStateWithHint() {
+    documentsContainer.innerHTML = `
+        <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <h3>No documents available</h3>
+            <p>Click the <strong>Refresh</strong> button to sync documents from the server.</p>
         </div>
     `;
 }
