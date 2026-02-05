@@ -28,30 +28,92 @@
                         </svg>
                         <span>Home</span>
                     </button>
-                    <button class="nav-item" data-page="resources">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
-                        <span>Resources</span>
-                    </button>
+                    
                     <button class="nav-item" data-page="about">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="10"></circle>
                             <line x1="12" y1="16" x2="12" y2="12"></line>
                             <line x1="12" y1="8" x2="12.01" y2="8"></line>
                         </svg>
-                        <span>About</span>
+                        <span>About NDA</span>
                     </button>
-                    <button class="nav-item" data-page="contact">
+
+                    <!-- GCF Dropdown Menu -->
+                    <div class="nav-dropdown">
+                        <button class="nav-item dropdown-trigger" data-page="gcf">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                            </svg>
+                            <span>GCF</span>
+                            <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" data-page="policy">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                Policy
+                            </button>
+                            <button class="dropdown-item" data-page="project-readiness">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                </svg>
+                                Project Readiness
+                            </button>
+                            <button class="dropdown-item" data-page="templates">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                                    <line x1="9" y1="21" x2="9" y2="9"></line>
+                                </svg>
+                                Templates
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Readiness Eritrea Dropdown Menu -->
+                    <div class="nav-dropdown">
+                        <button class="nav-item dropdown-trigger" data-page="readiness-eritrea">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                            </svg>
+                            <span>Readiness Eritrea</span>
+                            <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" data-page="deliverables">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Deliverables
+                            </button>
+                            <button class="dropdown-item" data-page="workshops">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                Workshops
+                            </button>
+                        </div>
+                    </div>
+
+                    <button class="nav-item" data-page="partners">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                            <polyline points="22,6 12,13 2,6"></polyline>
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                         </svg>
-                        <span>Contact</span>
+                        <span>Coordination & Partners</span>
                     </button>
                 </div>
             </div>
@@ -159,49 +221,10 @@
                 </div>
             </section>
 
-            <!-- Resources Page -->
-            <section id="page-resources" class="page">
-                <div class="page-header">
-                    <h1>Resources</h1>
-                    <p class="page-subtitle">Access GCF and Policy & Regulation documents</p>
-                </div>
-
-                <div class="filters">
-                    <div class="filter-group">
-                        <label>Category:</label>
-                        <select id="category-filter" class="filter-select">
-                            <option value="all">All Documents</option>
-                            <option value="gcf">GCF Documents</option>
-                            <option value="policy">Policy & Regulation</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>Search:</label>
-                        <input type="text" id="search-filter" class="filter-input" placeholder="Search documents...">
-                    </div>
-                    <button class="btn btn-refresh" onclick="refreshDocuments()">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M23 4v6h-6"></path>
-                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
-                            <path d="M1 20v-6h6"></path>
-                            <path d="M3.51 9a9 9 0 0 1 2.12 9.36L1 14"></path>
-                        </svg>
-                        Refresh
-                    </button>
-                </div>
-
-                <div id="documents-container">
-                    <div class="loading-state">
-                        <div class="spinner"></div>
-                        <p>Loading documents...</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- About Page -->
+            <!-- About NDA Page -->
             <section id="page-about" class="page">
                 <div class="page-header">
-                    <h1>About Us</h1>
+                    <h1>About NDA</h1>
                     <p class="page-subtitle">National Designated Authority for Climate Finance</p>
                 </div>
 
@@ -255,86 +278,328 @@
                 </div>
             </section>
 
-            <!-- Contact Page -->
-            <section id="page-contact" class="page">
+            <!-- Policy Page (GCF -> Policy) -->
+            <section id="page-policy" class="page">
                 <div class="page-header">
-                    <h1>Contact Us</h1>
-                    <p class="page-subtitle">Get in touch with the National Designated Authority</p>
+                    <h1>Policy</h1>
+                    <p class="page-subtitle">GCF Policy & Regulation Documents</p>
                 </div>
 
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <div class="contact-card">
-                            <div class="contact-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                            </div>
-                            <h3>Office Address</h3>
-                            <p>Ministry of Land, Water and Environment<br>Asmara, Eritrea</p>
-                        </div>
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>Search:</label>
+                        <input type="text" id="search-filter" class="filter-input" placeholder="Search policy documents...">
+                    </div>
+                    <button class="btn btn-refresh" onclick="refreshDocuments()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 4v6h-6"></path>
+                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                            <path d="M1 20v-6h6"></path>
+                            <path d="M3.51 9a9 9 0 0 1 2.12 9.36L1 14"></path>
+                        </svg>
+                        Refresh
+                    </button>
+                </div>
 
-                        <div class="contact-card">
-                            <div class="contact-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                    <polyline points="22,6 12,13 2,6"></polyline>
-                                </svg>
-                            </div>
-                            <h3>Email</h3>
-                            <p>nda@gov.er</p>
-                            <p>climate@gov.er</p>
-                        </div>
+                <div id="documents-container">
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Loading documents...</p>
+                    </div>
+                </div>
+            </section>
 
-                        <div class="contact-card">
-                            <div class="contact-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                                </svg>
-                            </div>
-                            <h3>Phone</h3>
-                            <p>+291 1 XXX XXX</p>
-                        </div>
+            <!-- Project Readiness Page (GCF -> Project Readiness) -->
+            <section id="page-project-readiness" class="page">
+                <div class="page-header">
+                    <h1>Project Readiness</h1>
+                    <p class="page-subtitle">GCF Project Readiness Documents</p>
+                </div>
 
-                        <div class="contact-card">
-                            <div class="contact-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12 6 12 12 16 14"></polyline>
-                                </svg>
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>Search:</label>
+                        <input type="text" id="search-filter" class="filter-input" placeholder="Search project readiness documents...">
+                    </div>
+                    <button class="btn btn-refresh" onclick="refreshDocuments()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 4v6h-6"></path>
+                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                            <path d="M1 20v-6h6"></path>
+                            <path d="M3.51 9a9 9 0 0 1 2.12 9.36L1 14"></path>
+                        </svg>
+                        Refresh
+                    </button>
+                </div>
+
+                <div id="documents-container">
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Loading documents...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Templates Page (GCF -> Templates) -->
+            <section id="page-templates" class="page">
+                <div class="page-header">
+                    <h1>Templates</h1>
+                    <p class="page-subtitle">GCF Document Templates</p>
+                </div>
+
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>Search:</label>
+                        <input type="text" id="search-filter" class="filter-input" placeholder="Search templates...">
+                    </div>
+                    <button class="btn btn-refresh" onclick="refreshDocuments()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 4v6h-6"></path>
+                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                            <path d="M1 20v-6h6"></path>
+                            <path d="M3.51 9a9 9 0 0 1 2.12 9.36L1 14"></path>
+                        </svg>
+                        Refresh
+                    </button>
+                </div>
+
+                <div id="documents-container">
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Loading documents...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deliverables Page (Readiness Eritrea -> Deliverables) -->
+            <section id="page-deliverables" class="page">
+                <div class="page-header">
+                    <h1>Deliverables</h1>
+                    <p class="page-subtitle">Readiness Eritrea Project Deliverables</p>
+                </div>
+
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>Search:</label>
+                        <input type="text" id="search-filter" class="filter-input" placeholder="Search deliverables...">
+                    </div>
+                    <button class="btn btn-refresh" onclick="refreshDocuments()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 4v6h-6"></path>
+                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                            <path d="M1 20v-6h6"></path>
+                            <path d="M3.51 9a9 9 0 0 1 2.12 9.36L1 14"></path>
+                        </svg>
+                        Refresh
+                    </button>
+                </div>
+
+                <div id="documents-container">
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Loading documents...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshops Page (Readiness Eritrea -> Workshops) -->
+            <section id="page-workshops" class="page">
+                <div class="page-header">
+                    <h1>Workshops</h1>
+                    <p class="page-subtitle">Capacity Building Workshops and Training</p>
+                </div>
+
+                <div class="workshops-content">
+                    <div class="workshop-card">
+                        <div class="workshop-header">
+                            <h3>Eritrea GCF Capacity Building Workshop</h3>
+                            <span class="workshop-date">October 2025</span>
+                        </div>
+                        <div class="workshop-body">
+                            <p>
+                                A comprehensive capacity-building workshop conducted in Asmara, bringing together 
+                                government officials, stakeholders, and development partners to strengthen 
+                                Eritrea's engagement with the Green Climate Fund.
+                            </p>
+                            <div class="workshop-highlights">
+                                <h4>Key Highlights:</h4>
+                                <ul>
+                                    <li>Introduction to GCF processes and requirements</li>
+                                    <li>Fiduciary standards and financial management</li>
+                                    <li>Project concept development and No-Objection Letter procedures</li>
+                                    <li>Stakeholder mapping and institutional framework</li>
+                                </ul>
                             </div>
-                            <h3>Office Hours</h3>
-                            <p>Monday - Friday<br>8:00 AM - 5:00 PM</p>
                         </div>
                     </div>
 
-                    <div class="contact-message">
-                        <div class="message-card">
-                            <h3>Send Us a Message</h3>
+                    <div class="workshop-card">
+                        <div class="workshop-header">
+                            <h3>In-Person Training Sessions</h3>
+                            <span class="workshop-date">August 2025</span>
+                        </div>
+                        <div class="workshop-body">
                             <p>
-                                For inquiries about climate finance, project submissions, or partnership 
-                                opportunities, please contact us through the channels above. Our team is 
-                                available to provide guidance and support for climate action initiatives.
+                                Interactive training modules designed to build technical capacity across 
+                                multiple focus areas, ensuring stakeholders are well-equipped to engage 
+                                with climate finance mechanisms.
                             </p>
+                            <div class="workshop-modules">
+                                <h4>Training Modules:</h4>
+                                <div class="modules-grid">
+                                    <div class="module-item">
+                                        <strong>Module 1:</strong> Introduction to Climate Change and Climate Finance
+                                    </div>
+                                    <div class="module-item">
+                                        <strong>Module 2:</strong> Introduction to GCF
+                                    </div>
+                                    <div class="module-item">
+                                        <strong>Module 3:</strong> Fiduciary Standards
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
-        </main>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <span class="footer-logo">RE</span>
-                    <span class="footer-text">Readiness Eritrea</span>
+            <!-- Coordination & Partners Page -->
+            <section id="page-partners" class="page">
+                <div class="page-header">
+                    <h1>Coordination & Partners</h1>
+                    <p class="page-subtitle">Building Strategic Partnerships for Climate Action</p>
                 </div>
-                <div class="footer-copy">
-                    © 2024 National Designated Authority - Eritrea
+
+                <div class="partners-content">
+                    <div class="partners-section">
+                        <h2>Our Coordination Framework</h2>
+                        <p>
+                            Effective climate action requires strong coordination among all stakeholders. 
+                            The NDA facilitates a multi-stakeholder approach to ensure alignment and 
+                            collaboration across sectors.
+                        </p>
+                        
+                        <div class="coordination-grid">
+                            <div class="coordination-card">
+                                <div class="coordination-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 21h18M5 21V7l8-4 8 4v14M8 21v-4h8v4"></path>
+                                    </svg>
+                                </div>
+                                <h3>Government Ministries</h3>
+                                <p>Coordination with Ministry of Land, Water and Environment and other relevant ministries.</p>
+                            </div>
+
+                            <div class="coordination-card">
+                                <div class="coordination-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="9" cy="7" r="4"></circle>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    </svg>
+                                </div>
+                                <h3>Civil Society</h3>
+                                <p>Engagement with NGOs, community organizations, and civil society groups.</p>
+                            </div>
+
+                            <div class="coordination-card">
+                                <div class="coordination-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                    </svg>
+                                </div>
+                                <h3>International Partners</h3>
+                                <p>Collaboration with development agencies and international organizations.</p>
+                            </div>
+
+                            <div class="coordination-card">
+                                <div class="coordination-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                    </svg>
+                                </div>
+                                <h3>Private Sector</h3>
+                                <p>Partnerships with private enterprises for project implementation.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="partners-section">
+                        <h2>Key Partners</h2>
+                        <div class="partners-list">
+                            <div class="partner-item">
+                                <div class="partner-logo">GCF</div>
+                                <div class="partner-info">
+                                    <h3>Green Climate Fund</h3>
+                                    <p>The primary source of climate finance supporting our readiness activities.</p>
+                                </div>
+                            </div>
+
+                            <div class="partner-item">
+                                <div class="partner-logo">UNDP</div>
+                                <div class="partner-info">
+                                    <h3>United Nations Development Programme</h3>
+                                    <p>Technical support and capacity building for climate project development.</p>
+                                </div>
+                            </div>
+
+                            <div class="partner-item">
+                                <div class="partner-logo">MLWE</div>
+                                <div class="partner-info">
+                                    <h3>Ministry of Land, Water and Environment</h3>
+                                    <p>Host ministry providing institutional support and oversight.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="partners-section">
+                        <h2>Contact for Partnership</h2>
+                        <div class="contact-content">
+                            <div class="contact-card">
+                                <div class="contact-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </div>
+                                <h3>Email</h3>
+                                <p>nda@gov.er</p>
+                                <p>climate@gov.er</p>
+                            </div>
+
+                            <div class="contact-card">
+                                <div class="contact-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                </div>
+                                <h3>Office Address</h3>
+                                <p>Ministry of Land, Water and Environment</p>
+                                <p>Asmara, Eritrea</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </footer>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <div class="footer-logo">ER</div>
+                        <div class="footer-text">Readiness Eritrea</div>
+                    </div>
+                    <div class="footer-copy">
+                        © 2025 National Designated Authority - Eritrea
+                    </div>
+                </div>
+            </footer>
+        </main>
     </div>
 
     <script src="renderer.js"></script>

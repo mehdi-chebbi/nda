@@ -2,11 +2,9 @@ const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { promisify } = require('util');
-const https = require('https');
 
 const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
-const readdir = promisify(fs.readdir);
 
 let mainWindow;
 
@@ -15,11 +13,15 @@ const isDev = !app.isPackaged;
 // When using asar, unpacked files are in app.asar.unpacked
 const appPath = isDev ? __dirname : path.join(process.resourcesPath, 'app.asar.unpacked');
 const CACHE_FILE = path.join(appPath, 'data', 'cache.json');
+const THUMBNAILS_DIR = path.join(appPath, 'data', 'thumbnails');
 
-// ✅ FIXED: Updated server configuration for localhost:3000
-const SERVER_BASE_URL = 'http://localhost:3000';
+// ✅ UPDATED: Server configuration for new server
+const SERVER_BASE_URL = 'http://192.168.2.120';
 const MANIFEST_URL = `${SERVER_BASE_URL}/docs/manifest.json`;
 const REQUEST_TIMEOUT = 30000; // 30 seconds
+
+// Define the 4 categories
+const CATEGORIES = ['policy', 'project-readiness', 'templates', 'deliverable'];
 
 console.log('App starting...');
 console.log('isDev:', isDev);
@@ -167,12 +169,14 @@ app.whenReady().then(() => {
 // Create required directories if they don't exist
 function createDirectories() {
   const docsPath = path.join(appPath, 'docs');
-  const gcfPath = path.join(docsPath, 'gcf');
-  const policyPath = path.join(docsPath, 'policy');
   const dataPath = path.join(appPath, 'data');
-  const assetsPath = path.join(appPath, 'assets');
 
-  const directories = [docsPath, gcfPath, policyPath, dataPath, assetsPath];
+  const directories = [docsPath, dataPath, THUMBNAILS_DIR];
+
+  // Create category directories under docs
+  CATEGORIES.forEach(category => {
+    directories.push(path.join(docsPath, category));
+  });
 
   directories.forEach(dir => {
     try {
@@ -245,87 +249,24 @@ ipcMain.handle('get-cached-documents', async () => {
     if (fs.existsSync(CACHE_FILE)) {
       const cacheData = await readFile(CACHE_FILE, 'utf-8');
       const parsed = JSON.parse(cacheData);
-      console.log('Cache loaded:', parsed);
+      console.log('Cache loaded');
       return parsed;
     }
 
     console.log('No cache file found');
-    // No cache yet, return empty
-    return { gcf: [], policy: [] };
+    // No cache yet, return empty structure for all categories
+    const emptyCache = {};
+    CATEGORIES.forEach(cat => {
+      emptyCache[cat] = [];
+    });
+    return emptyCache;
   } catch (error) {
     console.error('Error reading cache:', error);
-    return { gcf: [], policy: [] };
-  }
-});
-
-// Scan docs folder for PDFs automatically and save to cache
-ipcMain.handle('scan-documents', async () => {
-  try {
-    const docsPath = path.join(appPath, 'docs');
-    const gcfPath = path.join(docsPath, 'gcf');
-    const policyPath = path.join(docsPath, 'policy');
-
-    console.log('Scanning documents from:', docsPath);
-
-    const documents = {
-      gcf: [],
-      policy: []
-    };
-
-    const scanDirectory = async (dirPath, category) => {
-      if (!fs.existsSync(dirPath)) {
-        console.log('Directory does not exist:', dirPath);
-        return;
-      }
-
-      const files = await readdir(dirPath, { withFileTypes: true });
-      console.log(`Found ${files.length} files in ${dirPath}`);
-
-      for (const file of files) {
-        if (file.isFile() && file.name.toLowerCase().endsWith('.pdf')) {
-          const filePath = path.join(dirPath, file.name);
-          const stats = fs.statSync(filePath);
-
-          // Format file size
-          const formatFileSize = (bytes) => {
-            if (bytes < 1024) return bytes + ' B';
-            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
-          };
-
-          // Generate display name from filename
-          const displayName = file.name
-            .replace(/\.pdf$/i, '')
-            .replace(/[-_]/g, ' ')
-            .split(' ')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join(' ');
-
-          documents[category].push({
-            id: `${category}-${file.name}`,
-            title: displayName,
-            description: '', // Auto-detected, no description
-            file: path.relative(docsPath, filePath).replace(/\\/g, '/'),
-            size: formatFileSize(stats.size),
-            date: stats.mtime.toISOString().split('T')[0]
-          });
-        }
-      }
-    };
-
-    await scanDirectory(gcfPath, 'gcf');
-    await scanDirectory(policyPath, 'policy');
-
-    console.log('Scanned documents:', documents);
-
-    // Save to cache
-    await writeFile(CACHE_FILE, JSON.stringify(documents, null, 2), 'utf-8');
-    console.log('Cache saved to:', CACHE_FILE);
-
-    return { success: true, documents };
-  } catch (error) {
-    console.error('Error scanning documents:', error);
-    return { success: false, error: error.message, documents: { gcf: [], policy: [] } };
+    const emptyCache = {};
+    CATEGORIES.forEach(cat => {
+      emptyCache[cat] = [];
+    });
+    return emptyCache;
   }
 });
 
@@ -335,6 +276,32 @@ ipcMain.handle('navigate-to', async (event, page) => {
     mainWindow.webContents.send('page-change', page);
   }
   return { success: true };
+});
+
+// Get thumbnail image
+ipcMain.handle('get-thumbnail', async (event, thumbnailPath) => {
+  try {
+    const fullPath = path.join(THUMBNAILS_DIR, thumbnailPath);
+    
+    if (!fs.existsSync(fullPath)) {
+      return { exists: false };
+    }
+
+    const imageBuffer = await readFile(fullPath);
+    const base64 = imageBuffer.toString('base64');
+    
+    // Get file extension to determine MIME type
+    const ext = path.extname(thumbnailPath).toLowerCase();
+    const mimeType = ext === '.png' ? 'image/png' : 'image/jpeg';
+    
+    return {
+      exists: true,
+      data: `data:${mimeType};base64,${base64}`
+    };
+  } catch (error) {
+    console.error('Error reading thumbnail:', error);
+    return { exists: false };
+  }
 });
 
 // ===== Remote Server Sync Handlers =====
@@ -358,20 +325,18 @@ async function fetchManifest() {
 
     const manifest = await response.json();
 
-    // Validate manifest structure
+    // Validate manifest structure - check for all 4 categories
     if (!manifest || typeof manifest !== 'object') {
       throw new Error('Invalid manifest format: not an object');
     }
 
-    if (!Array.isArray(manifest.gcf)) {
-      throw new Error('Invalid manifest format: gcf is not an array');
+    for (const category of CATEGORIES) {
+      if (!Array.isArray(manifest[category])) {
+        throw new Error(`Invalid manifest format: ${category} is not an array`);
+      }
     }
 
-    if (!Array.isArray(manifest.policy)) {
-      throw new Error('Invalid manifest format: policy is not an array');
-    }
-
-    console.log('Manifest fetched successfully:', manifest);
+    console.log('Manifest fetched successfully');
     return { success: true, manifest };
   } catch (error) {
     console.error('Error fetching manifest:', error);
@@ -386,64 +351,47 @@ function formatFileSize(bytes) {
   return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
 }
 
-// Generate display name from filename
-function generateDisplayName(filename) {
-  return filename
-    .replace(/\.pdf$/i, '')
-    .replace(/[-_]/g, ' ')
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ');
-}
-
 // Compare remote files with local cache to determine what needs downloading
 function compareFiles(manifest, localCache) {
   const toDownload = [];
-  const localGcf = localCache.gcf || [];
-  const localPolicy = localCache.policy || [];
 
-  // Build lookup maps for local files
-  const localGcfMap = new Map(localGcf.map(doc => [doc.file, doc]));
-  const localPolicyMap = new Map(localPolicy.map(doc => [doc.file, doc]));
-
-  // Check GCF files
-  manifest.gcf.forEach(file => {
-    const localFile = localGcfMap.get(`gcf/${file.name}`);
-    const needsDownload = !localFile || localFile.syncStatus === 'failed' ||
-                          new Date(file.modified) > new Date(localFile.remoteModified || localFile.date);
-
-    if (needsDownload) {
-      toDownload.push({
-        category: 'gcf',
-        name: file.name,
-        size: file.size,
-        modified: file.modified,
-        url: `${SERVER_BASE_URL}/docs/gcf/${file.name}`,
-        localPath: path.join(appPath, 'docs', 'gcf', file.name),
-        relativePath: `gcf/${file.name}`,
-        reason: !localFile ? 'new' : (localFile.syncStatus === 'failed' ? 'retry' : 'updated')
-      });
-    }
+  // Build lookup maps for local files for each category
+  const localMaps = {};
+  CATEGORIES.forEach(category => {
+    const localDocs = localCache[category] || [];
+    localMaps[category] = new Map(localDocs.map(doc => [doc.id, doc]));
   });
 
-  // Check Policy files
-  manifest.policy.forEach(file => {
-    const localFile = localPolicyMap.get(`policy/${file.name}`);
-    const needsDownload = !localFile || localFile.syncStatus === 'failed' ||
+  // Check files for each category
+  CATEGORIES.forEach(category => {
+    const categoryFiles = manifest[category] || [];
+    const localMap = localMaps[category];
+
+    categoryFiles.forEach(file => {
+      const localFile = localMap.get(file.id);
+      const needsDownload = !localFile || 
+                          localFile.syncStatus === 'failed' ||
                           new Date(file.modified) > new Date(localFile.remoteModified || localFile.date);
 
-    if (needsDownload) {
-      toDownload.push({
-        category: 'policy',
-        name: file.name,
-        size: file.size,
-        modified: file.modified,
-        url: `${SERVER_BASE_URL}/docs/policy/${file.name}`,
-        localPath: path.join(appPath, 'docs', 'policy', file.name),
-        relativePath: `policy/${file.name}`,
-        reason: !localFile ? 'new' : (localFile.syncStatus === 'failed' ? 'retry' : 'updated')
-      });
-    }
+      if (needsDownload) {
+        toDownload.push({
+          id: file.id,
+          category: category,
+          name: file.name,
+          displayName: file.displayName,
+          description: file.description || '',
+          size: file.size,
+          modified: file.modified,
+          thumbnail: file.thumbnail,
+          url: `${SERVER_BASE_URL}/docs/${category}/${file.name}`,
+          thumbnailUrl: file.thumbnail ? `${SERVER_BASE_URL}${file.thumbnail}` : null,
+          localPath: path.join(appPath, 'docs', category, file.name),
+          localThumbnailPath: file.thumbnail ? path.join(THUMBNAILS_DIR, path.basename(file.thumbnail)) : null,
+          relativePath: `${category}/${file.name}`,
+          reason: !localFile ? 'new' : (localFile.syncStatus === 'failed' ? 'retry' : 'updated')
+        });
+      }
+    });
   });
 
   return toDownload;
@@ -509,7 +457,6 @@ async function downloadFile(fileInfo, onProgress) {
     return {
       success: true,
       size: stats.size,
-      displayName: generateDisplayName(fileInfo.name),
       date: stats.mtime.toISOString().split('T')[0]
     };
   } catch (error) {
@@ -521,25 +468,67 @@ async function downloadFile(fileInfo, onProgress) {
   }
 }
 
+// Download thumbnail from remote server
+async function downloadThumbnail(fileInfo) {
+  try {
+    if (!fileInfo.thumbnailUrl || !fileInfo.localThumbnailPath) {
+      return { success: true, downloaded: false };
+    }
+
+    console.log('Downloading thumbnail:', fileInfo.thumbnail);
+
+    const response = await fetch(fileInfo.thumbnailUrl, {
+      method: 'GET',
+      signal: AbortSignal.timeout(REQUEST_TIMEOUT),
+    });
+
+    if (!response.ok) {
+      console.log('Thumbnail not available, skipping...');
+      return { success: true, downloaded: false };
+    }
+
+    const chunks = [];
+    const reader = response.body.getReader();
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      chunks.push(value);
+    }
+
+    const buffer = Buffer.concat(chunks);
+    await writeFile(fileInfo.localThumbnailPath, buffer);
+
+    console.log('Thumbnail downloaded successfully:', path.basename(fileInfo.thumbnail));
+    return { success: true, downloaded: true };
+  } catch (error) {
+    console.error('Error downloading thumbnail:', error);
+    // Don't fail the sync if thumbnail download fails
+    return { success: true, downloaded: false };
+  }
+}
+
 // Update cache with downloaded file info
-function updateCacheWithFile(cache, category, fileInfo, downloadResult) {
-  const categoryArray = cache[category];
-  if (!categoryArray) {
-    console.error('Invalid category:', category);
-    return cache;
+function updateCacheWithFile(cache, fileInfo, downloadResult) {
+  // Initialize category array if it doesn't exist
+  if (!cache[fileInfo.category]) {
+    cache[fileInfo.category] = [];
   }
 
+  const categoryArray = cache[fileInfo.category];
+
   // Find existing file in cache or create new entry
-  const existingIndex = categoryArray.findIndex(doc => doc.file === fileInfo.relativePath);
+  const existingIndex = categoryArray.findIndex(doc => doc.id === fileInfo.id);
 
   const docEntry = {
-    id: `${category}-${fileInfo.name}`,
-    title: downloadResult.displayName,
-    description: '',
+    id: fileInfo.id,
+    title: fileInfo.displayName,
+    description: fileInfo.description,
     file: fileInfo.relativePath,
     size: formatFileSize(downloadResult.size),
     date: downloadResult.date,
     remoteModified: fileInfo.modified,
+    thumbnail: fileInfo.localThumbnailPath ? path.basename(fileInfo.localThumbnailPath) : null,
     syncStatus: 'success'
   };
 
@@ -577,12 +566,18 @@ ipcMain.handle('sync-remote-documents', async (event) => {
         localCache = JSON.parse(cacheData);
         console.log('Local cache loaded');
       } else {
-        localCache = { gcf: [], policy: [] };
+        localCache = {};
+        CATEGORIES.forEach(cat => {
+          localCache[cat] = [];
+        });
         console.log('No local cache, starting fresh');
       }
     } catch (error) {
       console.error('Error loading cache, starting fresh:', error);
-      localCache = { gcf: [], policy: [] };
+      localCache = {};
+      CATEGORIES.forEach(cat => {
+        localCache[cat] = [];
+      });
     }
 
     // Step 3: Compare and determine what to download
@@ -628,7 +623,7 @@ ipcMain.handle('sync-remote-documents', async (event) => {
           stage: 'downloading',
           total: toDownload.length,
           current: i + 1,
-          file: fileInfo.name,
+          file: fileInfo.displayName,
           percent: 0
         });
       }
@@ -637,7 +632,7 @@ ipcMain.handle('sync-remote-documents', async (event) => {
         // Send progress updates
         if (mainWindow) {
           mainWindow.webContents.send('sync-progress', {
-            file: filename,
+            file: fileInfo.displayName,
             percent: percent
           });
         }
@@ -647,27 +642,36 @@ ipcMain.handle('sync-remote-documents', async (event) => {
         console.log('Download successful:', fileInfo.name);
         downloaded++;
 
+        // Download thumbnail if available
+        await downloadThumbnail(fileInfo);
+
         // Update cache with downloaded file info
-        localCache = updateCacheWithFile(localCache, fileInfo.category, fileInfo, downloadResult);
+        localCache = updateCacheWithFile(localCache, fileInfo, downloadResult);
       } else {
         console.error('Download failed:', fileInfo.name, downloadResult.error);
         failed++;
 
         // Mark file as failed in cache for retry
+        // Initialize category array if it doesn't exist
+        if (!localCache[fileInfo.category]) {
+          localCache[fileInfo.category] = [];
+        }
+
         const categoryArray = localCache[fileInfo.category];
-        const existingIndex = categoryArray.findIndex(doc => doc.file === fileInfo.relativePath);
+        const existingIndex = categoryArray.findIndex(doc => doc.id === fileInfo.id);
 
         if (existingIndex >= 0) {
           categoryArray[existingIndex].syncStatus = 'failed';
         } else {
           categoryArray.push({
-            id: `${fileInfo.category}-${fileInfo.name}`,
-            title: generateDisplayName(fileInfo.name),
-            description: '',
+            id: fileInfo.id,
+            title: fileInfo.displayName,
+            description: fileInfo.description,
             file: fileInfo.relativePath,
             size: formatFileSize(fileInfo.size),
             date: new Date(fileInfo.modified).toISOString().split('T')[0],
             remoteModified: fileInfo.modified,
+            thumbnail: null,
             syncStatus: 'failed'
           });
         }
