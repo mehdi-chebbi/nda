@@ -273,15 +273,8 @@ async function renderDocumentCard(doc) {
       <div class="document-body">
         <p class="document-description">${escapeHtml(description)}</p>
         <div class="document-footer">
-          <button class="btn btn-primary btn-full" onclick="openPdf('${escapeHtml(doc.file)}')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-            Open PDF
+          <button class="btn btn-primary btn-full" onclick="openDocumentDetailById('${doc.id}')">
+            Learn More
           </button>
         </div>
       </div>
@@ -292,13 +285,152 @@ async function renderDocumentCard(doc) {
 async function openPdf(filePath) {
   try {
     const result = await ipcRenderer.invoke('open-pdf', filePath);
-    
+
     if (!result.success) {
       alert('Failed to open PDF: ' + result.error);
     }
   } catch (error) {
     console.error('Error opening PDF:', error);
     alert('Failed to open PDF. Please try again.');
+  }
+}
+
+// ===== Document Detail Functions =====
+let currentDocument = null;
+
+function openDocumentDetailById(docId) {
+  // Find document in allDocuments
+  let doc = null;
+
+  for (const category of CATEGORIES) {
+    const docs = allDocuments[category] || [];
+    const found = docs.find(d => String(d.id) === String(docId));
+    if (found) {
+      doc = { ...found, category };
+      break;
+    }
+  }
+
+  if (doc) {
+    openDocumentDetail(doc);
+  } else {
+    console.error('Document not found:', docId);
+    alert('Document not found');
+  }
+}
+
+async function openDocumentDetail(doc) {
+  currentDocument = doc;
+
+  // Navigate to detail page
+  navigateToPage('document-detail');
+
+  // Render document detail
+  await renderDocumentDetail(doc);
+}
+
+async function renderDocumentDetail(doc) {
+  const container = document.querySelector('#page-document-detail #document-detail-container');
+  if (!container) return;
+
+  const categoryInfo = CATEGORY_INFO[doc.category] || { label: doc.category, color: '#666' };
+  const description = doc.description || `PDF document from ${categoryInfo.label} collection.`;
+
+  // Get full thumbnail
+  let thumbnailHtml = '';
+  if (doc.thumbnail) {
+    const thumbnailResult = await ipcRenderer.invoke('get-thumbnail', doc.thumbnail);
+    if (thumbnailResult.exists) {
+      thumbnailHtml = `
+        <div class="document-detail-thumbnail">
+          <img src="${thumbnailResult.data}" alt="${escapeHtml(doc.title)}">
+        </div>
+      `;
+    }
+  }
+
+  // Fallback if no thumbnail
+  if (!thumbnailHtml) {
+    thumbnailHtml = `
+      <div class="document-detail-thumbnail document-detail-no-thumbnail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+      </div>
+    `;
+  }
+
+  container.innerHTML = `
+    <div class="document-detail-content">
+      <button class="back-button" onclick="goBackToDocuments()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Back to Documents
+      </button>
+
+      <div class="document-detail-main">
+        ${thumbnailHtml}
+
+        <div class="document-detail-info">
+          <span class="document-detail-category" style="background: ${categoryInfo.color}">${categoryInfo.label}</span>
+
+          <h1 class="document-detail-title">${escapeHtml(doc.title)}</h1>
+
+          <div class="document-detail-date">
+            <span class="date-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            </span>
+            ${doc.date || 'No date'}
+          </div>
+
+          <div class="document-detail-description">
+            <p>${escapeHtml(description)}</p>
+          </div>
+
+          <button class="btn btn-primary btn-large document-detail-action" onclick="openPdfFromDetail()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            Open PDF
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function openPdfFromDetail() {
+  if (currentDocument && currentDocument.file) {
+    openPdf(currentDocument.file);
+  }
+}
+
+function goBackToDocuments() {
+  // Navigate back to the appropriate document page based on category
+  const categoryMap = {
+    'policy': 'policy',
+    'project-readiness': 'project-readiness',
+    'templates': 'templates',
+    'deliverable': 'deliverables'
+  };
+
+  if (currentDocument && currentDocument.category) {
+    const page = categoryMap[currentDocument.category];
+    if (page) {
+      navigateToPage(page);
+    }
   }
 }
 
