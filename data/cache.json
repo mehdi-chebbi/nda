@@ -1,5 +1,4 @@
 {
-  "gcf": [],
   "policy": [
     {
       "id": "pol-1770564838765-2c7c",
@@ -13,7 +12,6 @@
       "syncStatus": "success"
     }
   ],
-  "lastSync": "2026-02-08T21:19:27.003Z",
   "project-readiness": [
     {
       "id": "prd-1770564852844-c146",
@@ -24,19 +22,6 @@
       "date": "2026-02-08",
       "remoteModified": "2026-02-08T14:34:12.845Z",
       "thumbnail": "prd-1770564852844-c146.png",
-      "syncStatus": "success"
-    }
-  ],
-  "deliverable": [
-    {
-      "id": "del-1770564866238-ee65",
-      "title": "sample",
-      "description": "azdsqswqs",
-      "file": "deliverable/sample.pdf",
-      "size": "18.4 KB",
-      "date": "2026-02-08",
-      "remoteModified": "2026-02-08T14:34:26.239Z",
-      "thumbnail": "del-1770564866238-ee65.png",
       "syncStatus": "success"
     }
   ],
@@ -53,7 +38,34 @@
       "syncStatus": "success"
     }
   ],
+  "deliverable": [
+    {
+      "id": "del-1770564866238-ee65",
+      "title": "sample",
+      "description": "azdsqswqs",
+      "file": "deliverable/sample.pdf",
+      "size": "18.4 KB",
+      "date": "2026-02-08",
+      "remoteModified": "2026-02-08T14:34:26.239Z",
+      "thumbnail": "del-1770564866238-ee65.png",
+      "syncStatus": "success"
+    }
+  ],
   "workshops": [
+    {
+      "id": "2",
+      "title": "qsddqsdsq",
+      "description": "sqdqsdqsdqs",
+      "date": "2026-02-08T18:44:47.971Z",
+      "remoteDate": "2026-02-08T18:44:47.971Z",
+      "images": [
+        "workshop-1770579887971-a37fd6.png",
+        "workshop-1770579887973-e150c2.png"
+      ],
+      "createdAt": "2026-02-08T18:44:47.971Z",
+      "createdBy": "admin",
+      "syncStatus": "success"
+    },
     {
       "id": "1",
       "title": "qsdsqdsqdqs",
@@ -70,20 +82,7 @@
       "createdAt": "2026-02-08T14:34:40.814Z",
       "createdBy": "admin",
       "syncStatus": "success"
-    },
-    {
-      "id": "2",
-      "title": "qsddqsdsq",
-      "description": "sqdqsdqsdqs",
-      "date": "2026-02-08T18:44:47.971Z",
-      "remoteDate": "2026-02-08T18:44:47.971Z",
-      "images": [
-        "workshop-1770579887971-a37fd6.png",
-        "workshop-1770579887973-e150c2.png"
-      ],
-      "createdAt": "2026-02-08T18:44:47.971Z",
-      "createdBy": "admin",
-      "syncStatus": "success"
     }
-  ]
+  ],
+  "lastSync": "2026-02-08T21:34:15.897Z"
 }

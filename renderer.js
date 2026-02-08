@@ -39,7 +39,6 @@ const PAGE_CATEGORY_MAP = {
   'project-readiness': 'project-readiness',
   'templates': 'templates',
   'deliverables': 'deliverable',
-  'workshops': 'workshops'
 };
 
 // ===== DOM Elements =====
