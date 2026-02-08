@@ -14,14 +14,15 @@ const isDev = !app.isPackaged;
 const appPath = isDev ? __dirname : path.join(process.resourcesPath, 'app.asar.unpacked');
 const CACHE_FILE = path.join(appPath, 'data', 'cache.json');
 const THUMBNAILS_DIR = path.join(appPath, 'data', 'thumbnails');
+const WORKSHOP_IMAGES_DIR = path.join(appPath, 'data', 'workshop-images');
 
 // ✅ UPDATED: Server configuration for new server
-const SERVER_BASE_URL = 'http://192.168.2.120';
+const SERVER_BASE_URL = 'http://localhost:3000';
 const MANIFEST_URL = `${SERVER_BASE_URL}/docs/manifest.json`;
 const REQUEST_TIMEOUT = 30000; // 30 seconds
 
-// Define the 4 categories
-const CATEGORIES = ['policy', 'project-readiness', 'templates', 'deliverable'];
+// Define the categories (including workshops)
+const CATEGORIES = ['policy', 'project-readiness', 'templates', 'deliverable', 'workshops'];
 
 console.log('App starting...');
 console.log('isDev:', isDev);
@@ -171,11 +172,14 @@ function createDirectories() {
   const docsPath = path.join(appPath, 'docs');
   const dataPath = path.join(appPath, 'data');
 
-  const directories = [docsPath, dataPath, THUMBNAILS_DIR];
+  const directories = [docsPath, dataPath, THUMBNAILS_DIR, WORKSHOP_IMAGES_DIR];
 
   // Create category directories under docs
   CATEGORIES.forEach(category => {
-    directories.push(path.join(docsPath, category));
+    // Workshops don't need a docs folder, only images
+    if (category !== 'workshops') {
+      directories.push(path.join(docsPath, category));
+    }
   });
 
   directories.forEach(dir => {
@@ -304,6 +308,45 @@ ipcMain.handle('get-thumbnail', async (event, thumbnailPath) => {
   }
 });
 
+// Get workshop images
+ipcMain.handle('get-workshop-images', async (event, imageFilenames) => {
+  try {
+    const images = [];
+    
+    for (const filename of imageFilenames) {
+      const fullPath = path.join(WORKSHOP_IMAGES_DIR, filename);
+      
+      if (!fs.existsSync(fullPath)) {
+        console.log('Workshop image not found:', filename);
+        continue;
+      }
+
+      const imageBuffer = await readFile(fullPath);
+      const base64 = imageBuffer.toString('base64');
+      
+      // Get file extension to determine MIME type
+      const ext = path.extname(filename).toLowerCase();
+      const mimeType = ext === '.png' ? 'image/png' : 'image/jpeg';
+      
+      images.push({
+        filename: filename,
+        data: `data:${mimeType};base64,${base64}`
+      });
+    }
+    
+    return {
+      success: true,
+      images: images
+    };
+  } catch (error) {
+    console.error('Error reading workshop images:', error);
+    return {
+      success: false,
+      images: []
+    };
+  }
+});
+
 // ===== Remote Server Sync Handlers =====
 
 // Fetch manifest from remote server
@@ -325,15 +368,21 @@ async function fetchManifest() {
 
     const manifest = await response.json();
 
-    // Validate manifest structure - check for all 4 categories
+    // Validate manifest structure - check for all categories
     if (!manifest || typeof manifest !== 'object') {
       throw new Error('Invalid manifest format: not an object');
     }
 
     for (const category of CATEGORIES) {
-      if (!Array.isArray(manifest[category])) {
+      // Workshops might not exist in older manifests, so check if it exists first
+      if (manifest[category] !== undefined && !Array.isArray(manifest[category])) {
         throw new Error(`Invalid manifest format: ${category} is not an array`);
       }
+    }
+    
+    // Ensure workshops array exists if not present
+    if (!manifest.workshops) {
+      manifest.workshops = [];
     }
 
     console.log('Manifest fetched successfully');
@@ -359,7 +408,7 @@ function compareFiles(manifest, localCache) {
   const localMaps = {};
   CATEGORIES.forEach(category => {
     const localDocs = localCache[category] || [];
-    localMaps[category] = new Map(localDocs.map(doc => [doc.id, doc]));
+    localMaps[category] = new Map(localDocs.map(doc => [String(doc.id), doc]));
   });
 
   // Check files for each category
@@ -368,28 +417,60 @@ function compareFiles(manifest, localCache) {
     const localMap = localMaps[category];
 
     categoryFiles.forEach(file => {
-      const localFile = localMap.get(file.id);
-      const needsDownload = !localFile || 
-                          localFile.syncStatus === 'failed' ||
-                          new Date(file.modified) > new Date(localFile.remoteModified || localFile.date);
+      const fileId = String(file.id);
+      const localFile = localMap.get(fileId);
+      
+      // Special handling for workshops (use date instead of modified)
+      let needsDownload;
+      if (category === 'workshops') {
+        needsDownload = !localFile || 
+                        localFile.syncStatus === 'failed' ||
+                        new Date(file.date) > new Date(localFile.remoteDate || localFile.date);
+      } else {
+        needsDownload = !localFile || 
+                        localFile.syncStatus === 'failed' ||
+                        new Date(file.modified) > new Date(localFile.remoteModified || localFile.date);
+      }
 
       if (needsDownload) {
-        toDownload.push({
-          id: file.id,
-          category: category,
-          name: file.name,
-          displayName: file.displayName,
-          description: file.description || '',
-          size: file.size,
-          modified: file.modified,
-          thumbnail: file.thumbnail,
-          url: `${SERVER_BASE_URL}/docs/${category}/${file.name}`,
-          thumbnailUrl: file.thumbnail ? `${SERVER_BASE_URL}${file.thumbnail}` : null,
-          localPath: path.join(appPath, 'docs', category, file.name),
-          localThumbnailPath: file.thumbnail ? path.join(THUMBNAILS_DIR, path.basename(file.thumbnail)) : null,
-          relativePath: `${category}/${file.name}`,
-          reason: !localFile ? 'new' : (localFile.syncStatus === 'failed' ? 'retry' : 'updated')
-        });
+        if (category === 'workshops') {
+          // Workshop sync - needs to download images
+          const imageUrls = (file.images || []).map(img => ({
+            url: `${SERVER_BASE_URL}${img}`,
+            filename: path.basename(img),
+            localPath: path.join(WORKSHOP_IMAGES_DIR, path.basename(img))
+          }));
+
+          toDownload.push({
+            id: fileId,
+            category: category,
+            title: file.title,
+            description: file.description || '',
+            date: file.date,
+            images: imageUrls,
+            createdAt: file.createdAt,
+            createdBy: file.createdBy,
+            reason: !localFile ? 'new' : (localFile.syncStatus === 'failed' ? 'retry' : 'updated')
+          });
+        } else {
+          // Document sync - download PDF
+          toDownload.push({
+            id: fileId,
+            category: category,
+            name: file.name,
+            displayName: file.displayName,
+            description: file.description || '',
+            size: file.size,
+            modified: file.modified,
+            thumbnail: file.thumbnail,
+            url: `${SERVER_BASE_URL}/docs/${category}/${file.name}`,
+            thumbnailUrl: file.thumbnail ? `${SERVER_BASE_URL}${file.thumbnail}` : null,
+            localPath: path.join(appPath, 'docs', category, file.name),
+            localThumbnailPath: file.thumbnail ? path.join(THUMBNAILS_DIR, path.basename(file.thumbnail)) : null,
+            relativePath: `${category}/${file.name}`,
+            reason: !localFile ? 'new' : (localFile.syncStatus === 'failed' ? 'retry' : 'updated')
+          });
+        }
       }
     });
   });
@@ -508,6 +589,47 @@ async function downloadThumbnail(fileInfo) {
   }
 }
 
+// Download workshop images from remote server
+async function downloadWorkshopImages(images) {
+  const downloadedImages = [];
+  
+  for (const img of images) {
+    try {
+      console.log('Downloading workshop image:', img.filename);
+
+      const response = await fetch(img.url, {
+        method: 'GET',
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT),
+      });
+
+      if (!response.ok) {
+        console.log('Workshop image not available, skipping:', img.filename);
+        continue;
+      }
+
+      const chunks = [];
+      const reader = response.body.getReader();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        chunks.push(value);
+      }
+
+      const buffer = Buffer.concat(chunks);
+      await writeFile(img.localPath, buffer);
+
+      console.log('Workshop image downloaded successfully:', img.filename);
+      downloadedImages.push(img.filename);
+    } catch (error) {
+      console.error('Error downloading workshop image:', img.filename, error);
+      // Continue with other images even if one fails
+    }
+  }
+  
+  return downloadedImages;
+}
+
 // Update cache with downloaded file info
 function updateCacheWithFile(cache, fileInfo, downloadResult) {
   // Initialize category array if it doesn't exist
@@ -518,19 +640,37 @@ function updateCacheWithFile(cache, fileInfo, downloadResult) {
   const categoryArray = cache[fileInfo.category];
 
   // Find existing file in cache or create new entry
-  const existingIndex = categoryArray.findIndex(doc => doc.id === fileInfo.id);
+  const existingIndex = categoryArray.findIndex(doc => String(doc.id) === String(fileInfo.id));
 
-  const docEntry = {
-    id: fileInfo.id,
-    title: fileInfo.displayName,
-    description: fileInfo.description,
-    file: fileInfo.relativePath,
-    size: formatFileSize(downloadResult.size),
-    date: downloadResult.date,
-    remoteModified: fileInfo.modified,
-    thumbnail: fileInfo.localThumbnailPath ? path.basename(fileInfo.localThumbnailPath) : null,
-    syncStatus: 'success'
-  };
+  let docEntry;
+  
+  if (fileInfo.category === 'workshops') {
+    // Workshop entry
+    docEntry = {
+      id: fileInfo.id,
+      title: fileInfo.title,
+      description: fileInfo.description,
+      date: fileInfo.date,
+      remoteDate: fileInfo.date,
+      images: downloadResult.images || [],
+      createdAt: fileInfo.createdAt,
+      createdBy: fileInfo.createdBy,
+      syncStatus: 'success'
+    };
+  } else {
+    // Document entry
+    docEntry = {
+      id: fileInfo.id,
+      title: fileInfo.displayName,
+      description: fileInfo.description,
+      file: fileInfo.relativePath,
+      size: formatFileSize(downloadResult.size),
+      date: downloadResult.date,
+      remoteModified: fileInfo.modified,
+      thumbnail: fileInfo.localThumbnailPath ? path.basename(fileInfo.localThumbnailPath) : null,
+      syncStatus: 'success'
+    };
+  }
 
   if (existingIndex >= 0) {
     categoryArray[existingIndex] = docEntry;
@@ -628,52 +768,94 @@ ipcMain.handle('sync-remote-documents', async (event) => {
         });
       }
 
-      const downloadResult = await downloadFile(fileInfo, (filename, percent) => {
-        // Send progress updates
-        if (mainWindow) {
-          mainWindow.webContents.send('sync-progress', {
-            file: fileInfo.displayName,
-            percent: percent
-          });
-        }
-      });
-
-      if (downloadResult.success) {
-        console.log('Download successful:', fileInfo.name);
-        downloaded++;
-
-        // Download thumbnail if available
-        await downloadThumbnail(fileInfo);
-
-        // Update cache with downloaded file info
-        localCache = updateCacheWithFile(localCache, fileInfo, downloadResult);
-      } else {
-        console.error('Download failed:', fileInfo.name, downloadResult.error);
-        failed++;
-
-        // Mark file as failed in cache for retry
-        // Initialize category array if it doesn't exist
-        if (!localCache[fileInfo.category]) {
-          localCache[fileInfo.category] = [];
-        }
-
-        const categoryArray = localCache[fileInfo.category];
-        const existingIndex = categoryArray.findIndex(doc => doc.id === fileInfo.id);
-
-        if (existingIndex >= 0) {
-          categoryArray[existingIndex].syncStatus = 'failed';
+      if (fileInfo.category === 'workshops') {
+        // Download workshop images
+        console.log('Downloading workshop images for:', fileInfo.title);
+        const downloadedImages = await downloadWorkshopImages(fileInfo.images);
+        
+        if (downloadedImages.length > 0) {
+          console.log('Workshop images downloaded successfully:', downloadedImages.length, 'images');
+          downloaded++;
+          
+          // Update cache with workshop info
+          localCache = updateCacheWithFile(localCache, fileInfo, { images: downloadedImages });
         } else {
-          categoryArray.push({
-            id: fileInfo.id,
-            title: fileInfo.displayName,
-            description: fileInfo.description,
-            file: fileInfo.relativePath,
-            size: formatFileSize(fileInfo.size),
-            date: new Date(fileInfo.modified).toISOString().split('T')[0],
-            remoteModified: fileInfo.modified,
-            thumbnail: null,
-            syncStatus: 'failed'
-          });
+          console.error('Failed to download any workshop images for:', fileInfo.title);
+          failed++;
+          
+          // Mark workshop as failed
+          if (!localCache[fileInfo.category]) {
+            localCache[fileInfo.category] = [];
+          }
+          
+          const categoryArray = localCache[fileInfo.category];
+          const existingIndex = categoryArray.findIndex(doc => String(doc.id) === String(fileInfo.id));
+          
+          if (existingIndex >= 0) {
+            categoryArray[existingIndex].syncStatus = 'failed';
+          } else {
+            categoryArray.push({
+              id: fileInfo.id,
+              title: fileInfo.title,
+              description: fileInfo.description,
+              date: fileInfo.date,
+              remoteDate: fileInfo.date,
+              images: [],
+              createdAt: fileInfo.createdAt,
+              createdBy: fileInfo.createdBy,
+              syncStatus: 'failed'
+            });
+          }
+        }
+      } else {
+        // Download document file
+        const downloadResult = await downloadFile(fileInfo, (filename, percent) => {
+          // Send progress updates
+          if (mainWindow) {
+            mainWindow.webContents.send('sync-progress', {
+              file: fileInfo.displayName,
+              percent: percent
+            });
+          }
+        });
+
+        if (downloadResult.success) {
+          console.log('Download successful:', fileInfo.name);
+          downloaded++;
+
+          // Download thumbnail if available
+          await downloadThumbnail(fileInfo);
+
+          // Update cache with downloaded file info
+          localCache = updateCacheWithFile(localCache, fileInfo, downloadResult);
+        } else {
+          console.error('Download failed:', fileInfo.name, downloadResult.error);
+          failed++;
+
+          // Mark file as failed in cache for retry
+          // Initialize category array if it doesn't exist
+          if (!localCache[fileInfo.category]) {
+            localCache[fileInfo.category] = [];
+          }
+
+          const categoryArray = localCache[fileInfo.category];
+          const existingIndex = categoryArray.findIndex(doc => String(doc.id) === String(fileInfo.id));
+
+          if (existingIndex >= 0) {
+            categoryArray[existingIndex].syncStatus = 'failed';
+          } else {
+            categoryArray.push({
+              id: fileInfo.id,
+              title: fileInfo.displayName,
+              description: fileInfo.description,
+              file: fileInfo.relativePath,
+              size: formatFileSize(fileInfo.size),
+              date: new Date(fileInfo.modified).toISOString().split('T')[0],
+              remoteModified: fileInfo.modified,
+              thumbnail: null,
+              syncStatus: 'failed'
+            });
+          }
         }
       }
     }

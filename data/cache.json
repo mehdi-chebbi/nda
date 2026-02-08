@@ -110,9 +110,20 @@
       "remoteModified": "2026-02-05T09:44:37.418Z",
       "thumbnail": "pol-1770284677417-21fa.png",
       "syncStatus": "success"
+    },
+    {
+      "id": "pol-1770564838765-2c7c",
+      "title": "sample",
+      "description": "aaaaaaaaaaa",
+      "file": "policy/sample.pdf",
+      "size": "18.4 KB",
+      "date": "2026-02-08",
+      "remoteModified": "2026-02-08T14:33:58.766Z",
+      "thumbnail": "pol-1770564838765-2c7c.png",
+      "syncStatus": "success"
     }
   ],
-  "lastSync": "2026-02-05T15:08:27.040Z",
+  "lastSync": "2026-02-08T18:37:02.914Z",
   "project-readiness": [
     {
       "id": "prd-1770284741539-f7f8",
@@ -200,6 +211,17 @@
       "date": "2026-02-05",
       "remoteModified": "2026-02-05T09:45:41.528Z",
       "thumbnail": "prd-1770284741528-e907.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "prd-1770564852844-c146",
+      "title": "sample",
+      "description": "asqdsqdqs",
+      "file": "project-readiness/sample.pdf",
+      "size": "18.4 KB",
+      "date": "2026-02-08",
+      "remoteModified": "2026-02-08T14:34:12.845Z",
+      "thumbnail": "prd-1770564852844-c146.png",
       "syncStatus": "success"
     }
   ],
@@ -334,6 +356,49 @@
       "date": "2026-02-05",
       "remoteModified": "2026-02-05T09:52:25.403Z",
       "thumbnail": "del-1770285145401-f8d5.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "del-1770564866238-ee65",
+      "title": "sample",
+      "description": "azdsqswqs",
+      "file": "deliverable/sample.pdf",
+      "size": "18.4 KB",
+      "date": "2026-02-08",
+      "remoteModified": "2026-02-08T14:34:26.239Z",
+      "thumbnail": "del-1770564866238-ee65.png",
+      "syncStatus": "success"
+    }
+  ],
+  "templates": [
+    {
+      "id": "tpl-1770564860133-44f4",
+      "title": "sample",
+      "description": "azdsqdsqd",
+      "file": "templates/sample.pdf",
+      "size": "18.4 KB",
+      "date": "2026-02-08",
+      "remoteModified": "2026-02-08T14:34:20.134Z",
+      "thumbnail": "tpl-1770564860133-44f4.png",
+      "syncStatus": "success"
+    }
+  ],
+  "workshops": [
+    {
+      "id": "1",
+      "title": "qsdsqdsqdqs",
+      "description": "sqdsqdqsdqsdsqdqsdsq",
+      "date": "2026-02-08T14:34:40.814Z",
+      "remoteDate": "2026-02-08T14:34:40.814Z",
+      "images": [
+        "workshop-1770564880816-85467f.png",
+        "workshop-1770564880816-3adfc4.png",
+        "workshop-1770564880818-76e992.png",
+        "workshop-1770564880820-8b6f1e.png",
+        "workshop-1770564880821-e66c5d.png"
+      ],
+      "createdAt": "2026-02-08T14:34:40.814Z",
+      "createdBy": "admin",
       "syncStatus": "success"
     }
   ]

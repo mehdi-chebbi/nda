@@ -3,9 +3,11 @@ let currentPage = 'home';
 let allDocuments = {};
 let filteredDocuments = [];
 let isSyncing = false;
+let currentWorkshop = null; // For workshop detail view
+let currentImageIndex = 0; // For image carousel
 
-// Define the 4 categories
-const CATEGORIES = ['policy', 'project-readiness', 'templates', 'deliverable'];
+// Define the categories
+const CATEGORIES = ['policy', 'project-readiness', 'templates', 'deliverable', 'workshops'];
 
 // Category display names and colors
 const CATEGORY_INFO = {
@@ -24,6 +26,10 @@ const CATEGORY_INFO = {
   'deliverable': {
     label: 'Deliverables',
     color: '#dbb84a'
+  },
+  'workshops': {
+    label: 'Workshops',
+    color: '#8B4513'
   }
 };
 
@@ -32,7 +38,8 @@ const PAGE_CATEGORY_MAP = {
   'policy': 'policy',
   'project-readiness': 'project-readiness',
   'templates': 'templates',
-  'deliverables': 'deliverable'
+  'deliverables': 'deliverable',
+  'workshops': 'workshops'
 };
 
 // ===== DOM Elements =====
@@ -120,6 +127,13 @@ function navigateToPage(pageName) {
   // Load page-specific data
   if (PAGE_CATEGORY_MAP[pageName]) {
     loadDocumentsForPage(pageName);
+  }
+  
+  // Special handling for workshops page
+  if (pageName === 'workshops') {
+    loadWorkshops();
+  } else if (pageName === 'workshop-detail') {
+    // Don't reload when navigating to detail view
   }
 }
 
@@ -257,6 +271,296 @@ async function openPdf(filePath) {
   }
 }
 
+// ===== Workshop Functions =====
+async function loadWorkshops() {
+  showLoading('workshops');
+  
+  try {
+    const cachedDocs = await ipcRenderer.invoke('get-cached-documents');
+    const workshops = cachedDocs.workshops || [];
+    
+    allDocuments = cachedDocs;
+    
+    if (workshops.length > 0) {
+      renderWorkshopGrid(workshops);
+    } else {
+      showEmptyWorkshopsState();
+    }
+  } catch (error) {
+    console.error('Error loading workshops:', error);
+    showErrorWorkshops('Failed to load workshops. Please try again.');
+  }
+}
+
+async function renderWorkshopGrid(workshops) {
+  const container = document.querySelector('#page-workshops #workshops-container');
+  if (!container) return;
+  
+  container.innerHTML = `
+    <div class="workshops-grid">
+      ${await Promise.all(workshops.map(workshop => renderWorkshopCard(workshop))).then(cards => cards.join(''))}
+    </div>
+  `;
+}
+
+async function renderWorkshopCard(workshop) {
+  // Get the first image (or any image) for the card
+  const firstImage = workshop.images && workshop.images.length > 0 ? workshop.images[0] : null;
+  
+  let imageHtml = '';
+  if (firstImage) {
+    const imageResult = await ipcRenderer.invoke('get-workshop-images', [firstImage]);
+    if (imageResult.success && imageResult.images.length > 0) {
+      imageHtml = `<div class="workshop-card-image"><img src="${imageResult.images[0].data}" alt="${escapeHtml(workshop.title)}"></div>`;
+    }
+  }
+  
+  // Fallback if no image
+  if (!imageHtml) {
+    imageHtml = `
+      <div class="workshop-card-image workshop-card-no-image">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+          <polyline points="21 15 16 10 5 21"></polyline>
+        </svg>
+      </div>
+    `;
+  }
+  
+  return `
+    <div class="workshop-card">
+      ${imageHtml}
+      <div class="workshop-card-content">
+        <h3 class="workshop-card-title">${escapeHtml(workshop.title)}</h3>
+        <div class="workshop-card-date">${formatWorkshopDate(workshop.date)}</div>
+        <button class="btn btn-primary workshop-card-button" onclick="openWorkshopDetail(${workshop.id})">
+          Learn More
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+async function openWorkshopDetail(workshopId) {
+  const workshop = allDocuments.workshops?.find(w => String(w.id) === String(workshopId));
+  if (!workshop) {
+    console.error('Workshop not found:', workshopId);
+    return;
+  }
+  
+  currentWorkshop = workshop;
+  currentImageIndex = 0;
+  
+  // Navigate to detail page
+  navigateToPage('workshop-detail');
+  
+  // Render workshop detail
+  await renderWorkshopDetail(workshop);
+}
+
+async function renderWorkshopDetail(workshop) {
+  const container = document.querySelector('#page-workshop-detail #workshop-detail-container');
+  if (!container) return;
+  
+  // Load all workshop images
+  let imagesHtml = '';
+  if (workshop.images && workshop.images.length > 0) {
+    const imageResult = await ipcRenderer.invoke('get-workshop-images', workshop.images);
+    
+    if (imageResult.success && imageResult.images.length > 0) {
+      // Build images array for carousel
+      window.workshopImages = imageResult.images;
+      
+      imagesHtml = `
+        <div class="workshop-gallery">
+          <button class="gallery-nav gallery-prev" onclick="navigateGallery(-1)" ${imageResult.images.length <= 1 ? 'style="display:none"' : ''}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          
+          <div class="gallery-main">
+            <img id="gallery-image" src="${imageResult.images[0].data}" alt="${escapeHtml(workshop.title)}">
+            <div class="gallery-counter">${1} / ${imageResult.images.length}</div>
+          </div>
+          
+          <button class="gallery-nav gallery-next" onclick="navigateGallery(1)" ${imageResult.images.length <= 1 ? 'style="display:none"' : ''}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+        
+        ${imageResult.images.length > 1 ? `
+          <div class="gallery-dots">
+            ${imageResult.images.map((_, idx) => `
+              <button class="gallery-dot ${idx === 0 ? 'active' : ''}" onclick="goToGalleryImage(${idx})"></button>
+            `).join('')}
+          </div>
+        ` : ''}
+      `;
+    }
+  }
+  
+  // If no images, show placeholder
+  if (!imagesHtml) {
+    imagesHtml = `
+      <div class="workshop-gallery workshop-gallery-empty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+          <polyline points="21 15 16 10 5 21"></polyline>
+        </svg>
+        <p>No images available</p>
+      </div>
+    `;
+  }
+  
+  container.innerHTML = `
+    <div class="workshop-detail-content">
+      <button class="back-button" onclick="navigateToPage('workshops')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Back to Workshops
+      </button>
+      
+      <h1 class="workshop-detail-title">${escapeHtml(workshop.title)}</h1>
+      
+      ${imagesHtml}
+      
+      <div class="workshop-description">
+        <h2>Description</h2>
+        <p>${escapeHtml(workshop.description || 'No description available.')}</p>
+      </div>
+      
+      <div class="workshop-metadata">
+        <h2>Details</h2>
+        <div class="metadata-grid">
+          <div class="metadata-item">
+            <span class="metadata-label">Date:</span>
+            <span class="metadata-value">${formatWorkshopDate(workshop.date)}</span>
+          </div>
+          ${workshop.createdBy ? `
+            <div class="metadata-item">
+              <span class="metadata-label">Created By:</span>
+              <span class="metadata-value">${escapeHtml(workshop.createdBy)}</span>
+            </div>
+          ` : ''}
+          <div class="metadata-item">
+            <span class="metadata-label">Images:</span>
+            <span class="metadata-value">${workshop.images ? workshop.images.length : 0}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function navigateGallery(direction) {
+  if (!window.workshopImages || window.workshopImages.length <= 1) return;
+  
+  currentImageIndex += direction;
+  
+  // Wrap around
+  if (currentImageIndex >= window.workshopImages.length) {
+    currentImageIndex = 0;
+  } else if (currentImageIndex < 0) {
+    currentImageIndex = window.workshopImages.length - 1;
+  }
+  
+  updateGalleryDisplay();
+}
+
+function goToGalleryImage(index) {
+  if (!window.workshopImages || index < 0 || index >= window.workshopImages.length) return;
+  
+  currentImageIndex = index;
+  updateGalleryDisplay();
+}
+
+function updateGalleryDisplay() {
+  if (!window.workshopImages || !window.workshopImages[currentImageIndex]) return;
+  
+  const imageEl = document.getElementById('gallery-image');
+  const counterEl = document.querySelector('.gallery-counter');
+  const dots = document.querySelectorAll('.gallery-dot');
+  
+  if (imageEl) {
+    imageEl.src = window.workshopImages[currentImageIndex].data;
+  }
+  
+  if (counterEl) {
+    counterEl.textContent = `${currentImageIndex + 1} / ${window.workshopImages.length}`;
+  }
+  
+  // Update dots
+  dots.forEach((dot, idx) => {
+    dot.classList.toggle('active', idx === currentImageIndex);
+  });
+}
+
+function formatWorkshopDate(dateStr) {
+  if (!dateStr) return 'No date';
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+
+function showLoading(page) {
+  const pageSelector = page ? `#page-${page}` : `#page-${currentPage}`;
+  const containerSelector = page === 'workshops' ? `${pageSelector} #workshops-container` : `${pageSelector} #documents-container`;
+  const container = document.querySelector(containerSelector);
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>${page === 'workshops' ? 'Loading workshops...' : 'Loading documents...'}</p>
+    </div>
+  `;
+}
+
+function showEmptyWorkshopsState() {
+  const container = document.querySelector('#page-workshops #workshops-container');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+      <h3>No workshops available</h3>
+      <p>Click the <strong>Refresh</strong> button to sync workshops from the server.</p>
+    </div>
+  `;
+}
+
+function showErrorWorkshops(message) {
+  const container = document.querySelector('#page-workshops #workshops-container');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <h3>Error</h3>
+      <p>${escapeHtml(message)}</p>
+    </div>
+  `;
+}
+
 // ===== Sync Functions =====
 async function syncWithServer() {
   // Check if already syncing
@@ -290,30 +594,42 @@ async function syncWithServer() {
       // Show success message first
       if (result.stage === 'complete' && result.total > 0) {
         showSyncSuccess(result.downloaded, result.failed, result.message);
-        // Auto-dismiss success message and show documents after 2 seconds
+        // Auto-dismiss success message and show content after 2 seconds
         setTimeout(() => {
-          const category = PAGE_CATEGORY_MAP[currentPage];
-          if (category) {
-            filteredDocuments = (allDocuments[category] || []).map(doc => ({ ...doc, category }));
-            renderDocuments();
+          if (currentPage === 'workshops') {
+            loadWorkshops();
+          } else {
+            const category = PAGE_CATEGORY_MAP[currentPage];
+            if (category) {
+              filteredDocuments = (allDocuments[category] || []).map(doc => ({ ...doc, category }));
+              renderDocuments();
+            }
           }
         }, 2000);
       } else if (result.total === 0) {
         showSyncInfo(result.message);
-        // Auto-dismiss info message and show documents after 2 seconds
+        // Auto-dismiss info message and show content after 2 seconds
         setTimeout(() => {
+          if (currentPage === 'workshops') {
+            loadWorkshops();
+          } else {
+            const category = PAGE_CATEGORY_MAP[currentPage];
+            if (category) {
+              filteredDocuments = (allDocuments[category] || []).map(doc => ({ ...doc, category }));
+              renderDocuments();
+            }
+          }
+        }, 2000);
+      } else {
+        // Immediately show content if no special message needed
+        if (currentPage === 'workshops') {
+          loadWorkshops();
+        } else {
           const category = PAGE_CATEGORY_MAP[currentPage];
           if (category) {
             filteredDocuments = (allDocuments[category] || []).map(doc => ({ ...doc, category }));
             renderDocuments();
           }
-        }, 2000);
-      } else {
-        // Immediately show documents if no special message needed
-        const category = PAGE_CATEGORY_MAP[currentPage];
-        if (category) {
-          filteredDocuments = (allDocuments[category] || []).map(doc => ({ ...doc, category }));
-          renderDocuments();
         }
       }
     } else {
