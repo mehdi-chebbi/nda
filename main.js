@@ -860,6 +860,89 @@ ipcMain.handle('sync-remote-documents', async (event) => {
       }
     }
 
+    // Step 4.5: Remove files that exist locally but not on server (Mirror Sync)
+    console.log('=== Cleaning up files not on server ===');
+    let removedCount = 0;
+    let removedFiles = [];
+
+    CATEGORIES.forEach(category => {
+      const remoteIds = new Set(
+        (manifestResult.manifest[category] || []).map(f => String(f.id))
+      );
+
+      const localDocs = localCache[category] || [];
+      const toRemove = localDocs.filter(doc => !remoteIds.has(String(doc.id)));
+
+      toRemove.forEach(doc => {
+        console.log(`Removing ${category} document: ${doc.title || doc.id}`);
+
+        // Delete PDF file
+        if (doc.file) {
+          const filePath = path.join(appPath, 'docs', doc.file);
+          if (fs.existsSync(filePath)) {
+            try {
+              fs.unlinkSync(filePath);
+              console.log('  ✓ Deleted file:', filePath);
+              removedCount++;
+            } catch (err) {
+              console.error('  ✗ Failed to delete file:', filePath, err);
+            }
+          }
+        }
+
+        // Delete thumbnail
+        if (doc.thumbnail) {
+          const thumbPath = path.join(THUMBNAILS_DIR, doc.thumbnail);
+          if (fs.existsSync(thumbPath)) {
+            try {
+              fs.unlinkSync(thumbPath);
+              console.log('  ✓ Deleted thumbnail:', thumbPath);
+            } catch (err) {
+              console.error('  ✗ Failed to delete thumbnail:', thumbPath, err);
+            }
+          }
+        }
+
+        // Delete workshop images
+        if (category === 'workshops' && doc.images && doc.images.length > 0) {
+          doc.images.forEach(imageFilename => {
+            const imagePath = path.join(WORKSHOP_IMAGES_DIR, imageFilename);
+            if (fs.existsSync(imagePath)) {
+              try {
+                fs.unlinkSync(imagePath);
+                console.log('  ✓ Deleted workshop image:', imagePath);
+              } catch (err) {
+                console.error('  ✗ Failed to delete workshop image:', imagePath, err);
+              }
+            }
+          });
+        }
+
+        removedFiles.push({
+          category,
+          title: doc.title || doc.id,
+          id: doc.id
+        });
+      });
+
+      // Remove from cache - only keep files that exist on server
+      localCache[category] = localDocs.filter(doc =>
+        remoteIds.has(String(doc.id))
+      );
+    });
+
+    if (removedCount > 0) {
+      console.log(`=== Removed ${removedCount} files not on server ===`);
+      if (mainWindow) {
+        mainWindow.webContents.send('sync-removed', {
+          count: removedCount,
+          files: removedFiles
+        });
+      }
+    } else {
+      console.log('=== No files to remove ===');
+    }
+
     // Step 5: Save updated cache
     localCache.lastSync = new Date().toISOString();
     await writeFile(CACHE_FILE, JSON.stringify(localCache, null, 2), 'utf-8');
@@ -870,21 +953,30 @@ ipcMain.handle('sync-remote-documents', async (event) => {
       mainWindow.webContents.send('sync-complete', {
         downloaded,
         failed,
+        removed: removedCount,
         total: toDownload.length
       });
     }
 
     console.log('=== Sync complete ===');
-    console.log(`Downloaded: ${downloaded}, Failed: ${failed}, Total: ${toDownload.length}`);
+    console.log(`Downloaded: ${downloaded}, Failed: ${failed}, Removed: ${removedCount}, Total: ${toDownload.length}`);
+
+    let message;
+    if (failed > 0) {
+      message = `Synced ${downloaded} files, removed ${removedCount}, ${failed} failed. Click refresh to retry.`;
+    } else if (removedCount > 0) {
+      message = `Successfully synced ${downloaded} files and removed ${removedCount} outdated files.`;
+    } else {
+      message = `Successfully synced ${downloaded} files.`;
+    }
 
     return {
       success: true,
       stage: 'complete',
-      message: failed > 0
-        ? `Synced ${downloaded} files, ${failed} failed. Click refresh to retry.`
-        : `Successfully synced ${downloaded} files`,
+      message,
       downloaded,
       failed,
+      removed: removedCount,
       total: toDownload.length
     };
   } catch (error) {

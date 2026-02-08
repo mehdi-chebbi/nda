@@ -2,116 +2,6 @@
   "gcf": [],
   "policy": [
     {
-      "id": "pol-1770284677458-3001",
-      "title": "policy on fees 03 2018",
-      "description": "This document establishes the GCF policy on fees charged by accredited entities. It defines applicable fee types, principles for cost recovery, and conditions under which fees may be charged, supporting transparency and consistency.",
-      "file": "policy/policy-on-fees-03-2018.pdf",
-      "size": "394.5 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:44:37.458Z",
-      "thumbnail": "pol-1770284677458-3001.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "pol-1770284677457-bd98",
-      "title": "monitoring and accountability framework for accredited entities 11 2015",
-      "description": "This document defines the monitoring and accountability framework applicable to accredited entities. It covers performance reporting, compliance requirements, and oversight mechanisms to ensure continued alignment with GCF standards.",
-      "file": "policy/monitoring-and-accountability-framework-for-accredited-entities-11-2015.pdf",
-      "size": "471.2 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:44:37.457Z",
-      "thumbnail": "pol-1770284677457-bd98.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "pol-1770284677456-d91d",
-      "title": "legal and formal arrangements with accredited entities 03 2015",
-      "description": "This document describes the legal and formal arrangements between the GCF and accredited entities. It outlines accreditation agreements, rights, obligations, and responsibilities, supporting effective and compliant partnerships.",
-      "file": "policy/legal-and-formal-arrangements-with-accredited-entities-03-2015.pdf",
-      "size": "422.7 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:44:37.457Z",
-      "thumbnail": "pol-1770284677456-d91d.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "pol-1770284677456-90d6",
-      "title": "initial guiding framework for the fund s 05 2025",
-      "description": "This document sets out the initial guiding framework for the GCF’s operations. It defines the Fund’s vision, objectives, and strategic direction, guiding policy development and decision-making in alignment with global climate goals.",
-      "file": "policy/initial-guiding-framework-for-the-fund-s-05-2025.pdf",
-      "size": "744.6 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:44:37.456Z",
-      "thumbnail": "pol-1770284677456-90d6.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "pol-1770284677455-b090",
-      "title": "initial fiduciary principles and standards of the fund 05 2014",
-      "description": "This document establishes the fiduciary principles and standards required for managing GCF resources. It covers financial management, transparency, and accountability requirements, forming a core component of the accreditation and ongoing oversight process.",
-      "file": "policy/initial-fiduciary-principles-and-standards-of-the-fund-05-2014.pdf",
-      "size": "479.0 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:44:37.455Z",
-      "thumbnail": "pol-1770284677455-b090.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "pol-1770284677454-1d82",
-      "title": "guidelines for the operationalization of the fit for purpose accreditation approach 10 2014",
-      "description": "This document explains how the GCF’s fit-for-purpose accreditation approach is operationalized. It links accreditation requirements to the capacity, fiduciary standards, and risk profile of entities, ensuring proportional and risk-based oversight.",
-      "file": "policy/guidelines-for-the-operationalization-of-the-fit-for-purpose-accreditation-approach-10-2014.pdf",
-      "size": "535.6 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:44:37.454Z",
-      "thumbnail": "pol-1770284677454-1d82.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "pol-1770284677453-2f0e",
-      "title": "general principles and indicative list of eligible costs covered under gcf fees and project management costs 03 2018",
-      "description": "This document outlines the general principles governing GCF fees and project management costs. It provides an indicative list of eligible and ineligible costs, promoting transparency, consistency, and sound financial planning across GCF-funded activities.",
-      "file": "policy/general-principles-and-indicative-list-of-eligible-costs-covered-under-gcf-fees-and-project-management-costs-03-2018.pdf",
-      "size": "416.4 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:44:37.453Z",
-      "thumbnail": "pol-1770284677453-2f0e.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "pol-1770284677452-5eb8",
-      "title": "contents of the application documents for submissions of applications for accreditation 10 2014",
-      "description": "This document specifies the required content and structure of documents submitted for GCF accreditation. It details templates, supporting evidence, and disclosures needed to ensure applications are complete, consistent, and ready for assessment.",
-      "file": "policy/contents-of-the-application-documents-for-submissions-of-applications-for-accreditation-10-2014.pdf",
-      "size": "495.8 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:44:37.452Z",
-      "thumbnail": "pol-1770284677452-5eb8.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "pol-1770284677451-4ccd",
-      "title": "additional policy guidance for the purpose of accreditation master agreements 03 2016",
-      "description": "This document provides additional policy guidance related to the use of master agreements in the accreditation process. It clarifies legal and operational expectations for accredited entities and supports consistency in contractual arrangements between the GCF and its partners.",
-      "file": "policy/additional-policy-guidance-for-the-purpose-of-accreditation-master-agreements-03-2016.pdf",
-      "size": "382.5 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:44:37.451Z",
-      "thumbnail": "pol-1770284677451-4ccd.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "pol-1770284677417-21fa",
-      "title": "accreditation framework 03 2022",
-      "description": "This document defines the overall framework governing the GCF accreditation process. It outlines eligibility criteria, assessment areas, and decision-making procedures, while clarifying the roles of the Secretariat, Accreditation Panel, and Board. It serves as the primary reference for entities seeking or maintaining GCF accreditation.",
-      "file": "policy/accreditation-framework-03-2022.pdf",
-      "size": "6.4 MB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:44:37.418Z",
-      "thumbnail": "pol-1770284677417-21fa.png",
-      "syncStatus": "success"
-    },
-    {
       "id": "pol-1770564838765-2c7c",
       "title": "sample",
       "description": "aaaaaaaaaaa",
@@ -123,96 +13,8 @@
       "syncStatus": "success"
     }
   ],
-  "lastSync": "2026-02-08T18:37:02.914Z",
+  "lastSync": "2026-02-08T21:19:27.003Z",
   "project-readiness": [
-    {
-      "id": "prd-1770284741539-f7f8",
-      "title": "stakeholder map and draft institutionalframework final",
-      "description": "This document presents a stakeholder mapping and draft institutional framework for GCF engagement in Eritrea. It identifies key actors, roles, and coordination arrangements. The document supports effective country coordination and governance.",
-      "file": "project-readiness/stakeholder-map-and-draft-institutionalframework-final.pdf",
-      "size": "536.3 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:45:41.540Z",
-      "thumbnail": "prd-1770284741539-f7f8.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "prd-1770284741537-d0a5",
-      "title": "module 3 fiduciary standards",
-      "description": "This training module focuses on fiduciary standards within the context of the GCF. It explains financial management, procurement, and transparency requirements. The module supports capacity building for compliance with GCF fiduciary principles.",
-      "file": "project-readiness/module-3-fiduciary-standards.pdf",
-      "size": "3.9 MB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:45:41.538Z",
-      "thumbnail": "prd-1770284741537-d0a5.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "prd-1770284741538-69f7",
-      "title": "nda needs assessment report final 1oct2025",
-      "description": "This document presents the final NDA needs assessment report for Eritrea. It identifies capacity gaps, institutional challenges, and priority areas for support. The findings inform targeted capacity-building and readiness interventions.",
-      "file": "project-readiness/nda-needs-assessment-report-final-1oct2025.pdf",
-      "size": "1.4 MB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:45:41.538Z",
-      "thumbnail": "prd-1770284741538-69f7.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "prd-1770284741536-db82",
-      "title": "module 1 introduction to key concepts to climate change and climate finance",
-      "description": "This training module introduces key concepts related to climate change and climate finance. It covers basic terminology, global climate frameworks, and the role of climate finance mechanisms. The module is designed to build foundational knowledge for stakeholders.",
-      "file": "project-readiness/module-1-introduction-to-key-concepts-to-climate-change-and-climate-finance.pdf",
-      "size": "1.7 MB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:45:41.537Z",
-      "thumbnail": "prd-1770284741536-db82.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "prd-1770284741536-e3a6",
-      "title": "methodological note eritrea capacity building 11july2025",
-      "description": "This document presents the methodology used for the Eritrea GCF capacity-building activities. It outlines the approach, tools, and data sources applied in assessments and workshops. The note ensures transparency and consistency in implementation.",
-      "file": "project-readiness/methodological-note-eritrea-capacity-building-11july2025.pdf",
-      "size": "732.3 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:45:41.536Z",
-      "thumbnail": "prd-1770284741536-e3a6.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "prd-1770284741535-c8eb",
-      "title": "gcf nol examples",
-      "description": "This document provides examples of GCF No-Objection Letters (NOLs). It illustrates format, content, and key elements required for compliance with GCF country ownership requirements. The examples support NDAs in preparing and reviewing NOL submissions.",
-      "file": "project-readiness/gcf-nol-examples.pdf",
-      "size": "1.9 MB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:45:41.535Z",
-      "thumbnail": "prd-1770284741535-c8eb.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "prd-1770284741534-d58a",
-      "title": "eritrea in person workshop concept note and agenda 19aug2025",
-      "description": "This document outlines the concept, objectives, and agenda of the in-person GCF capacity-building workshop held in Eritrea. It describes the workshop structure, target participants, and key thematic areas covered. It serves as a planning and reference document for the event.",
-      "file": "project-readiness/eritrea-in-person-workshop-concept-note-and-agenda-19aug2025.pdf",
-      "size": "260.3 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:45:41.534Z",
-      "thumbnail": "prd-1770284741534-d58a.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "prd-1770284741528-e907",
-      "title": "eritrea gcf capacity building workshop report final 1oct2025",
-      "description": "This document presents the final report of the GCF capacity-building workshop conducted in Eritrea. It summarizes objectives, sessions delivered, participant engagement, and key outcomes. The report highlights lessons learned and recommendations to strengthen NDA and stakeholder capacity.",
-      "file": "project-readiness/eritrea-gcf-capacity-building-workshop-report-final-1oct2025.pdf",
-      "size": "1.5 MB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:45:41.528Z",
-      "thumbnail": "prd-1770284741528-e907.png",
-      "syncStatus": "success"
-    },
     {
       "id": "prd-1770564852844-c146",
       "title": "sample",
@@ -226,138 +28,6 @@
     }
   ],
   "deliverable": [
-    {
-      "id": "del-1770285223974-0361",
-      "title": "Module 2 Introduction to GCF",
-      "description": "This module provides an overview of the Green Climate Fund, including its mandate, governance, funding windows, and project cycle. It introduces key processes for accessing GCF resources. The module helps stakeholders understand how the GCF operates. It builds foundational knowledge for engagement.",
-      "file": "deliverable/module-2-introduction-to-gcf.pdf",
-      "size": "3.9 MB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:53:43.974Z",
-      "thumbnail": "del-1770285223974-0361.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "del-1770285145419-42ab",
-      "title": "Eritrea GCF Capacity Building Workshop Report Final 1Oct2025",
-      "description": "This document presents the final report of the GCF capacity-building workshop in Eritrea. It summarizes objectives, sessions, participant engagement, and key outcomes. The report highlights lessons learned and recommendations. It informs future NDA and stakeholder capacity-building activities.",
-      "file": "deliverable/eritrea-gcf-capacity-building-workshop-report-final-1oct2025.pdf",
-      "size": "1.6 MB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:52:25.419Z",
-      "thumbnail": "del-1770285145419-42ab.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "del-1770285145418-7c86",
-      "title": "Eritrea In person Workshop Concept Note and Agenda 19Aug2025",
-      "description": "This document outlines the concept, objectives, and agenda for Eritrea’s in-person GCF workshop. It describes session topics, target participants, and workshop structure. The note serves as a planning guide and reference. It ensures smooth execution of the event.",
-      "file": "deliverable/eritrea-in-person-workshop-concept-note-and-agenda-19aug2025.pdf",
-      "size": "260.3 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:52:25.418Z",
-      "thumbnail": "del-1770285145418-7c86.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "del-1770285145417-17cd",
-      "title": "EritreaNDA TOR",
-      "description": "This document sets out the Terms of Reference for Eritrea’s National Designated Authority (NDA). It defines roles, responsibilities, and institutional mandate regarding GCF engagement. The TOR supports effective coordination and governance. It ensures clarity of duties and accountability.",
-      "file": "deliverable/eritreanda-tor.pdf",
-      "size": "769.9 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:52:25.417Z",
-      "thumbnail": "del-1770285145417-17cd.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "del-1770285145416-8f21",
-      "title": "Guidelines for NO procedures",
-      "description": "This document provides guidelines for national no-objection (NO) procedures. It specifies steps, roles, and timelines for issuing NOLs in compliance with GCF requirements. The guidelines support transparency and accountability. They standardize procedures across stakeholders.",
-      "file": "deliverable/guidelines-for-no-procedures.pdf",
-      "size": "2.1 MB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:52:25.416Z",
-      "thumbnail": "del-1770285145416-8f21.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "del-1770285145415-0a9e",
-      "title": "Institutional framework for NDA and Climate Finance Committee",
-      "description": "This document defines the institutional framework for Eritrea’s NDA and Climate Finance Committee. It outlines governance structures, roles, and coordination arrangements. The framework ensures effective oversight of climate finance activities. It supports streamlined decision-making.",
-      "file": "deliverable/institutional-framework-for-nda-and-climate-finance-committee.pdf",
-      "size": "581.4 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:52:25.416Z",
-      "thumbnail": "del-1770285145415-0a9e.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "del-1770285145414-85b0",
-      "title": "Methodological Note Eritrea Capacity Building 11July2025",
-      "description": "This document outlines the methodology used in Eritrea’s GCF capacity-building activities. It details approaches, tools, and data sources applied during assessments and workshops. The note ensures consistency and transparency. It supports evaluation of capacity-building efforts.",
-      "file": "deliverable/methodological-note-eritrea-capacity-building-11july2025.pdf",
-      "size": "733.0 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:52:25.415Z",
-      "thumbnail": "del-1770285145414-85b0.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "del-1770285145413-4eb1",
-      "title": "NDA Needs Assessment Report Final 1Oct2025",
-      "description": "This report presents the final needs assessment for Eritrea’s NDA. It identifies capacity gaps, institutional challenges, and priority areas for support. The findings guide targeted readiness and capacity-building interventions. It informs planning for effective GCF engagement.",
-      "file": "deliverable/nda-needs-assessment-report-final-1oct2025.pdf",
-      "size": "1.4 MB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:52:25.414Z",
-      "thumbnail": "del-1770285145413-4eb1.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "del-1770285145412-f79c",
-      "title": "Stakeholder Map and Draft InstitutionalFramework final",
-      "description": "This document presents a stakeholder mapping and draft institutional framework for Eritrea’s GCF engagement. It identifies key actors, roles, and coordination mechanisms. The framework supports effective governance and decision-making. It helps clarify institutional responsibilities.",
-      "file": "deliverable/stakeholder-map-and-draft-institutionalframework-final.pdf",
-      "size": "536.3 KB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:52:25.412Z",
-      "thumbnail": "del-1770285145412-f79c.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "del-1770285145411-0731",
-      "title": "GCF NOL examples",
-      "description": "This document provides practical examples of GCF No-Objection Letters (NOLs). It illustrates required structure, content, and compliance elements. The examples support NDAs in preparing and reviewing NOL submissions. It ensures alignment with GCF country ownership requirements.",
-      "file": "deliverable/gcf-nol-examples.pdf",
-      "size": "2.0 MB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:52:25.411Z",
-      "thumbnail": "del-1770285145411-0731.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "del-1770285145409-50d8",
-      "title": "Module 1 Introduction to key concepts to Climate Change and Climate Finance",
-      "description": "This module introduces foundational concepts of climate change and climate finance. It covers terminology, global frameworks, and mechanisms for financing climate action. The training builds baseline understanding for stakeholders. It supports informed participation in GCF processes.",
-      "file": "deliverable/module-1-introduction-to-key-concepts-to-climate-change-and-climate-finance.pdf",
-      "size": "1.7 MB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:52:25.410Z",
-      "thumbnail": "del-1770285145409-50d8.png",
-      "syncStatus": "success"
-    },
-    {
-      "id": "del-1770285145401-f8d5",
-      "title": "Module 3 Fiduciary standards",
-      "description": "This module focuses on fiduciary standards within the context of the GCF. It explains financial management, procurement, and transparency requirements. The training supports capacity building for entities to meet GCF fiduciary principles. It is designed for NDA and stakeholder learning.",
-      "file": "deliverable/module-3-fiduciary-standards.pdf",
-      "size": "3.9 MB",
-      "date": "2026-02-05",
-      "remoteModified": "2026-02-05T09:52:25.403Z",
-      "thumbnail": "del-1770285145401-f8d5.png",
-      "syncStatus": "success"
-    },
     {
       "id": "del-1770564866238-ee65",
       "title": "sample",
@@ -398,6 +68,20 @@
         "workshop-1770564880821-e66c5d.png"
       ],
       "createdAt": "2026-02-08T14:34:40.814Z",
+      "createdBy": "admin",
+      "syncStatus": "success"
+    },
+    {
+      "id": "2",
+      "title": "qsddqsdsq",
+      "description": "sqdqsdqsdqs",
+      "date": "2026-02-08T18:44:47.971Z",
+      "remoteDate": "2026-02-08T18:44:47.971Z",
+      "images": [
+        "workshop-1770579887971-a37fd6.png",
+        "workshop-1770579887973-e150c2.png"
+      ],
+      "createdAt": "2026-02-08T18:44:47.971Z",
       "createdBy": "admin",
       "syncStatus": "success"
     }

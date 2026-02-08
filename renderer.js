@@ -54,8 +54,14 @@ const { ipcRenderer } = require('electron');
 
 // ===== Navigation =====
 function initNavigation() {
-  // Regular nav items
+  // Regular nav items (exclude sync button)
   navItems.forEach(item => {
+    // Skip the sync button - it has its own event listener
+    if (item.classList.contains('nav-sync-btn')) {
+      console.log('Skipping navigation for sync button');
+      return;
+    }
+
     if (!item.classList.contains('dropdown-trigger')) {
       item.addEventListener('click', () => {
         const page = item.dataset.page;
@@ -98,6 +104,10 @@ function initNavigation() {
 }
 
 function navigateToPage(pageName) {
+  console.log('=== NAVIGATION START ===');
+  console.log('Navigating to:', pageName);
+  console.log('Current page before navigation:', currentPage);
+
   // Update active nav item
   navItems.forEach(item => {
     if (!item.classList.contains('dropdown-trigger')) {
@@ -118,29 +128,37 @@ function navigateToPage(pageName) {
   });
 
   // Show/hide pages
+  console.log('Updating page visibility...');
   pages.forEach(page => {
-    page.classList.toggle('active', page.id === `page-${pageName}`);
+    const wasActive = page.classList.contains('active');
+    const shouldBeActive = page.id === `page-${pageName}`;
+    page.classList.toggle('active', shouldBeActive);
+    if (wasActive !== shouldBeActive) {
+      console.log(`Page ${page.id}: ${wasActive ? 'hidden' : 'shown'} → ${shouldBeActive ? 'shown' : 'hidden'}`);
+    }
   });
 
   currentPage = pageName;
+  console.log('Current page after navigation:', currentPage);
 
   // Load page-specific data
   if (PAGE_CATEGORY_MAP[pageName]) {
+    console.log(`Loading documents for category: ${PAGE_CATEGORY_MAP[pageName]}`);
     loadDocumentsForPage(pageName);
-  }
-  
-  // Special handling for workshops page
-  if (pageName === 'workshops') {
+  } else if (pageName === 'workshops') {
+    console.log('Loading workshops...');
     loadWorkshops();
-  } else if (pageName === 'workshop-detail') {
-    // Don't reload when navigating to detail view
   }
+
+  console.log('=== NAVIGATION END ===\n');
 }
 
 // ===== Document Management =====
 async function loadDocumentsForPage(pageName) {
+  console.log(`\n=== loadDocumentsForPage START ===`);
+  console.log('Page name:', pageName);
   const category = PAGE_CATEGORY_MAP[pageName];
-  if (!category) return;
+  console.log('Category:', category);
 
   showLoading();
 
@@ -203,19 +221,33 @@ function filterDocuments(searchTerm) {
 }
 
 async function renderDocuments() {
+  console.log(`\n=== renderDocuments START ===`);
+  console.log('Current page:', currentPage);
+  console.log('Filtered documents count:', filteredDocuments.length);
+
   if (filteredDocuments.length === 0) {
+    console.log('No documents to render, showing empty state');
     showEmptyState();
     return;
   }
 
   const container = document.querySelector(`#page-${currentPage} #documents-container`);
-  if (!container) return;
+  console.log(`Container selector: #page-${currentPage} #documents-container`);
+  console.log('Container found:', !!container);
 
+  if (!container) {
+    console.error('Container not found!');
+    return;
+  }
+
+  console.log('Rendering document cards...');
   container.innerHTML = `
     <div class="documents-grid">
       ${await Promise.all(filteredDocuments.map(doc => renderDocumentCard(doc))).then(cards => cards.join(''))}
     </div>
   `;
+  console.log('Documents rendered successfully');
+  console.log('=== renderDocuments END ===\n');
 }
 
 async function renderDocumentCard(doc) {
@@ -516,7 +548,11 @@ function showLoading(page) {
   const pageSelector = page ? `#page-${page}` : `#page-${currentPage}`;
   const containerSelector = page === 'workshops' ? `${pageSelector} #workshops-container` : `${pageSelector} #documents-container`;
   const container = document.querySelector(containerSelector);
-  if (!container) return;
+  console.log(`showLoading called for: ${containerSelector}`);
+  if (!container) {
+    console.log(`  Container not found!`);
+    return;
+  }
 
   container.innerHTML = `
     <div class="loading-state">
@@ -524,6 +560,7 @@ function showLoading(page) {
       <p>${page === 'workshops' ? 'Loading workshops...' : 'Loading documents...'}</p>
     </div>
   `;
+  console.log('  Loading state set');
 }
 
 function showEmptyWorkshopsState() {
@@ -593,7 +630,7 @@ async function syncWithServer() {
 
       // Show success message first
       if (result.stage === 'complete' && result.total > 0) {
-        showSyncSuccess(result.downloaded, result.failed, result.message);
+        showSyncSuccess(result.downloaded, result.failed, result.removed || 0, result.message);
         // Auto-dismiss success message and show content after 2 seconds
         setTimeout(() => {
           if (currentPage === 'workshops') {
@@ -675,11 +712,12 @@ function showSyncProgressUpdate(progress) {
   if (fileEl) fileEl.textContent = progress.file;
 }
 
-function showSyncSuccess(downloaded, failed, message) {
+function showSyncSuccess(downloaded, failed, removed, message) {
   const container = document.querySelector(`#page-${currentPage} #documents-container`);
   if (!container) return;
 
   const isSuccess = failed === 0;
+  const hasRemoved = removed > 0;
 
   container.innerHTML = `
     <div class="sync-result-container ${isSuccess ? 'sync-success' : 'sync-partial'}">
@@ -696,6 +734,12 @@ function showSyncSuccess(downloaded, failed, message) {
           <span class="sync-stat-number">${downloaded}</span>
           <span class="sync-stat-label">Downloaded</span>
         </div>
+        ${hasRemoved ? `
+          <div class="sync-stat sync-stat-removed">
+            <span class="sync-stat-number">${removed}</span>
+            <span class="sync-stat-label">Removed</span>
+          </div>
+        ` : ''}
         ${failed > 0 ? `
           <div class="sync-stat sync-stat-error">
             <span class="sync-stat-number">${failed}</span>
@@ -705,6 +749,9 @@ function showSyncSuccess(downloaded, failed, message) {
       </div>
       ${failed > 0 ? `
         <p class="sync-retry-hint">Failed files will be retried on the next refresh.</p>
+      ` : ''}
+      ${hasRemoved ? `
+        <p class="sync-removed-hint">Removed files are no longer available on the server.</p>
       ` : ''}
       <button class="btn btn-primary" style="margin-top: var(--spacing-lg); max-width: 200px;" onclick="filterDocumentsAndRender()">
         View Documents
@@ -764,8 +811,13 @@ function filterDocumentsAndRender() {
 
 // ===== UI States =====
 function showLoading() {
-  const container = document.querySelector(`#page-${currentPage} #documents-container`);
-  if (!container) return;
+  const containerSelector = `#page-${currentPage} #documents-container`;
+  console.log(`showLoading() called for: ${containerSelector}`);
+  const container = document.querySelector(containerSelector);
+  if (!container) {
+    console.log(`  Container not found!`);
+    return;
+  }
 
   container.innerHTML = `
     <div class="loading-state">
@@ -773,6 +825,7 @@ function showLoading() {
       <p>Loading documents...</p>
     </div>
   `;
+  console.log('  Loading state set');
 }
 
 function showEmptyState() {
@@ -814,8 +867,14 @@ function showEmptyStateWithHint() {
 }
 
 function showError(message) {
-  const container = document.querySelector(`#page-${currentPage} #documents-container`);
-  if (!container) return;
+  const containerSelector = `#page-${currentPage} #documents-container`;
+  console.log(`showError called for: ${containerSelector}`);
+  console.log('Error message:', message);
+  const container = document.querySelector(containerSelector);
+  if (!container) {
+    console.log('  Container not found!');
+    return;
+  }
 
   container.innerHTML = `
     <div class="empty-state">
@@ -828,6 +887,7 @@ function showError(message) {
       <p>${escapeHtml(message)}</p>
     </div>
   `;
+  console.log('  Error state set');
 }
 
 // ===== Utility Functions =====
@@ -883,16 +943,209 @@ ipcRenderer.on('sync-complete', (event, result) => {
   // Result is already handled in syncWithServer function
 });
 
+// Handle sync removed files notification
+ipcRenderer.on('sync-removed', (event, data) => {
+  console.log('Files removed:', data);
+  if (data.count > 0) {
+    console.log(`Removed ${data.count} files not on server:`, data.files);
+  }
+});
+
 // Handle sync error from IPC
 ipcRenderer.on('sync-error', (event, error) => {
   console.log('Sync error:', error);
   // Error is already handled in syncWithServer function
 });
 
+// ===== Global Sync Modal Functions =====
+let globalSyncInProgress = false;
+
+function showSyncModal() {
+  const modal = document.getElementById('sync-modal');
+  const icon = document.getElementById('sync-modal-icon');
+  const title = document.getElementById('sync-modal-title');
+  const message = document.getElementById('sync-modal-message');
+  const stats = document.getElementById('sync-modal-stats');
+  const closeBtn = document.getElementById('sync-modal-close');
+  const syncingIcon = icon.querySelector('.syncing-icon');
+  const successIcon = icon.querySelector('.success-icon');
+  const errorIcon = icon.querySelector('.error-icon');
+
+  // Reset modal state
+  icon.className = 'sync-modal-icon syncing';
+  syncingIcon.style.display = 'block';
+  successIcon.style.display = 'none';
+  errorIcon.style.display = 'none';
+  title.textContent = 'Syncing...';
+  message.textContent = 'Please wait while we sync with the server.';
+  stats.style.display = 'none';
+  closeBtn.style.display = 'none';
+
+  // Show modal
+  modal.classList.add('active');
+  globalSyncInProgress = true;
+}
+
+function updateSyncModalSuccess(downloaded, removed, failed) {
+  const icon = document.getElementById('sync-modal-icon');
+  const title = document.getElementById('sync-modal-title');
+  const message = document.getElementById('sync-modal-message');
+  const stats = document.getElementById('sync-modal-stats');
+  const closeBtn = document.getElementById('sync-modal-close');
+  const downloadedEl = document.getElementById('sync-modal-downloaded');
+  const removedEl = document.getElementById('sync-modal-removed');
+  const syncingIcon = icon.querySelector('.syncing-icon');
+  const successIcon = icon.querySelector('.success-icon');
+  const errorIcon = icon.querySelector('.error-icon');
+
+  // Update icon and styling
+  icon.className = failed > 0 ? 'sync-modal-icon error' : 'sync-modal-icon success';
+  syncingIcon.style.display = 'none';
+  successIcon.style.display = failed > 0 ? 'none' : 'block';
+  errorIcon.style.display = failed > 0 ? 'block' : 'none';
+
+  // Update content
+  if (failed > 0) {
+    title.textContent = 'Sync Complete (with errors)';
+    message.textContent = `${failed} file(s) failed to sync. Click refresh to try again.`;
+  } else if (downloaded === 0 && removed === 0) {
+    title.textContent = 'Up to Date';
+    message.textContent = 'All documents are already up to date with the server.';
+  } else {
+    title.textContent = 'Sync Complete!';
+    message.textContent = downloaded > 0 && removed > 0
+      ? 'Successfully synced documents with the server.'
+      : downloaded > 0
+        ? 'Successfully downloaded new documents.'
+        : 'Removed outdated documents.';
+  }
+
+  // Update stats
+  downloadedEl.textContent = downloaded;
+  removedEl.textContent = removed;
+  stats.style.display = 'block';
+
+  // Show close button
+  closeBtn.style.display = 'inline-flex';
+
+  globalSyncInProgress = false;
+}
+
+function updateSyncModalError(errorMessage) {
+  const icon = document.getElementById('sync-modal-icon');
+  const title = document.getElementById('sync-modal-title');
+  const message = document.getElementById('sync-modal-message');
+  const closeBtn = document.getElementById('sync-modal-close');
+  const syncingIcon = icon.querySelector('.syncing-icon');
+  const successIcon = icon.querySelector('.success-icon');
+  const errorIcon = icon.querySelector('.error-icon');
+
+  // Update icon and styling
+  icon.className = 'sync-modal-icon error';
+  syncingIcon.style.display = 'none';
+  successIcon.style.display = 'none';
+  errorIcon.style.display = 'block';
+  title.textContent = 'Sync Failed';
+  message.textContent = errorMessage || 'Failed to sync with the server. Please try again.';
+
+  // Hide stats and show close button
+  document.getElementById('sync-modal-stats').style.display = 'none';
+  closeBtn.style.display = 'inline-flex';
+
+  globalSyncInProgress = false;
+}
+
+function closeSyncModal() {
+  console.log('\n=== closeSyncModal START ===');
+  console.log('Current page when closing modal:', currentPage);
+  console.log('PAGE_CATEGORY_MAP[currentPage]:', PAGE_CATEGORY_MAP[currentPage]);
+
+  const modal = document.getElementById('sync-modal');
+  modal.classList.remove('active');
+  console.log('Modal hidden');
+
+  // Refresh current page content if on a document page
+  if (PAGE_CATEGORY_MAP[currentPage]) {
+    console.log(`Refreshing documents page for category: ${PAGE_CATEGORY_MAP[currentPage]}`);
+    loadDocumentsForPage(currentPage);
+  } else if (currentPage === 'workshops') {
+    console.log('Refreshing workshops page');
+    loadWorkshops();
+  } else {
+    console.log(`No refresh needed for page: ${currentPage}`);
+  }
+
+  console.log('=== closeSyncModal END ===\n');
+}
+
+async function triggerGlobalSync() {
+  console.log('\n=== triggerGlobalSync START ===');
+  console.log('Global sync in progress:', globalSyncInProgress);
+  console.log('Current page when sync triggered:', currentPage);
+
+  if (globalSyncInProgress) {
+    console.log('Global sync already in progress, ignoring');
+    return;
+  }
+
+  console.log('Showing sync modal...');
+  showSyncModal();
+
+  try {
+    console.log('Calling sync-remote-documents IPC...');
+    const result = await ipcRenderer.invoke('sync-remote-documents');
+    console.log('Sync result:', result);
+
+    if (result.success) {
+      console.log('Sync successful, reloading cache...');
+      // Reload cache
+      const cachedDocs = await ipcRenderer.invoke('get-cached-documents');
+      CATEGORIES.forEach(cat => {
+        if (!cachedDocs[cat]) {
+          cachedDocs[cat] = [];
+        }
+      });
+      allDocuments = cachedDocs;
+      console.log('Cache reloaded');
+
+      // Update modal with success
+      console.log('Updating modal with success state...');
+      updateSyncModalSuccess(
+        result.downloaded || 0,
+        result.removed || 0,
+        result.failed || 0
+      );
+    } else {
+      console.log('Sync failed:', result.message);
+      updateSyncModalError(result.message || 'Sync failed');
+    }
+  } catch (error) {
+    console.error('Global sync error:', error);
+    updateSyncModalError(error.message || 'An unexpected error occurred');
+  }
+
+  console.log('=== triggerGlobalSync END ===\n');
+}
+
 // ===== Initialize =====
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM Content Loaded - Renderer process started');
-  
+  console.log('=== DOMContentLoaded ===');
+  console.log('Renderer process started');
+  console.log('Initial current page:', currentPage);
+
   initNavigation();
   console.log('Navigation initialized');
+
+  // Initialize global sync button
+  const globalSyncBtn = document.getElementById('global-sync-btn');
+  if (globalSyncBtn) {
+    globalSyncBtn.addEventListener('click', triggerGlobalSync);
+    console.log('Global sync button initialized');
+  }
+
+  console.log('All pages in DOM:');
+  pages.forEach(page => {
+    console.log(`  - ${page.id} (active: ${page.classList.contains('active')})`);
+  });
+  console.log('=== Initialization Complete ===\n');
 });
