@@ -3599,3 +3599,18 @@ p {
   line-height: 1.6;
   margin: 0.5rem 0;
 }
+
+/* Partners page hero override - reduce height */
+#page-partners .about-hero {
+  min-height: auto;
+  padding-top: 8rem;
+  padding-bottom: 6rem;
+}
+
+#page-partners .hero-content-wrapper {
+  padding: 0;
+}
+
+#page-partners .scroll-indicator {
+  bottom: 1.5rem;
+}
