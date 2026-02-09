@@ -1529,6 +1529,33 @@ function initializeSlideshowLogic() {
   console.log('Slideshow initialized successfully');
 }
 
+// ===== Scroll Animation Functions =====
+function initScrollAnimations() {
+  console.log('Initializing scroll animations...');
+
+  // Create an Intersection Observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        // Optional: unobserve after animating once
+        // observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  // Observe all elements with animate-on-scroll class
+  const animatedElements = document.querySelectorAll('.animate-on-scroll');
+  animatedElements.forEach((el) => {
+    observer.observe(el);
+  });
+
+  console.log(`Scroll animations initialized for ${animatedElements.length} elements`);
+}
+
 // ===== Initialize =====
 document.addEventListener('DOMContentLoaded', () => {
   console.log('=== DOMContentLoaded ===');
@@ -1552,6 +1579,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize slideshow
   initSlideshow();
+
+  // Initialize scroll animations for About page
+  initScrollAnimations();
 
   console.log('=== Initialization Complete ===\n');
 });
