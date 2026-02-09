@@ -17,7 +17,7 @@ const THUMBNAILS_DIR = path.join(appPath, 'data', 'thumbnails');
 const WORKSHOP_IMAGES_DIR = path.join(appPath, 'data', 'workshop-images');
 
 // ✅ UPDATED: Server configuration for new server
-const SERVER_BASE_URL = 'http://localhost:3000';
+const SERVER_BASE_URL = 'http://192.168.2.120';
 const MANIFEST_URL = `${SERVER_BASE_URL}/docs/manifest.json`;
 const REQUEST_TIMEOUT = 30000; // 30 seconds
 

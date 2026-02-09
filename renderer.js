@@ -252,26 +252,44 @@ async function renderDocuments() {
 async function renderDocumentCard(doc) {
   const categoryInfo = CATEGORY_INFO[doc.category] || { label: doc.category, color: '#666' };
   const description = doc.description || `PDF document from the ${categoryInfo.label} collection.`;
-  
+
   // Try to get thumbnail
   let thumbnailHtml = '';
   if (doc.thumbnail) {
     const thumbnailResult = await ipcRenderer.invoke('get-thumbnail', doc.thumbnail);
     if (thumbnailResult.exists) {
-      thumbnailHtml = `<div class="document-thumbnail"><img src="${thumbnailResult.data}" alt="${escapeHtml(doc.title)}"></div>`;
+      thumbnailHtml = `<img src="${thumbnailResult.data}" alt="${escapeHtml(doc.title)}">`;
     }
+  }
+
+  // Fallback icon if no thumbnail
+  if (!thumbnailHtml) {
+    thumbnailHtml = `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+      </svg>
+    `;
   }
 
   return `
     <div class="document-card">
-      ${thumbnailHtml}
+      <div class="document-thumbnail-wrapper">
+        <div class="document-thumbnail-front">
+          ${thumbnailHtml}
+        </div>
+        <div class="document-thumbnail-back">
+          <div class="thumbnail-description">
+            <p>${escapeHtml(description)}</p>
+          </div>
+        </div>
+      </div>
       <div class="document-header">
         <span class="document-category" style="background: ${categoryInfo.color}">${categoryInfo.label}</span>
         <h3 class="document-title">${escapeHtml(doc.title)}</h3>
         <div class="document-meta">${doc.date || 'No date'} • ${doc.size || 'Unknown size'}</div>
       </div>
       <div class="document-body">
-        <p class="document-description">${escapeHtml(description)}</p>
         <div class="document-footer">
           <button class="btn btn-primary btn-full" onclick="openDocumentDetailById('${doc.id}')">
             Learn More
