@@ -1,0 +1,80 @@
+{
+  "name": "readiness-eritrea",
+  "version": "1.0.0",
+  "description": "Readiness Eritrea - National Designated Authority Application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "electron": "electron .",
+    "build-win": "electron-builder --win"
+  },
+  "keywords": [
+    "electron",
+    "eritrea",
+    "readiness",
+    "gcf"
+  ],
+  "author": "National Designated Authority - Eritrea",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^30.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "er.nda.readiness",
+    "productName": "Readiness Eritrea",
+    "asar": true,
+    "asarUnpack": [
+      "docs/**/*",
+      "data/**/*",
+      "public/**/*"
+    ],
+    "extraResources": [
+    {
+      "from": "source-code.zip",
+      "to": "source-code.zip"
+    }
+  ],
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "renderer.js",
+      "index.html",
+      "styles.css",
+      "docs/**/*",
+      "data/**/*",
+      "public/**/*",
+      "!node_modules/**/*",
+      "!dist/**/*"
+    ],
+    "extraFiles": [
+      {
+        "from": "docs",
+        "to": "docs",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "data",
+        "to": "data",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "public",
+        "to": "public",
+        "filter": ["**/*"]
+      }
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
