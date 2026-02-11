@@ -75,7 +75,7 @@
   "allowToChangeInstallationDirectory": true,
   "createDesktopShortcut": true,
   "createStartMenuShortcut": true,
-  "language": "en_US"
+  "installerLanguages": ["en_US"]
 }
   }
 }
