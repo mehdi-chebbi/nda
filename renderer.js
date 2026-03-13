@@ -49,7 +49,24 @@ const pages = document.querySelectorAll('.page');
 const searchFilter = document.getElementById('search-filter');
 
 // ===== Electron IPC =====
-const { ipcRenderer } = require('electron');
+const { ipcRenderer, shell } = require('electron');
+
+// ===== Handle External Links =====
+function initExternalLinks() {
+  console.log('Initializing external link handlers...');
+  
+  // Handle all external links
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest('a[target="_blank"]');
+    if (target && target.href) {
+      e.preventDefault();
+      shell.openExternal(target.href);
+      console.log('Opening external link:', target.href);
+    }
+  });
+  
+  console.log('External link handlers initialized');
+}
 
 // ===== Navigation =====
 function initNavigation() {
@@ -1662,6 +1679,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize stat cards
   initStatCards();
+
+  // Initialize external links
+  initExternalLinks();
 
   console.log('=== Initialization Complete ===\n');
 });
