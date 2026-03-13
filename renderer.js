@@ -1556,6 +1556,83 @@ function initScrollAnimations() {
   console.log(`Scroll animations initialized for ${animatedElements.length} elements`);
 }
 
+// ===== Stat Modal Functions =====
+const STAT_INFO = {
+  projects: {
+    title: 'Projects Initiated',
+    text: 'Eritrea has initiated over 15 climate-related projects in partnership with the Green Climate Fund and other international organizations. These projects span across adaptation, mitigation, and capacity building sectors, contributing to the country\'s sustainable development goals.'
+  },
+  funding: {
+    title: 'Funding Mobilized',
+    text: 'Over $2.5 million has been mobilized for climate action in Eritrea through various funding mechanisms including the GCF Readiness Programme, adaptation funds, and bilateral partnerships. This funding supports institutional strengthening, project development, and climate resilience initiatives.'
+  },
+  sectors: {
+    title: 'Key Sectors',
+    text: 'Eritrea focuses on 6 key sectors for climate action: Agriculture & Food Security, Water Resources, Energy, Health, Coastal Zones, and Ecosystems. These sectors are prioritized in the National Adaptation Plan and Nationally Determined Contributions.'
+  },
+  partners: {
+    title: 'Strategic Partners',
+    text: 'Eritrea collaborates with 8 strategic partners including the Green Climate Fund, UNDP, FAO, UNEP, African Development Bank, GIZ, IGAD, and OSS. These partnerships enable knowledge sharing, technical assistance, and financial support for climate initiatives.'
+  }
+};
+
+function initStatCards() {
+  console.log('Initializing stat cards...');
+  
+  const statCards = document.querySelectorAll('.stat-card-new[data-stat]');
+  
+  statCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const statKey = card.getAttribute('data-stat');
+      if (statKey && STAT_INFO[statKey]) {
+        showStatModal(statKey);
+      }
+    });
+  });
+  
+  console.log(`Stat cards initialized: ${statCards.length} cards`);
+}
+
+function showStatModal(statKey) {
+  const modal = document.getElementById('stat-modal');
+  const titleEl = document.getElementById('stat-modal-title');
+  const textEl = document.getElementById('stat-modal-text');
+  
+  if (!modal || !titleEl || !textEl) {
+    console.error('Stat modal elements not found');
+    return;
+  }
+  
+  const info = STAT_INFO[statKey];
+  if (info) {
+    titleEl.textContent = info.title;
+    textEl.textContent = info.text;
+    modal.classList.add('active');
+  }
+}
+
+function closeStatModal() {
+  const modal = document.getElementById('stat-modal');
+  if (modal) {
+    modal.classList.remove('active');
+  }
+}
+
+// Close stat modal when clicking outside
+document.addEventListener('click', (e) => {
+  const modal = document.getElementById('stat-modal');
+  if (modal && e.target === modal) {
+    closeStatModal();
+  }
+});
+
+// Close stat modal with Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeStatModal();
+  }
+});
+
 // ===== Initialize =====
 document.addEventListener('DOMContentLoaded', () => {
   console.log('=== DOMContentLoaded ===');
@@ -1582,6 +1659,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize scroll animations for About page
   initScrollAnimations();
+
+  // Initialize stat cards
+  initStatCards();
 
   console.log('=== Initialization Complete ===\n');
 });
