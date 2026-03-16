@@ -4488,8 +4488,226 @@ p {
   .sd-pathways-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .sd-pathway-number {
     font-size: 2.5rem;
+  }
+}
+
+/* ========== Tabs Styles ========== */
+.page-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+  border-bottom: 2px solid var(--color-border-light);
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition: all 0.2s ease;
+  position: relative;
+  margin-bottom: -2px;
+}
+
+.tab-btn svg {
+  flex-shrink: 0;
+}
+
+.tab-btn:hover {
+  color: var(--color-primary);
+  background: rgba(21, 102, 66, 0.05);
+}
+
+.tab-btn.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  font-weight: 600;
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== Resources Styles ========== */
+#resources-container {
+  padding: 0 1rem;
+}
+
+.resources-section {
+  margin-bottom: 2rem;
+}
+
+.resources-category-header {
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.resources-category-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.resources-category-title::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--color-secondary);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1rem;
+}
+
+.resource-link-card {
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.resource-link-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+  background: rgba(21, 102, 66, 0.02);
+}
+
+.resource-link-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  background: rgba(21, 102, 66, 0.1);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  transition: all 0.2s ease;
+}
+
+.resource-link-card:hover .resource-link-icon {
+  background: var(--color-primary);
+  color: white;
+}
+
+.resource-link-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.resource-link-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.resource-link-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.resource-link-card:hover .resource-link-title {
+  color: var(--color-primary);
+}
+
+.resource-link-url {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  word-break: break-all;
+  display: block;
+  opacity: 0.7;
+}
+
+.resource-link-card:hover .resource-link-url {
+  opacity: 1;
+}
+
+.resource-external-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-muted);
+  opacity: 0.5;
+  transition: all 0.2s ease;
+}
+
+.resource-link-card:hover .resource-external-icon {
+  color: var(--color-primary);
+  opacity: 1;
+}
+
+/* Responsive for Resources */
+@media (max-width: 768px) {
+  .page-tabs {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .tab-btn {
+    justify-content: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-border-light);
+    margin-bottom: 0;
+  }
+
+  .tab-btn.active {
+    border-bottom-color: var(--color-primary);
+  }
+
+  .resources-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .resources-category-title {
+    font-size: 1.25rem;
   }
 }

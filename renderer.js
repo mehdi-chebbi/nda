@@ -9,6 +9,69 @@ let currentImageIndex = 0; // For image carousel
 // Define the categories
 const CATEGORIES = ['policy', 'project-readiness', 'templates', 'deliverable', 'workshops'];
 
+// Resources data for Project Readiness page
+const RESOURCES_DATA = [
+  {
+    category: "Strategic Planning & Overview",
+    links: [
+      { title: "GCF in Brief: Readiness", url: "https://www.greenclimate.fund/document/gcf-brief-readiness" },
+      { title: "Readiness Strategy 2024-2027", url: "https://www.greenclimate.fund/document/readiness-strategy-2024-2027" },
+      { title: "Financing Modality for Country Support", url: "https://www.greenclimate.fund/readiness/country-window" },
+      { title: "Readiness & Preparatory Financing Modality for DAE Support", url: "https://www.greenclimate.fund/readiness/dae-window" },
+      { title: "Revised Readiness Results Management Framework (RRMF)", url: "https://www.greenclimate.fund/document/revised-readiness-results-management-framework-rrmf" },
+      { title: "List of FWA holders", url: "https://www.greenclimate.fund/document/list-fwa-holders" },
+    ]
+  },
+  {
+    category: "Country Support Templates & Guides",
+    links: [
+      { title: "Guide for Countries to Access Readiness Support", url: "https://www.greenclimate.fund/document/guide-countries-access-readiness-support" },
+      { title: "Guide for Countries on Strategic Planning of Readiness Support", url: "https://www.greenclimate.fund/document/guide-countries-strategic-planning-readiness-support" },
+      { title: "Confirmation of Government Designated Agency Letter Template", url: "https://www.greenclimate.fund/document/confirmation-government-designated-agency-letter-template" },
+      { title: "Country Readiness TOR Template", url: "https://www.greenclimate.fund/document/country-readiness-tor-template" },
+      { title: "Direct Access Proposal Template - Country Support Window", url: "https://www.greenclimate.fund/document/direct-access-proposal-template-country-support-window" },
+      { title: "Direct Access Financial Proposal Template", url: "https://www.greenclimate.fund/document/direct-access-financial-proposal-template" },
+      { title: "Mini Tender Proposal Template", url: "https://www.greenclimate.fund/document/mini-tender-proposal-template" },
+      { title: "Country Outcome Logframe", url: "https://www.greenclimate.fund/document/country-outcome-logframe" },
+      { title: "Country and DAE Output Logframe", url: "https://www.greenclimate.fund/document/country-and-dae-output-logframe" },
+      { title: "Letter of Financial Support for Multi-Country Proposals", url: "https://www.greenclimate.fund/document/letter-financial-support-multi-country-proposals" },
+    ]
+  },
+  {
+    category: "DAE (Direct Access Entity) Support",
+    links: [
+      { title: "Guide for Direct Access Entities to Access Readiness Support", url: "https://www.greenclimate.fund/document/guide-direct-access-entities-access-readiness-support" },
+      { title: "DAE Readiness TOR Template", url: "https://www.greenclimate.fund/document/dae-readiness-tor-template" },
+      { title: "Direct Access Proposal Template – DAE Support Window", url: "https://www.greenclimate.fund/document/direct-access-proposal-template-dae-support-window" },
+    ]
+  },
+  {
+    category: "Reporting, Audits & Compliance",
+    links: [
+      { title: "Readiness and Preparatory Support Completion Report Template", url: "https://www.greenclimate.fund/document/readiness-and-preparatory-support-completion-report-template" },
+      { title: "Readiness Audit Terms of Reference Template", url: "https://www.greenclimate.fund/document/readiness-audit-terms-reference-template" },
+      { title: "Readiness Audit Report Template", url: "https://www.greenclimate.fund/document/readiness-audit-report-template" },
+      { title: "Letter of Request for Change of Approved Programme Proposal", url: "https://www.greenclimate.fund/document/letter-request-change-approved-readiness-and-preparatory-support-programme-proposal" },
+      { title: "Financial Management Capacity Assessment Template (FMCA)", url: "https://www.greenclimate.fund/document/financial-management-capacity-assessment-template" },
+      { title: "Guidance on Standardized Deliverables", url: "https://www.greenclimate.fund/document/guide-standardized-deliverables" },
+      { title: "TOR for GCF Liaison Officer", url: "https://www.greenclimate.fund/document/tor-gcf-liaison-officer" },
+    ]
+  },
+  {
+    category: "Information Sessions & Events",
+    links: [
+      { title: "Info Session 1: Overview of Operational Modalities (2024-2027)", url: "https://www.greenclimate.fund/event/information-session-1-operational-modalities-2024-2027-strategy" },
+      { title: "Info Session 3: Placement Scheme and Access Modalities", url: "https://www.greenclimate.fund/event/information-session-3-operational-modalities-2024-2027-strategy" },
+    ]
+  },
+  {
+    category: "Data Repository",
+    links: [
+      { title: "Readiness Data Repository", url: "https://data.greenclimate.fund/public/data/readiness" },
+    ]
+  }
+];
+
 // Category display names and colors
 const CATEGORY_INFO = {
   'policy': {
@@ -1664,6 +1727,100 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
+// ===== Tab Functions =====
+function initTabs() {
+  const tabButtons = document.querySelectorAll('.tab-btn');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const tabId = button.getAttribute('data-tab');
+      switchTab(tabId);
+    });
+  });
+}
+
+function switchTab(tabId) {
+  // Update tab button states
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  tabButtons.forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
+  });
+
+  // Update tab content visibility
+  const tabContents = document.querySelectorAll('.tab-content');
+  tabContents.forEach(content => {
+    content.classList.toggle('active', content.id === `tab-${tabId}`);
+  });
+
+  // If switching to resources tab, render resources
+  if (tabId === 'resources') {
+    renderResources();
+  }
+}
+
+// ===== Resources Functions =====
+function renderResources() {
+  const container = document.getElementById('resources-container');
+  if (!container) {
+    console.error('Resources container not found');
+    return;
+  }
+
+  if (!RESOURCES_DATA || RESOURCES_DATA.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+        </svg>
+        <h3>No resources available</h3>
+        <p>Check back later for updates.</p>
+      </div>
+    `;
+    return;
+  }
+
+  let html = '';
+  RESOURCES_DATA.forEach(section => {
+    html += `
+      <div class="resources-section">
+        <div class="resources-category-header">
+          <h3 class="resources-category-title">${escapeHtml(section.category)}</h3>
+        </div>
+        <div class="resources-grid">
+          ${section.links.map(link => `
+            <div class="resource-link-card" onclick="openResourceLink('${escapeHtml(link.url)}')">
+              <div class="resource-link-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+              </div>
+              <div class="resource-link-content">
+                <h4 class="resource-link-title">${escapeHtml(link.title)}</h4>
+                <span class="resource-link-url">${escapeHtml(link.url)}</span>
+              </div>
+              <div class="resource-external-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+function openResourceLink(url) {
+  shell.openExternal(url);
+}
+
 // ===== Initialize =====
 document.addEventListener('DOMContentLoaded', () => {
   console.log('=== DOMContentLoaded ===');
@@ -1672,6 +1829,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initNavigation();
   console.log('Navigation initialized');
+
+  // Initialize tabs
+  initTabs();
+  console.log('Tabs initialized');
 
   // Initialize global sync button
   const globalSyncBtn = document.getElementById('global-sync-btn');
