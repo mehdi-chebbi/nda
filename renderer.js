@@ -113,6 +113,20 @@ function initNavigation() {
     });
   });
 
+  // Handle CTA buttons (like "Browse Documents")
+  const ctaButtons = document.querySelectorAll('.btn-cta');
+  console.log(`Initializing ${ctaButtons.length} CTA buttons`);
+  ctaButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const page = btn.dataset.page;
+      console.log('CTA button clicked, navigating to:', page);
+      if (page && typeof navigateToPage === 'function') {
+        navigateToPage(page);
+      }
+    });
+  });
+
   // Close dropdowns when clicking outside
   document.addEventListener('click', () => {
     document.querySelectorAll('.nav-dropdown').forEach(d => d.classList.remove('open'));
