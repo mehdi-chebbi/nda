@@ -2331,13 +2331,16 @@ p {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 1.25rem;
-    max-width: 64rem;
+    max-width: 1000px;
     margin: 0 auto;
+    padding: 0 1rem;
+    width: 100%;
 }
 
 @media (min-width: 768px) {
     .mission-cards {
         grid-template-columns: repeat(2, 1fr);
+        max-width: 1000px;
     }
 }
 
@@ -2347,6 +2350,18 @@ p {
     transition: box-shadow 0.3s ease;
     background: var(--color-primary-dark);
     padding: 2.5rem;
+    min-height: 15rem;
+    width: 100%;
+}
+
+.card:nth-child(1),
+.card:nth-child(3) {
+    padding-right: 11rem;
+}
+
+.card:nth-child(2),
+.card:nth-child(4) {
+    padding-left: 11rem;
 }
 
 .card::before {
