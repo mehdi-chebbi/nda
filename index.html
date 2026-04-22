@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Readiness Eritrea - National Designated Authority</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Open+Sans:wght@400;600&family=Oswald:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+<img src="public/Flag-Eritrea.png" style="width:64px; height:40px;">
+                    <div class="brand-text">
+                        <span class="brand-title">Readiness Eritrea</span>
+                        <span class="brand-subtitle">National Designated Authority</span>
+                    </div>
+                </div>
+                <div class="nav-menu">
+                    <button class="nav-item active" data-page="home">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        </svg>
+                        <span>Home</span>
+                    </button>
+                    
+                    <button class="nav-item" data-page="about">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        <span>About NDA</span>
+                    </button>
+
+                    <!-- GCF Dropdown Menu -->
+                    <div class="nav-dropdown">
+                        <button class="nav-item dropdown-trigger" data-page="gcf">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                            </svg>
+                            <span>GCF</span>
+                            <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" data-page="policy">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                </svg>
+                                Policy
+                            </button>
+                            <button class="dropdown-item" data-page="project-readiness">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                </svg>
+                                Project Readiness
+                            </button>
+                            <button class="dropdown-item" data-page="templates">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                                    <line x1="9" y1="21" x2="9" y2="9"></line>
+                                </svg>
+                                Templates
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Readiness Eritrea Dropdown Menu -->
+                    <div class="nav-dropdown">
+                        <button class="nav-item dropdown-trigger" data-page="readiness-eritrea">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                            </svg>
+                            <span>Readiness Eritrea</span>
+                            <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu">
+                            <button class="dropdown-item" data-page="deliverables">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Deliverables
+                            </button>
+                            <button class="dropdown-item" data-page="workshops">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                Workshops
+                            </button>
+                        </div>
+                    </div>
+
+                    <button class="nav-item" data-page="partners">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                        <span>Coordination & Partners</span>
+                    </button>
+
+                    <!-- Global Sync Button -->
+                    <div class="nav-separator"></div>
+                   <button id="global-sync-btn" class="nav-item nav-sync-btn">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="23 4 23 10 17 10"></polyline>
+        <polyline points="1 20 1 14 7 14"></polyline>
+        <path d="M3.51 9a9 9 0 0 1 14.13-3.36L23 10"></path>
+        <path d="M20.49 15a9 9 0 0 1-14.13 3.36L1 14"></path>
+    </svg>
+    <span>Sync</span>
+</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Page -->
+            <section id="page-home" class="page active">
+                <!-- Slideshow Hero Section -->
+                <div class="slideshow">
+                    <div class="slideshow-inner">
+                        <div class="slides">
+                            <div class="slide is-active">
+                                <div class="slide-content">
+                                    <div class="caption">
+                                        <div class="title">Readiness Eritrea</div>
+                                      
+                                        <a href="#" class="btn-slide" data-page="about">
+                                            <span class="btn-inner">Learn More</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="image-container">
+                                    <img src="public/lands3.jpg" alt="Readiness Eritrea" class="image" />
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-content">
+                                    <div class="caption">
+                                        <div class="title">Climate Finance</div>
+                                      
+                                        <a href="#" class="btn-slide" data-page="gcf-project">
+                                            <span class="btn-inner">Learn More</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="image-container">
+                                    <img src="public/lands.jpg" alt="Climate Finance" class="image" />
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-content">
+                                    <div class="caption">
+                                        <div class="title">Sustainable Development</div>
+                                    
+                                        <a href="#" class="btn-slide" data-page="sustainable-development">
+                                            <span class="btn-inner">Learn More</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="image-container">
+                                    <img src="public/lands2.jpg" alt="Sustainable Development" class="image" />
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="arrows">
+                            <div class="arrow prev">
+                                <span class="svg svg-arrow-left">
+                                    <svg version="1.1" id="svg4-Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="14px" height="26px" viewBox="0 0 14 26" enableBackground="new 0 0 14 26" xmlSpace="preserve">
+                                        <path d="M13,26c-0.256,0-0.512-0.098-0.707-0.293l-12-12c-0.391-0.391-0.391-1.023,0-1.414l12-12c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414L2.414,13l11.293,11.293c0.391,0.391,0.391,1.023,0,1.414C13.512,25.902,13.256,26,13,26z"/>
+                                    </svg>
+                                    <span class="alt sr-only"></span>
+                                </span>
+                            </div>
+                            <div class="arrow next">
+                                <span class="svg svg-arrow-right">
+                                    <svg version="1.1" id="svg5-Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="14px" height="26px" viewBox="0 0 14 26" enableBackground="new 0 0 14 26" xmlSpace="preserve">
+                                        <path d="M1,0c0.256,0,0.512,0.098,0.707,0.293l12,12c0.391,0.391,0.391,1.023,0,1.414l-12,12c-0.391,0.391-1.023,0.391-1.414,0s-0.391-1.023,0-1.414L11.586,13L0.293,1.707c-0.391-0.391-0.391-1.023,0-1.414C0.488,0.098,0.744,0,1,0z"/>
+                                    </svg>
+                                    <span class="alt sr-only"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END SLIDESHOW -->
+
+                <!-- Mission Showcase Section -->
+                <section class="mission-showcase">
+                    <div class="mission-header">
+                        <span class="mission-subtitle">gcf readiness programme</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="mission-arrow">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                        </svg>
+                    </div>
+
+                    <h1 class="mission-title">Readiness Project & Platform Objectives</h1>
+
+                    <div class="mission-cards">
+                        <!-- Card 1 -->
+                        <div class="card mission-card-1">
+                            <div class="circle"></div>
+                            <div class="card-content lg-pr-52">
+                                <h2 class="card-title">
+                                    Strengthening<br/>NDA
+                                </h2>
+                                <p class="card-text">
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="card mission-card-2">
+                            <div class="circle"></div>
+                            <div class="card-content lg-pl-48">
+                                <h2 class="card-title">
+                                    Building<br/>Capacities
+                                </h2>
+                                <p class="card-text">
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="card mission-card-3">
+                            <div class="circle"></div>
+                            <div class="card-content lg-pr-44">
+                                <h2 class="card-title">
+                                    Enhancing<br/>Coordination
+                                </h2>
+                                <p class="card-text">
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="card mission-card-4">
+                            <div class="circle"></div>
+                            <div class="card-content lg-pl-48">
+                                <h2 class="card-title">
+                                    Supporting<br/>Pipeline
+                                </h2>
+                                <p class="card-text">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Readiness Programme Description -->
+                    <div class="program-description">
+                        <p>
+                            The <strong>Readiness and Preparatory Support Programme</strong> of <strong>Green Climate Fund (GCF)</strong> aims to strengthen national capacities to effectively access climate finance and align climate actions with national development priorities.
+                        </p>
+                        <p>
+                            The <strong>Climate Finance Platform</strong> is a core output of this Readiness project. It serves as an <strong>offline-oriented, knowledge management and capacity-building tool</strong>, providing structured access to GCF guidance, national policies, templates, learning modules, and practical project development resources. Primary users include NDA Secretariat, government agencies, implementing entities, and other stakeholders engaged in climate action. By offering tailored pathways for different users, the platform supports strategic decision-making, technical learning, and strengthened project readiness, thereby contributing to sustained and effective engagement with GCF.
+                        </p>
+                    </div>
+                </section>
+                <!-- END MISSION SECTION -->
+
+                <!-- Statistics Section -->
+                <section class="statistics-section">
+                    <div class="stats-grid">
+                        <div class="stat-card-new" data-stat="projects">
+                            <div class="stat-number">2</div>
+                            <div class="stat-line"></div>
+                            <div class="stat-label">No. of Projects</div>
+                        </div>
+                        <div class="stat-card-new" data-stat="funding">
+                            <div class="stat-number">$21.1M</div>
+                            <div class="stat-line"></div>
+                            <div class="stat-label">Total GCF Financing</div>
+                        </div>
+                        <div class="stat-card-new" data-stat="activities">
+                            <div class="stat-number">3</div>
+                            <div class="stat-line"></div>
+                            <div class="stat-label">No. of Readiness Activities</div>
+                        </div>
+                        <div class="stat-card-new" data-stat="readiness">
+                            <div class="stat-number">$3.5M</div>
+                            <div class="stat-line"></div>
+                            <div class="stat-label">Readiness Support Approved</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CTA Section -->
+                <section class="cta-section">
+                    <div class="cta-content">
+                        <h2 class="cta-title">Ready to Make a Difference?</h2>
+                        <p class="cta-text">
+                            Explore our resources to learn more about Eritrea's climate readiness initiatives
+                            and how you can contribute to our shared vision of a sustainable future.
+                        </p>
+                        <a href="#" class="btn-cta" data-page="deliverables">
+                            Browse Documents
+                        </a>
+                    </div>
+                </section>
+            </section>
+
+            <!-- About NDA Page -->
+            <section id="page-about" class="page">
+                <!-- Hero Section -->
+                <div class="about-hero">
+                    <div class="hero-overlay"></div>
+                    <div class="hero-content-wrapper">
+                        <div class="max-width-container">
+                            <div class="hero-text-content">
+                                <div class="animate-on-scroll">
+                                    <span class="hero-badge">About NDA</span>
+                                </div>
+                                <h1 class="animate-on-scroll delay-100">National Designated Authority</h1>
+                                <p class="animate-on-scroll delay-200">Championing climate action and resilience building for a sustainable Eritrea</p>
+                                <div class="animate-on-scroll delay-300 hero-divider">
+                                    <div class="divider-line"></div>
+                                    <span class="divider-text">Eritrea's Climate Finance Governance Framework</span>
+                                </div>
+                            </div>
+
+                            <!-- Stats Banner -->
+                            <div class="animate-on-scroll delay-400 stats-banner">
+                                <div class="stat-card-glass">
+                                    <div class="stat-value">2</div>
+                                    <div class="stat-label">No. of Projects</div>
+                                </div>
+                                <div class="stat-card-glass">
+                                    <div class="stat-value">$21.1M</div>
+                                    <div class="stat-label">Total GCF Financing</div>
+                                </div>
+                                <div class="stat-card-glass">
+                                    <div class="stat-value">3</div>
+                                    <div class="stat-label">No. of Readiness Activities</div>
+                                </div>
+                                <div class="stat-card-glass">
+                                    <div class="stat-value">$3.5M</div>
+                                    <div class="stat-label">Readiness Support Approved</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Scroll Indicator -->
+                        <div class="scroll-indicator">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Who We Are Section -->
+                <section class="about-section-who">
+                    <div class="max-width-container">
+                        <div class="animate-on-scroll">
+                            <div class="section-header-center">
+                                <span class="section-badge">Who We Are</span>
+                                <h2>National Designated Authority and Climate Finance Governance Framework</h2>
+                                <p class="section-subtitle">The National Designated Authority (NDA) is Eritrea's official body for coordinating engagement with Green Climate Fund (GCF) and managing the country's climate finance agenda.</p>
+                            </div>
+
+                            <div class="two-column-grid">
+                                <div class="animate-on-scroll delay-100">
+                                    <p class="about-text">Operating under the Ministry of Land, Water and Environment, the NDA Secretariat serves as its operational arm, coordinating readiness support, reviewing funding proposals, issuing No-Objection Letters, and maintaining the GCF Country Programme and project pipeline.</p>
+                                    <p class="about-text">Eritrea's governance framework includes a high-level inter-ministerial steering committee for strategic guidance and a technical review mechanism to ensure proposals meet national strategies, environmental and social safeguards, and GCF criteria. The NDA also promotes inclusive stakeholder engagement with government agencies, civil society, private sector, and vulnerable groups. Supported by the Readiness Programme, this framework strengthens national ownership, transparency, and capacity to effectively access and manage international climate finance for sustainable climate action.</p>
+                                </div>
+
+                                <div class="animate-on-scroll delay-200">
+                                    <div class="core-mission-card glass-card">
+                                        <h3>Our Core Mission</h3>
+                                        <ul class="mission-list">
+                                            <li>
+                                                <div class="check-icon">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <path d="M5 13l4 4L19 7"/>
+                                                    </svg>
+                                                </div>
+                                                <span>Facilitate access to international climate finance</span>
+                                            </li>
+                                            <li>
+                                                <div class="check-icon">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <path d="M5 13l4 4L19 7"/>
+                                                    </svg>
+                                                </div>
+                                                <span>Ensure alignment with national development priorities</span>
+                                            </li>
+                                            <li>
+                                                <div class="check-icon">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <path d="M5 13l4 4L19 7"/>
+                                                    </svg>
+                                                </div>
+                                                <span>Coordinate stakeholders for inclusive climate action</span>
+                                            </li>
+                                            <li>
+                                                <div class="check-icon">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                        <path d="M5 13l4 4L19 7"/>
+                                                    </svg>
+                                                </div>
+                                                <span>Support transformative climate projects</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Role & Responsibilities Section -->
+                <section class="about-section-roles">
+                    <div class="section-bg-blur"></div>
+                    <div class="max-width-container">
+                        <div class="animate-on-scroll">
+                            <div class="section-header-center white">
+                                <span class="section-badge badge-yellow">What We Do</span>
+                                <h2>Our Role & Responsibilities</h2>
+                                <p class="section-subtitle">We lead Eritrea's climate finance coordination through strategic initiatives and focused interventions</p>
+                            </div>
+                        </div>
+
+                        <div class="roles-grid">
+                            <!-- Role Card 1 -->
+                            <div class="animate-on-scroll delay-100 role-card glass-card-dark">
+                                <div class="role-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                    </svg>
+                                </div>
+                                <h3>Strategic Coordination</h3>
+                                <p>Coordinate with government agencies, civil society, and private sector to align climate initiatives with national development priorities.</p>
+                            </div>
+
+                            <!-- Role Card 2 -->
+                            <div class="animate-on-scroll delay-200 role-card glass-card-dark">
+                                <div class="role-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                    </svg>
+                                </div>
+                                <h3>Project Facilitation</h3>
+                                <p>Supports development and submission of funding proposals to GCF, ensuring high-quality, impactful projects.</p>
+                            </div>
+
+                            <!-- Role Card 3 -->
+                            <div class="animate-on-scroll delay-300 role-card glass-card-dark">
+                                <div class="role-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                    </svg>
+                                </div>
+                                <h3>Stakeholder Engagement</h3>
+                                <p>Engage with diverse stakeholders to build consensus and ensure inclusive participation in climate action.</p>
+                            </div>
+
+                            <!-- Role Card 4 -->
+                            <div class="animate-on-scroll delay-400 role-card glass-card-dark">
+                                <div class="role-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                    </svg>
+                                </div>
+                                <h3>Capacity Building</h3>
+                                <p>Strengthen institutional and technical capacities to effectively manage climate finance and implement projects.</p>
+                            </div>
+
+                            <!-- Role Card 5 -->
+                            <div class="animate-on-scroll delay-500 role-card glass-card-dark">
+                                <div class="role-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                    </svg>
+                                </div>
+                                <h3>Knowledge Management</h3>
+                                <p>Document and share lessons learned, best practices, and innovations in climate resilience and adaptation.</p>
+                            </div>
+
+                            <!-- Role Card 6 -->
+                            <div class="animate-on-scroll delay-600 role-card glass-card-dark">
+                                <div class="role-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                    </svg>
+                                </div>
+                                <h3>Policy Alignment</h3>
+                                <p>Ensure all climate interventions align with Eritrea's National Adaptation Plan and Nationally Determined Contributions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Governance Structure Section -->
+                <section class="about-section-governance">
+                    <div class="governance-bg-blur">
+                        <div class="blur-orb orb-1"></div>
+                        <div class="blur-orb orb-2"></div>
+                    </div>
+                    <div class="max-width-container">
+                        <div class="animate-on-scroll">
+                            <div class="section-header-center">
+                                <span class="section-badge">Structure</span>
+                                <h2>Governance Structure</h2>
+                                <p class="section-subtitle">A robust framework designed to ensure transparency, accountability, and strategic oversight in climate finance management.</p>
+                            </div>
+                        </div>
+                        <div class="animate-on-scroll tree-container">
+                            <img src="public/tree.png" alt="Governance Structure Tree" class="tree-image" />
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Readiness Program Section -->
+                <section class="about-section-readiness">
+                    <div class="max-width-container">
+                        <div class="two-column-grid">
+                            <div class="animate-on-scroll">
+                                <span class="section-badge">GCF Initiative</span>
+                                <h2>The Readiness Program</h2>
+                                <div class="readiness-content">
+                                    <p>The Readiness Program is a GCF initiative designed to strengthen countries' institutional capacities, governance frameworks, and planning processes to effectively engage with climate finance. Through this program, Eritrea is building the foundation for sustained climate action and long-term resilience.</p>
+                                    <p>Our Readiness activities focus on enhancing institutional arrangements, developing robust project pipelines, strengthening monitoring and evaluation systems, and fostering partnerships that maximize the impact of climate investments in Eritrea.</p>
+                                </div>
+
+                                <div class="readiness-bullets">
+                                    <div class="bullet-item">
+                                        <div class="bullet-dot"></div>
+                                        <span>Institutional Strengthening</span>
+                                    </div>
+                                    <div class="bullet-item">
+                                        <div class="bullet-dot"></div>
+                                        <span>Project Pipeline Development</span>
+                                    </div>
+                                    <div class="bullet-item">
+                                        <div class="bullet-dot"></div>
+                                        <span>M&E Systems Enhancement</span>
+                                    </div>
+                                    <div class="bullet-item">
+                                        <div class="bullet-dot"></div>
+                                        <span>Partnership Building</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="animate-on-scroll delay-200">
+                                <div class="readiness-steps-wrapper">
+                                    <div class="blur-bg"></div>
+                                    <div class="readiness-steps glass-card">
+                                        <div class="step-item">
+                                            <div class="step-number">01</div>
+                                            <div class="step-content">
+                                                <h4>Governance Framework</h4>
+                                                <p>Establishing robust institutional arrangements</p>
+                                            </div>
+                                        </div>
+                                        <div class="step-item">
+                                            <div class="step-number">02</div>
+                                            <div class="step-content">
+                                                <h4>Capacity Building</h4>
+                                                <p>Strengthening technical expertise</p>
+                                            </div>
+                                        </div>
+                                        <div class="step-item">
+                                            <div class="step-number">03</div>
+                                            <div class="step-content">
+                                                <h4>Project Pipeline</h4>
+                                                <p>Developing climate-ready project proposals</p>
+                                            </div>
+                                        </div>
+                                        <div class="step-item">
+                                            <div class="step-number">04</div>
+                                            <div class="step-content">
+                                                <h4>Monitoring & Evaluation</h4>
+                                                <p>Ensuring impact and accountability</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Policy Page (GCF -> Policy) -->
+            <section id="page-policy" class="page">
+                <div class="page-header">
+                    <h1>Policy</h1>
+                    <p class="page-subtitle">GCF Policy & Regulation Documents & Videos</p>
+                </div>
+
+                <!-- Tabs -->
+                <div class="page-tabs">
+                    <button class="tab-btn active" data-tab="policy-docs">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                        Docs
+                    </button>
+                    <button class="tab-btn" data-tab="policy-videos">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        Videos
+                    </button>
+                </div>
+
+                <!-- Docs Tab Content -->
+                <div class="tab-content active" id="tab-policy-docs">
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label>Search:</label>
+                            <input type="text" id="search-filter" class="filter-input" placeholder="Search policy documents...">
+                        </div>
+                    </div>
+
+                    <div id="documents-container">
+                        <div class="loading-state">
+                            <div class="spinner"></div>
+                            <p>Loading documents...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Videos Tab Content -->
+                <div class="tab-content" id="tab-policy-videos">
+                    <div class="videos-grid">
+                        <div class="video-card">
+                            <div class="video-wrapper">
+                                <video controls preload="metadata">
+                                    <source src="public/videos/Operational-modalities-for-the-Readiness_Media_LOHFXw9I5Q_001_1080p.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="video-info">
+                                <h3>Operational Modalities for the Readiness (Part 1)</h3>
+                                <p>GCF operational modalities explained</p>
+                            </div>
+                        </div>
+
+                        <div class="video-card">
+                            <div class="video-wrapper">
+                                <video controls preload="metadata">
+                                    <source src="public/videos/Operational-modalities-for-the-Readiness_Media_Q9tB30PybF8_001_1080p.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="video-info">
+                                <h3>Operational Modalities for the Readiness (Part 2)</h3>
+                                <p>GCF operational modalities explained</p>
+                            </div>
+                        </div>
+
+                        <div class="video-card">
+                            <div class="video-wrapper">
+                                <video controls preload="metadata">
+                                    <source src="public/videos/Information-Session-3-on-2024-2027-strat_Media_qsrG1W7W28c_001_1080p.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="video-info">
+                                <h3>Information Session on 2024-2027 Strategy</h3>
+                                <p>GCF strategic planning session</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project Readiness Page (GCF -> Project Readiness) -->
+            <section id="page-project-readiness" class="page">
+                <div class="page-header">
+                    <h1>Project Readiness</h1>
+                    <p class="page-subtitle">GCF Project Readiness Documents</p>
+                </div>
+
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>Search:</label>
+                        <input type="text" id="search-filter" class="filter-input" placeholder="Search project readiness documents...">
+                    </div>
+                </div>
+
+                <div id="documents-container">
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Loading documents...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Templates Page (GCF -> Templates) -->
+            <section id="page-templates" class="page">
+                <div class="page-header">
+                    <h1>Templates</h1>
+                    <p class="page-subtitle">GCF Document Templates</p>
+                </div>
+
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>Search:</label>
+                        <input type="text" id="search-filter" class="filter-input" placeholder="Search templates...">
+                    </div>
+                </div>
+
+                <div id="documents-container">
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Loading documents...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deliverables Page (Readiness Eritrea -> Deliverables) -->
+            <section id="page-deliverables" class="page">
+                <div class="page-header">
+                    <h1>Deliverables</h1>
+                    <p class="page-subtitle">Readiness Eritrea Project Deliverables</p>
+                </div>
+
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>Search:</label>
+                        <input type="text" id="search-filter" class="filter-input" placeholder="Search deliverables...">
+                    </div>
+                </div>
+
+                <div id="documents-container">
+                    <div class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Loading documents...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workshops Page -->
+            <section id="page-workshops" class="page">
+                <div class="page-header">
+                    <h1>Workshops</h1>
+                    <p class="page-subtitle">Capacity Building Workshops and Training</p>
+                </div>
+
+                <div id="workshops-container">
+                    <!-- Workshops grid will be loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Workshop Detail Page -->
+            <section id="page-workshop-detail" class="page">
+                <div id="workshop-detail-container">
+                    <!-- Workshop detail will be loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Document Detail Page -->
+            <section id="page-document-detail" class="page">
+                <div id="document-detail-container">
+                    <!-- Document detail will be loaded dynamically -->
+                </div>
+            </section>
+
+            <!-- Coordination & Partners Page -->
+            <section id="page-partners" class="page">
+                <!-- Hero Section -->
+                <div class="about-hero">
+                    <div class="hero-overlay"></div>
+                    <div class="hero-content-wrapper">
+                        <div class="max-width-container">
+                            <div class="hero-text-content">
+                                <div class="animate-on-scroll">
+                                    <span class="hero-badge">Partnerships</span>
+                                </div>
+                                <h1 class="animate-on-scroll delay-100">Partners & Coordination</h1>
+                                <p class="animate-on-scroll delay-200">Building strategic partnerships for effective climate action</p>
+                                <div class="animate-on-scroll delay-300 hero-divider">
+                                    <div class="divider-line"></div>
+                                    <span class="divider-text">Collaborative Climate Finance</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Scroll Indicator -->
+                        <div class="scroll-indicator">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stakeholder Mapping Section -->
+                <section class="partners-stakeholder-section">
+                    <div class="max-width-container">
+                        <div class="animate-on-scroll text-center mb-12">
+                            <h2>Stakeholder Mapping & Engagement</h2>
+                            <p class="section-description">Identifying and engaging key stakeholders across government, civil society, private sector, and vulnerable groups for inclusive climate action</p>
+                        </div>
+
+                        <div class="stakeholder-grid">
+                            <!-- Government Agencies Card -->
+                            <div class="animate-on-scroll delay-100 info-card glass-card">
+                                <div class="info-card-header">
+                                    <div class="info-icon primary-bg">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                        </svg>
+                                    </div>
+                                    <h3>Government Agencies</h3>
+                                </div>
+                                <p>Line ministries and government institutions responsible for climate-relevant sectors, including agriculture, water, energy, health, and planning.</p>
+                                <ul class="bullet-list">
+                                    <li>
+                                        <div class="bullet-dot secondary"></div>
+                                        <span>Ministry of Land, Water and Environment</span>
+                                    </li>
+                                    <li>
+                                        <div class="bullet-dot secondary"></div>
+                                        <span>Other line ministries</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Civil Society Card -->
+                            <div class="animate-on-scroll delay-200 info-card glass-card">
+                                <div class="info-card-header">
+                                    <div class="info-icon secondary-bg">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                        </svg>
+                                    </div>
+                                    <h3>Civil Society</h3>
+                                </div>
+                                <p>NGOs, community-based organizations, and civil society groups working on climate, environment, and development issues.</p>
+                                <ul class="bullet-list">
+                                    <li>
+                                        <div class="bullet-dot secondary"></div>
+                                        <span>Environmental NGOs</span>
+                                    </li>
+                                    <li>
+                                        <div class="bullet-dot secondary"></div>
+                                        <span>Community organizations</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Collaboration Section -->
+                <section class="partners-collab-section">
+    <div class="max-width-container">
+        <div class="animate-on-scroll text-center mb-16">
+            <span class="section-badge">Collaboration</span>
+            <h2>Our Strategic Partners</h2>
+            <p class="section-description">We collaborate with international organizations and partners to achieve our climate readiness objectives</p>
+        </div>
+
+        <!-- Partners Grid -->
+        <div class="partners-grid">
+            <!-- GCF Partner -->
+            <div class="animate-on-scroll partner-card">
+                <div class="partner-logo-placeholder">
+                    <img src="public/gcf.png" alt="Green Climate Fund" class="partner-logo-img" style="width: 300px; height: 140px; object-fit: contain; display: block;">
+                    <span class="partner-name">Green Climate Fund</span>
+                </div>
+            </div>
+
+            <!-- UNDP Partner -->
+            <div class="animate-on-scroll partner-card">
+                <div class="partner-logo-placeholder">
+                    <img src="public/undp.png" alt="UNDP" class="partner-logo-img" style="width: 300px; height: 140px; object-fit: contain; display: block;">
+                    <span class="partner-name">UNDP</span>
+                </div>
+            </div>
+
+          
+
+            <!-- FAO Partner -->
+            <div class="animate-on-scroll partner-card">
+                <div class="partner-logo-placeholder">
+                    <img src="public/fao.png" alt="FAO" class="partner-logo-img" style="width: 300px; height: 140px; object-fit: contain; display: block;">
+                    <span class="partner-name">FAO</span>
+                </div>
+            </div>
+
+            <!-- UNEP Partner -->
+            <div class="animate-on-scroll partner-card">
+                <div class="partner-logo-placeholder">
+                    <img src="public/unep.png" alt="UNEP" class="partner-logo-img" style="width: 300px; height: 140px; object-fit: contain; display: block;">
+                    <span class="partner-name">UNEP</span>
+                </div>
+            </div>
+
+       
+
+            <!-- AfDB Partner -->
+            <div class="animate-on-scroll partner-card">
+                <div class="partner-logo-placeholder">
+                    <img src="public/adf.png" alt="African Development Bank" class="partner-logo-img" style="width: 300px; height: 140px; object-fit: contain; display: block;">
+                    <span class="partner-name">African Development Bank</span>
+                </div>
+            </div>
+
+            <!-- Other Partner -->
+            <div class="animate-on-scroll partner-card">
+                <div class="partner-logo-placeholder">
+                    <img src="public/osslogo.png" alt="More Partners" class="partner-logo-img" style="width: 300px; height: 140px; object-fit: contain; display: block;">
+                    <span class="partner-name">OSS</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+            </section>
+
+            <!-- GCF Project Page (Climate Finance) -->
+            <section id="page-gcf-project" class="page">
+                <!-- Background Effects -->
+                <div class="gcf-bg-effects">
+                    <div class="floating-orb orb-1"></div>
+                    <div class="floating-orb orb-2"></div>
+                    <div class="floating-orb orb-3"></div>
+                </div>
+
+                <!-- Hero Section -->
+                <div class="gcf-hero">
+                    <div class="gcf-hero-overlay"></div>
+                    <div class="gcf-hero-content">
+                        <span class="gcf-badge animate-on-scroll">Green Climate Fund</span>
+                        <h1 class="animate-on-scroll delay-100">GCF & Climate Finance</h1>
+                        <p class="gcf-hero-subtitle animate-on-scroll delay-200">
+                            Strategic mastery of Green Climate Fund mechanisms and resources for effective climate finance access
+                        </p>
+                        <p class="gcf-hero-subtext animate-on-scroll delay-200">
+                            Centralizing GCF policies, templates, and tools for project development
+                        </p>
+                        <div class="gcf-hero-divider animate-on-scroll delay-300">
+                            <div class="gcf-divider-line"></div>
+                            <span>Climate Finance Framework</span>
+                        </div>
+                        <a href="https://www.greenclimate.fund/" target="_blank" class="gcf-cta-btn animate-on-scroll delay-400">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                            Visit GCF Official Website
+                        </a>
+                    </div>
+                    <div class="gcf-scroll-indicator">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M19 12l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- About GCF Section -->
+                <section class="gcf-section gcf-section-light">
+                    <div class="gcf-container">
+                        <div class="gcf-section-header animate-on-scroll">
+                            <span class="gcf-section-badge">Overview</span>
+                            <h2>About the Green Climate Fund</h2>
+                            <p>The Green Climate Fund (GCF) is the world's largest climate fund, helping developing countries reduce their greenhouse gas emissions and enhance their resilience to climate change.</p>
+                        </div>
+
+                        <div class="gcf-two-column">
+                            <div class="gcf-text-content animate-on-scroll delay-100">
+                                <p>Established by 194 countries under the United Nations Framework Convention on Climate Change (UNFCCC), GCF responds to climate change by investing billions of dollars in climate adaptation and mitigation projects.</p>
+                                <p>GCF places particular emphasis on the needs of societies that are highly vulnerable to the effects of climate change, in particular Least Developed Countries (LDCs), Small Island Developing States (SIDS), and African States.</p>
+                            </div>
+
+                            <div class="gcf-mission-card animate-on-scroll delay-200">
+                                <h3>GCF's Mission</h3>
+                                <ul>
+                                    <li>
+                                        <div class="gcf-check-icon">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </div>
+                                        <span>Support low-emission and climate-resilient development</span>
+                                    </li>
+                                    <li>
+                                        <div class="gcf-check-icon">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </div>
+                                        <span>Mobilize climate finance at significant scale</span>
+                                    </li>
+                                    <li>
+                                        <div class="gcf-check-icon">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </div>
+                                        <span>Promote paradigm shift towards low-carbon development</span>
+                                    </li>
+                                    <li>
+                                        <div class="gcf-check-icon">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </div>
+                                        <span>Facilitate transformational climate action</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Strategic Mastery Section -->
+                <section class="gcf-section gcf-section-dark">
+                    <div class="gcf-bg-orbs">
+                        <div class="gcf-bg-orb orb-yellow"></div>
+                        <div class="gcf-bg-orb orb-green"></div>
+                    </div>
+                    <div class="gcf-container">
+                        <div class="gcf-section-header gcf-section-header-light animate-on-scroll">
+                            <span class="gcf-section-badge gcf-badge-yellow">Core Focus</span>
+                            <h2>Strategic Mastery of GCF Mechanisms</h2>
+                            <p>Understanding and leveraging GCF's funding mechanisms, investment criteria, and project cycle for successful climate finance access</p>
+                        </div>
+
+                        <div class="gcf-cards-grid">
+                            <div class="gcf-info-card animate-on-scroll delay-100">
+                                <div class="gcf-card-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                    </svg>
+                                </div>
+                                <h3>Readiness Support</h3>
+                                <p>Build capacity for GCF project preparation through Readiness and Preparatory Support Programme, enabling countries to transform project ideas into fundable proposals.</p>
+                            </div>
+
+                            <div class="gcf-info-card animate-on-scroll delay-200">
+                                <div class="gcf-card-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012 2h2a2 2 0 012-2M9 5a2 2 0 012 2h2a2 2 0 012 2"></path>
+                                    </svg>
+                                </div>
+                                <h3>Investment Criteria</h3>
+                                <p>Master GCF's six investment criteria: paradigm shift potential, impact potential, country ownership, and sustainable development.</p>
+                            </div>
+
+                            <div class="gcf-info-card animate-on-scroll delay-300">
+                                <div class="gcf-card-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                </div>
+                                <h3>Project Cycle</h3>
+                                <p>Navigate GCF's structured project cycle from concept note development through funding proposal submission, review, and approval.</p>
+                            </div>
+
+                            <div class="gcf-info-card animate-on-scroll delay-400">
+                                <div class="gcf-card-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                    </svg>
+                                </div>
+                                <h3>Funding Modalities</h3>
+                                <p>Access diverse funding modalities including grants, concessional loans, equity, and guarantees to match project needs.</p>
+                            </div>
+
+                            <div class="gcf-info-card animate-on-scroll delay-500">
+                                <div class="gcf-card-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                    </svg>
+                                </div>
+                                <h3>Results Management</h3>
+                                <p>Implement robust monitoring and evaluation frameworks to track results, impacts, and ensure accountability of funded projects.</p>
+                            </div>
+
+                            <div class="gcf-info-card animate-on-scroll delay-600">
+                                <div class="gcf-card-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="9" cy="7" r="4"></circle>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    </svg>
+                                </div>
+                                <h3>Safeguards</h3>
+                                <p>Ensure environmental and social safeguards are integrated throughout project design and implementation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Resources Centralization Section -->
+                <section class="gcf-section gcf-section-light">
+                    <div class="gcf-container">
+                        <div class="gcf-section-header animate-on-scroll">
+                            <span class="gcf-section-badge gcf-badge-gold">Resources</span>
+                            <h2>Centralization of GCF Policies and Resources</h2>
+                            <p>Structured access to GCF tools, policies, and templates aligned with national development priorities</p>
+                        </div>
+
+                        <div class="gcf-resources-grid">
+                            <div class="gcf-resource-card animate-on-scroll delay-100">
+                                <div class="gcf-resource-icon">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012 2h2a2 2 0 012 2m0 0v2h2M9 5a2 2 0 012 2h2a2 2 0 012 2"></path>
+                                    </svg>
+                                </div>
+                                <h3>GCF Templates</h3>
+                                <p>Access standardized GCF templates for concept notes, funding proposals, and project documents. These templates ensure alignment with GCF requirements and streamline proposal development.</p>
+                                <ul>
+                                    <li><span class="gcf-bullet"></span>Concept Note Templates</li>
+                                    <li><span class="gcf-bullet"></span>Funding Proposal Forms</li>
+                                    <li><span class="gcf-bullet"></span>Results Management Frameworks</li>
+                                    <li><span class="gcf-bullet"></span>M&E Reporting Formats</li>
+                                </ul>
+                            </div>
+
+                            <div class="gcf-resource-card animate-on-scroll delay-200">
+                                <div class="gcf-resource-icon">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path>
+                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                                        <polyline points="10 9 9 9 8 9"></polyline>
+                                    </svg>
+                                </div>
+                                <h3>Policy Documents</h3>
+                                <p>Comprehensive access to GCF policies, guidelines, and frameworks that govern project funding and implementation.</p>
+                                <ul>
+                                    <li><span class="gcf-bullet"></span>Environmental and Social Safeguards</li>
+                                    <li><span class="gcf-bullet"></span>Gender Policy and Action Plan</li>
+                                    <li><span class="gcf-bullet"></span>Indigenous Peoples Policy</li>
+                                    <li><span class="gcf-bullet"></span>Grievance Redress Mechanism</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 class="gcf-subsection-title animate-on-scroll">Key Resource Categories</h3>
+
+                        <div class="gcf-category-grid">
+                            <div class="gcf-category-card animate-on-scroll delay-100">
+                                <div class="gcf-category-emoji">📋</div>
+                                <h4>National Policies</h4>
+                                <p>Eritrea's climate and development policies ensuring alignment with GCF requirements</p>
+                            </div>
+
+                            <div class="gcf-category-card animate-on-scroll delay-200">
+                                <div class="gcf-category-emoji">📖</div>
+                                <h4>GCF Guidelines</h4>
+                                <p>Official guidance documents for project development and implementation</p>
+                            </div>
+
+                            <div class="gcf-category-card animate-on-scroll delay-300">
+                                <div class="gcf-category-emoji">📚</div>
+                                <h4>Learning Modules</h4>
+                                <p>Capacity-building resources for stakeholders and project developers</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </section>
+
+            <!-- Sustainable Development Page -->
+            <section id="page-sustainable-development" class="page">
+                <!-- Background Effects -->
+                <div class="gcf-bg-effects">
+                    <div class="floating-orb orb-1"></div>
+                    <div class="floating-orb orb-2"></div>
+                    <div class="floating-orb orb-3"></div>
+                </div>
+
+                <!-- Hero Section -->
+                <div class="gcf-hero">
+                    <div class="gcf-hero-overlay"></div>
+                    <div class="gcf-hero-content">
+                        <span class="gcf-badge animate-on-scroll">Sustainable Development</span>
+                        <h1 class="animate-on-scroll delay-100">Building a Resilient Future</h1>
+                        <p class="gcf-hero-subtitle animate-on-scroll delay-200">
+                            Integrating climate action with sustainable development goals for a prosperous Eritrea
+                        </p>
+                        <p class="gcf-hero-subtext animate-on-scroll delay-200">
+                            Aligning national priorities with global frameworks to achieve lasting positive change
+                        </p>
+                        <div class="gcf-hero-divider animate-on-scroll delay-300">
+                            <div class="gcf-divider-line"></div>
+                            <span>Sustainable Development Pathway</span>
+                        </div>
+                    </div>
+                    <div class="gcf-scroll-indicator">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M19 12l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- About Sustainable Development Section -->
+                <section class="gcf-section gcf-section-light">
+                    <div class="gcf-container">
+                        <div class="gcf-section-header animate-on-scroll">
+                            <span class="gcf-section-badge">Overview</span>
+                            <h2>Sustainable Development in Eritrea</h2>
+                            <p>Eritrea is committed to achieving sustainable development while addressing the challenges of climate change, balancing economic growth with environmental protection and social equity.</p>
+                        </div>
+
+                        <div class="gcf-two-column">
+                            <div class="gcf-text-content animate-on-scroll delay-100">
+                                <p>Sustainable development in Eritrea is rooted in the principle of meeting present needs without compromising the ability of future generations to meet their own needs. This approach integrates economic prosperity, environmental stewardship, and social well-being.</p>
+                                <p>The National Designated Authority plays a crucial role in aligning climate finance with sustainable development objectives, ensuring that every climate project contributes to broader national development goals.</p>
+                            </div>
+
+                            <div class="gcf-mission-card animate-on-scroll delay-200">
+                                <h3>Core Principles</h3>
+                                <ul>
+                                    <li>
+                                        <div class="gcf-check-icon">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </div>
+                                        <span>Integrate climate action with development planning</span>
+                                    </li>
+                                    <li>
+                                        <div class="gcf-check-icon">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </div>
+                                        <span>Promote inclusive and equitable growth</span>
+                                    </li>
+                                    <li>
+                                        <div class="gcf-check-icon">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </div>
+                                        <span>Protect natural resources and ecosystems</span>
+                                    </li>
+                                    <li>
+                                        <div class="gcf-check-icon">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </div>
+                                        <span>Build resilience in vulnerable communities</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Priority Areas Section -->
+                <section class="gcf-section gcf-section-dark">
+                    <div class="gcf-bg-orbs">
+                        <div class="gcf-bg-orb orb-yellow"></div>
+                        <div class="gcf-bg-orb orb-green"></div>
+                    </div>
+                    <div class="gcf-container">
+                        <div class="gcf-section-header gcf-section-header-light animate-on-scroll">
+                            <span class="gcf-section-badge gcf-badge-yellow">Priority Areas</span>
+                            <h2>Key Sectors for Sustainable Development</h2>
+                            <p>Focusing on critical sectors that drive sustainable growth and climate resilience across Eritrea</p>
+                        </div>
+
+                        <div class="gcf-cards-grid">
+                            <div class="gcf-info-card animate-on-scroll delay-100">
+                                <div class="gcf-card-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                                    </svg>
+                                </div>
+                                <h3>Agriculture & Food Security</h3>
+                                <p>Transforming agricultural practices to ensure food security while adapting to climate variability. Promoting climate-smart agriculture and sustainable land management.</p>
+                            </div>
+
+                            <div class="gcf-info-card animate-on-scroll delay-200">
+                                <div class="gcf-card-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                                    </svg>
+                                </div>
+                                <h3>Water Resources</h3>
+                                <p>Sustainable water management including conservation, efficient irrigation, and watershed protection. Building resilience against drought and water scarcity.</p>
+                            </div>
+
+                            <div class="gcf-info-card animate-on-scroll delay-300">
+                                <div class="gcf-card-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                </div>
+                                <h3>Renewable Energy</h3>
+                                <p>Expanding access to clean energy through solar, wind, and other renewable sources. Reducing carbon emissions while powering development.</p>
+                            </div>
+
+                            <div class="gcf-info-card animate-on-scroll delay-400">
+                                <div class="gcf-card-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                                    </svg>
+                                </div>
+                                <h3>Public Health</h3>
+                                <p>Strengthening health systems to address climate-related health risks. Building adaptive capacity for disease prevention and health service delivery.</p>
+                            </div>
+
+                            <div class="gcf-info-card animate-on-scroll delay-500">
+                                <div class="gcf-card-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                    </svg>
+                                </div>
+                                <h3>Climate-Resilient Infrastructure</h3>
+                                <p>Building infrastructure that can withstand climate impacts. Designing roads, buildings, and utilities for long-term sustainability.</p>
+                            </div>
+
+                            <div class="gcf-info-card animate-on-scroll delay-600">
+                                <div class="gcf-card-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                    </svg>
+                                </div>
+                                <h3>Ecosystem Conservation</h3>
+                                <p>Protecting and restoring natural ecosystems. Preserving biodiversity and enhancing ecosystem services for climate adaptation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Alignment with Global Frameworks Section -->
+                <section class="gcf-section gcf-section-light">
+                    <div class="gcf-container">
+                        <div class="gcf-section-header animate-on-scroll">
+                            <span class="gcf-section-badge gcf-badge-gold">Global Alignment</span>
+                            <h2>Alignment with Global Frameworks</h2>
+                            <p>Eritrea's sustainable development agenda is aligned with international frameworks and commitments</p>
+                        </div>
+
+                        <div class="gcf-resources-grid">
+                            <div class="gcf-resource-card animate-on-scroll delay-100">
+                                <div class="gcf-resource-icon">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                                        <path d="M12 2a15.3 15.3 0 0 0 4 10 15.3 15.3 0 0 0-4 10 15.3 15.3 0 0 0-4-10 15.3 15.3 0 0 0 4-10z"></path>
+                                    </svg>
+                                </div>
+                                <h3>Sustainable Development Goals (SDGs)</h3>
+                                <p>Eritrea's development priorities are mapped to the UN Sustainable Development Goals, ensuring contributions to global targets while addressing local needs.</p>
+                                <ul>
+                                    <li><span class="gcf-bullet"></span>SDG 13: Climate Action</li>
+                                    <li><span class="gcf-bullet"></span>SDG 2: Zero Hunger</li>
+                                    <li><span class="gcf-bullet"></span>SDG 6: Clean Water</li>
+                                    <li><span class="gcf-bullet"></span>SDG 7: Affordable Energy</li>
+                                </ul>
+                            </div>
+
+                            <div class="gcf-resource-card animate-on-scroll delay-200">
+                                <div class="gcf-resource-icon">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    </svg>
+                                </div>
+                                <h3>Nationally Determined Contributions</h3>
+                                <p>Eritrea's NDC under the Paris Agreement outlines national commitments to reduce emissions and adapt to climate change impacts.</p>
+                                <ul>
+                                    <li><span class="gcf-bullet"></span>Emission reduction targets</li>
+                                    <li><span class="gcf-bullet"></span>Adaptation priorities</li>
+                                    <li><span class="gcf-bullet"></span>Implementation roadmap</li>
+                                    <li><span class="gcf-bullet"></span>Support requirements</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 class="gcf-subsection-title animate-on-scroll">National Planning Instruments</h3>
+
+                        <div class="gcf-category-grid">
+                            <div class="gcf-category-card animate-on-scroll delay-100">
+                                <div class="gcf-category-emoji">📋</div>
+                                <h4>National Adaptation Plan</h4>
+                                <p>Comprehensive strategy for adapting to climate change impacts across all sectors</p>
+                            </div>
+
+                            <div class="gcf-category-card animate-on-scroll delay-200">
+                                <div class="gcf-category-emoji">🎯</div>
+                                <h4>National Development Plan</h4>
+                                <p>Strategic framework guiding Eritrea's long-term development trajectory</p>
+                            </div>
+
+                            <div class="gcf-category-card animate-on-scroll delay-300">
+                                <div class="gcf-category-emoji">🌱</div>
+                                <h4>Climate Change Policy</h4>
+                                <p>Policy framework for climate action and sustainable resource management</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pathways Section -->
+                <section class="gcf-section sd-pathways-section">
+                    <div class="gcf-container">
+                        <div class="gcf-section-header gcf-section-header-light animate-on-scroll">
+                            <span class="gcf-section-badge gcf-badge-yellow">Our Approach</span>
+                            <h2>Pathways to Sustainability</h2>
+                            <p>The Readiness Programme supports Eritrea's journey toward sustainable development through strategic interventions</p>
+                        </div>
+
+                        <div class="sd-pathways-grid">
+                            <div class="sd-pathway-card animate-on-scroll delay-100">
+                                <div class="sd-pathway-number">01</div>
+                                <h3>Capacity Building</h3>
+                                <p>Strengthening institutional and human capacity to plan, implement, and monitor sustainable development initiatives.</p>
+                            </div>
+
+                            <div class="sd-pathway-card animate-on-scroll delay-200">
+                                <div class="sd-pathway-number">02</div>
+                                <h3>Stakeholder Engagement</h3>
+                                <p>Engaging government, civil society, private sector, and communities in sustainable development planning and implementation.</p>
+                            </div>
+
+                            <div class="sd-pathway-card animate-on-scroll delay-300">
+                                <div class="sd-pathway-number">03</div>
+                                <h3>Knowledge Management</h3>
+                                <p>Documenting lessons learned, sharing best practices, and building a knowledge base for informed decision-making.</p>
+                            </div>
+
+                            <div class="sd-pathway-card animate-on-scroll delay-400">
+                                <div class="sd-pathway-number">04</div>
+                                <h3>Finance Mobilization</h3>
+                                <p>Facilitating access to climate finance and investment for sustainable development projects and programs.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- Stat Info Modal -->
+            <div id="stat-modal" class="stat-modal">
+                <div class="stat-modal-content">
+                    <button class="stat-modal-close" onclick="closeStatModal()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                    <div class="stat-modal-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                    </div>
+                    <h3 id="stat-modal-title">Information</h3>
+                    <p id="stat-modal-text">Details will be displayed here.</p>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <div class="footer-logo">ER</div>
+                        <div class="footer-text">Readiness Eritrea</div>
+                    </div>
+                    <div class="footer-copy">
+                        © 2025 National Designated Authority - Eritrea
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Global Sync Modal -->
+    <div id="sync-modal" class="sync-modal">
+        <div class="sync-modal-content">
+            <div class="sync-modal-icon" id="sync-modal-icon">
+                <!-- Syncing Spinner (default) -->
+<svg class="sync-spinner syncing-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+  <path d="M21 3v5h-5"></path>
+</svg>
+                <!-- Success Icon (shown when complete) -->
+                <svg class="success-icon" style="display: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <!-- Error Icon (shown when failed) -->
+                <svg class="error-icon" style="display: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+            </div>
+            <h3 id="sync-modal-title">Syncing...</h3>
+            <p id="sync-modal-message">Please wait while we sync with the server.</p>
+            <div id="sync-modal-stats" class="sync-modal-stats" style="display: none;">
+                <span id="sync-modal-downloaded">0</span> downloaded,
+                <span id="sync-modal-removed">0</span> removed
+            </div>
+            <button id="sync-modal-close" class="btn btn-primary" style="display: none;" onclick="closeSyncModal()">Close</button>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
