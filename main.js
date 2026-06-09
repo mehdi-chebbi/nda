@@ -25,7 +25,7 @@ console.log('PUBLIC_DIR:', PUBLIC_DIR);
 console.log('process.resourcesPath:', process.resourcesPath);
 
 // ✅ UPDATED: Server configuration for new server
-const SERVER_BASE_URL = 'http://192.168.2.120';
+const SERVER_BASE_URL = 'https://readiness-ery.oss-online.org';
 const MANIFEST_URL = `${SERVER_BASE_URL}/docs/manifest.json`;
 const REQUEST_TIMEOUT = 30000; // 30 seconds
 

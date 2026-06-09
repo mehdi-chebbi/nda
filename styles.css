@@ -2423,7 +2423,7 @@ p {
 }
 
 .card:nth-child(1) .circle {
-    background: url("https://c1.wallpaperflare.com/preview/555/211/617/panel-solar-power-energy.jpg")
+    background: url("public/solar-energy.jpg")
         no-repeat 50% 50% / cover;
     bottom: 0;
     right: 0;
@@ -2431,7 +2431,7 @@ p {
 }
 
 .card:nth-child(2) .circle {
-    background: url("https://c1.wallpaperflare.com/preview/625/297/117/faculty-workshop-professional-training-academic.jpg")
+    background: url("public/workshop-training.jpg")
         no-repeat 50% 50% / cover;
     bottom: 0;
     left: 0;
@@ -2439,7 +2439,7 @@ p {
 }
 
 .card:nth-child(3) .circle {
-    background: url("https://c1.wallpaperflare.com/preview/287/387/676/cereals-field-field-crops-agriculture.jpg")
+    background: url("public/agriculture-crops.jpg")
         no-repeat 50% 50% / cover;
     top: 0;
     right: 0;
@@ -2447,7 +2447,7 @@ p {
 }
 
 .card:nth-child(4) .circle {
-    background: url("https://c0.wallpaperflare.com/preview/72/63/637/coast-wind-turbine-sea-sky.jpg")
+    background: url("public/coast-wind-turbine.jpg")
         no-repeat 50% 50% / cover;
     top: 0;
     left: 0;
