@@ -1,0 +1,580 @@
+{
+  "policy": [
+    {
+      "id": "pol-1773733573752-0565",
+      "title": "Policy on fees",
+      "description": "This policy document defines the GCF’s approach to fees charged for projects and accredited entities. It explains fee structures, cost recovery principles, and eligibility criteria. The policy promotes fairness and financial sustainability across GCF operations.",
+      "file": "policy/policy-on-fees.pdf",
+      "size": "394.5 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-30T12:29:56.010Z",
+      "thumbnail": "pol-1773733573752-0565.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "pol-1773733573749-1044",
+      "title": "Monitoring and accountability framework for accredited entities",
+      "description": "This document establishes the monitoring and accountability framework for accredited entities. It defines reporting requirements, performance monitoring procedures, and compliance mechanisms. The framework supports transparency and effective oversight of GCF-funded activities.",
+      "file": "policy/monitoring-and-accountability-framework-for-accredited-entities.pdf",
+      "size": "471.2 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T07:46:13.750Z",
+      "thumbnail": "pol-1773733573749-1044.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "pol-1773733573747-defb",
+      "title": "Legal and formal arrangements with accredited entities",
+      "description": "This document describes the legal and formal arrangements between the GCF and accredited entities. It outlines contractual obligations, responsibilities, and governance requirements. The guidance ensures clarity and consistency in institutional relationships.",
+      "file": "policy/legal-and-formal-arrangements-with-accredited-entities.pdf",
+      "size": "422.7 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T07:46:13.748Z",
+      "thumbnail": "pol-1773733573747-defb.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "pol-1773733572787-4148",
+      "title": "Initial guiding framework for the funds",
+      "description": "This document presents the initial guiding framework for the Fund’s strategic direction. It outlines core principles, objectives, and operational priorities. The framework informs decision-making and long-term planning of GCF activities.",
+      "file": "policy/initial-guiding-framework-for-the-funds.pdf",
+      "size": "744.6 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T07:46:13.745Z",
+      "thumbnail": "pol-1773733572787-4148.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "pol-1773733572785-ebc1",
+      "title": "Initial fiduciary principles and standards of the fund",
+      "description": "This document sets out the initial fiduciary principles and standards of the GCF. It covers financial management, transparency, procurement, and accountability. These standards form the baseline for accreditation and project oversight.",
+      "file": "policy/initial-fiduciary-principles-and-standards-of-the-fund.pdf",
+      "size": "479.0 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T07:46:12.786Z",
+      "thumbnail": "pol-1773733572785-ebc1.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "pol-1773733572782-8042",
+      "title": "Guidelines for the operationalization of the fit for purpose accreditation approach",
+      "description": "This document explains how the GCF’s fit-for-purpose accreditation approach is applied in practice. It links accreditation requirements to the scale, risk, and complexity of projects. The guidelines help tailor accreditation to institutional capacity.",
+      "file": "policy/guidelines-for-the-operationalization-of-the-fit-for-purpose-accreditation-approach.pdf",
+      "size": "535.6 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T07:46:12.784Z",
+      "thumbnail": "pol-1773733572782-8042.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "pol-1773733572779-7eaf",
+      "title": "General principles and indicative list of eligible costs covered under gcf fees and project management costs",
+      "description": "This document explains the principles governing GCF fees and project management costs. It provides an indicative list of eligible and non-eligible expenses. The guidance supports transparent budgeting and financial planning for GCF projects.",
+      "file": "policy/general-principles-and-indicative-list-of-eligible-costs-covered-under-gcf-fees-and-project-management-costs.pdf",
+      "size": "416.4 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T07:46:12.781Z",
+      "thumbnail": "pol-1773733572779-7eaf.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "pol-1773733572683-f288",
+      "title": "Contents of the application documents for submissions of applications for accreditation",
+      "description": "This document details the required contents of accreditation application submissions. It outlines the documentation, templates, and information to be provided by applicants. The guidance helps ensure that accreditation applications are complete and compliant.",
+      "file": "policy/contents-of-the-application-documents-for-submissions-of-applications-for-accreditation.pdf",
+      "size": "495.8 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T07:46:12.777Z",
+      "thumbnail": "pol-1773733572683-f288.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "pol-1773733572680-5cd3",
+      "title": "Additional policy guidance for the purpose of accreditation master agreements",
+      "description": "This document provides additional policy guidance related to accreditation master agreements. It clarifies legal and operational expectations between GCF and accredited entities. The guidance supports consistent and transparent accreditation arrangements.",
+      "file": "policy/additional-policy-guidance-for-the-purpose-of-accreditation-master-agreements.pdf",
+      "size": "382.5 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T07:46:12.681Z",
+      "thumbnail": "pol-1773733572680-5cd3.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "pol-1773733572665-7bc8",
+      "title": "Accreditation framework",
+      "description": "This document outlines the Green Climate Fund’s accreditation framework and requirements. It explains eligibility criteria, assessment processes, and decision-making steps. The framework guides institutions seeking accreditation to access GCF funding.",
+      "file": "policy/accreditation-framework.pdf",
+      "size": "6.4 MB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T07:46:12.671Z",
+      "thumbnail": "pol-1773733572665-7bc8.png",
+      "syncStatus": "success"
+    }
+  ],
+  "project-readiness": [
+    {
+      "id": "prd-1774879649814-0cc1",
+      "title": "Financial management capacity assessment template (FMCA)",
+      "description": "The GCF welcomes applications from a wide array of organizations, particularly those based in developing countries, to become readiness designated agencies. Potential agencies (this may be the country’s National Designated Authority (NDA) or another government designated entity eligible to receive direct readiness funding from the GCF) that are not GCF Accredited Entities must complete the Financial Management Capacity Assessment (FMCA) questionnaire and submit it to the GCF Secretariat along with the required supporting documentation.",
+      "file": "project-readiness/financial-management-capacity-assessment-template-fmca.pdf",
+      "size": "568.9 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-30T14:07:29.896Z",
+      "thumbnail": "prd-1774879649814-0cc1.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "prd-1773736931533-3345",
+      "title": "TOR for GCF Liaison Officer",
+      "description": "A standardised Terms of Reference (TOR) template for the GCF Liaison Officer under the GCF Placement Scheme. The GCF Liaison Officer under the Placement Scheme serves as the primary point of contact between the GCF Secretariat and the country, providing crucial support to the NDA or relevant agency on all GCF-related activities. This standardised ToR can be customised to suit the specific context and needs of the country in consultation with the GCF.",
+      "file": "project-readiness/tor-for-gcf-liaison-officer.pdf",
+      "size": "59.7 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T08:42:11.688Z",
+      "thumbnail": "prd-1773736931533-3345.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "prd-1773736931529-2fd8",
+      "title": "Readiness Strategy 2024-2027",
+      "description": "The Board adopted at B.37 the Readiness Strategy 2024-2027, which presents the revised strategy for the Readiness Programme that continues to serve as a critical instrument in fulfilling the GCF’s strategic vision and ambition.",
+      "file": "project-readiness/readiness-strategy-2024-2027.pdf",
+      "size": "677.4 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T08:42:11.531Z",
+      "thumbnail": "prd-1773736931529-2fd8.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "prd-1773736931526-c847",
+      "title": "Country and DAE output logframe",
+      "description": "The Logframe for Direct Access and Mini Tender Proposals is an output-level logical framework template, that should be completed in alignment with the Revised RRMF and submitted by the NDAs/FPs, an agency designated for direct access, or an FWA holder (Direct Access-Country Window), the DAEs (Direct Access-DAE Window), and selected DPs from the GCF’s pre-qualified pool (Mini Tender) along with their proposals. The Logframe for Direct Access and Mini Tender Proposals (Output-Level) should align with the Results Framework (Outcome-Level) attached to the Country TOR and DAE TOR. ",
+      "file": "project-readiness/country-and-dae-output-logframe.pdf",
+      "size": "166.0 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T08:42:11.527Z",
+      "thumbnail": "prd-1773736931526-c847.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "prd-1773736931523-c199",
+      "title": "List of FWA holders",
+      "description": "A list of existing entities with Framework Readiness and Preparatory Support Grant Agreements with the GCF Secretariat.",
+      "file": "project-readiness/list-of-fwa-holders.pdf",
+      "size": "151.3 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T08:42:11.524Z",
+      "thumbnail": "prd-1773736931523-c199.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "prd-1773736931477-4d37",
+      "title": "Letter of Request for Change of Approved Readiness and Preparatory Support Programme Proposal",
+      "description": "Approved Readiness and Preparatory Support Programme (RPSP) proposals may encounter obstacles and delays during the implementation due to varying circumstances on the ground. These may include challenges that could affect the delivery of the targeted objectives, making it imperative to revise and amend the original plans.",
+      "file": "project-readiness/letter-of-request-for-change-of-approved-readiness-and-preparatory-support-programme-proposal.pdf",
+      "size": "54.9 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T08:42:11.521Z",
+      "thumbnail": "prd-1773736931477-4d37.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "prd-1773736931474-c052",
+      "title": "Letter of financial support for multi-country proposals",
+      "description": "This letter is to be completed and submitted by countries participating in a multi-country Readiness proposal submitted by a lead country.",
+      "file": "project-readiness/letter-of-financial-support-for-multi-country-proposals.pdf",
+      "size": "30.8 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T08:42:11.475Z",
+      "thumbnail": "prd-1773736931474-c052.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "prd-1773736931470-1b99",
+      "title": "GCF in Brief: Readiness",
+      "description": "This factsheet is an overview of the GCF Readiness Programme, which provides resources for strengthening the institutional capacities of National Designated Authorities/focal points (“NDAs”) and direct access entities to effectively engage with the Fund.",
+      "file": "project-readiness/gcf-in-brief-readiness.pdf",
+      "size": "251.7 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T08:42:11.472Z",
+      "thumbnail": "prd-1773736931470-1b99.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "prd-1773736931465-f08d",
+      "title": " Revised Readiness Results Management Framework (Revised RRMF)",
+      "description": "The Green Climate Fund (GCF) is pleased to present the Revised Readiness Results Management Framework (“Revised RRMF”) of the Readiness and Preparatory Support Programme (“RPSP”). The previous RRMF has been revised to align with the Readiness Strategy 2024–2027 and its three streamlined objectives and eight outcomes and Operational Modalities for the Readiness Strategy 2024–2027, streamlined to optimize the Readiness resources that are channeled to support programming efforts in line with the targeted results of the Updated Strategic Plan (USP-2) for GCF 2024–2027 and the Core Indicators of the GCF Integrated Results Management Framework (IRMF).",
+      "file": "project-readiness/revised-readiness-results-management-framework-revised-rrmf.pdf",
+      "size": "716.1 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T08:42:11.468Z",
+      "thumbnail": "prd-1773736931465-f08d.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "prd-1773736931437-5ec3",
+      "title": "Guidance on standardized deliverables",
+      "description": "This document presents guidance on the 14 standardized deliverables under the Revised Readiness Results Management Framework (Revised RRMF). The standardization of the deliverables aims to ensure consistency and uniformity in reporting, enabling effective tracking of progress, information sharing, and updates on activities or projects.",
+      "file": "project-readiness/guidance-on-standardized-deliverables.pdf",
+      "size": "192.5 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T08:42:11.463Z",
+      "thumbnail": "prd-1773736931437-5ec3.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "prd-1773736931434-fb65",
+      "title": "Country outcome logframe",
+      "description": "The Country Outcome Logframe should be completed by countries before submitting their Readiness proposal. It outlines the requested areas of support by identifying readiness needs and capacity gaps in relation to the objectives and outcomes of the Readiness Strategy 2024-2027 and in alignment with the Revised Readiness Results Management Framework.",
+      "file": "project-readiness/country-outcome-logframe.pdf",
+      "size": "84.7 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T08:42:11.435Z",
+      "thumbnail": "prd-1773736931434-fb65.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "prd-1773736931429-851c",
+      "title": "Guide for countries on strategic planning of Readiness support",
+      "description": "This optional guide serves to assist the countries in planning and requesting support in alignment with the 2024-2027 strategy for the GCF’s Readiness and Preparatory Support Programme.",
+      "file": "project-readiness/guide-for-countries-on-strategic-planning-of-readiness-support.pdf",
+      "size": "309.7 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T08:42:11.431Z",
+      "thumbnail": "prd-1773736931429-851c.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "prd-1773736931425-39cb",
+      "title": "Guide for Direct Access Entities to access Readiness support",
+      "description": "This guide is designed to provide details on accessing support from the GCF through its Readiness and Preparatory Support Programme (the Readiness Programme), in line with the newly adopted 2024-2027 readiness strategy, using the Direct Access Entities support financing modality.",
+      "file": "project-readiness/guide-for-direct-access-entities-to-access-readiness-support.pdf",
+      "size": "342.3 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T08:42:11.427Z",
+      "thumbnail": "prd-1773736931425-39cb.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "prd-1773736931416-0d4b",
+      "title": "Guide for countries to access Readiness support",
+      "description": "This guide serves to provide details on accessing support from the GCF through its Readiness and Preparatory Support Programme, in line with the newly adopted 2024-2027 readiness strategy, using the country support financing modality",
+      "file": "project-readiness/guide-for-countries-to-access-readiness-support.pdf",
+      "size": "357.5 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T08:42:11.418Z",
+      "thumbnail": "prd-1773736931416-0d4b.png",
+      "syncStatus": "success"
+    }
+  ],
+  "templates": [
+    {
+      "id": "tpl-1776326070838-71a0",
+      "title": "Financial management capacity assessment template (FMCA)",
+      "description": "The GCF welcomes applications from a wide array of organizations, particularly those based in developing countries, to become readiness designated agencies. Potential agencies (this may be the country’s National Designated Authority (NDA) or another government designated entity eligible to receive direct readiness funding from the GCF) that are not GCF Accredited Entities must complete the Financial Management Capacity Assessment (FMCA) questionnaire and submit it to the GCF Secretariat along with the required supporting documentation.",
+      "file": "templates/financial-management-capacity-assessment-template-fmca.pdf",
+      "size": "142.0 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-04-16T07:54:30.839Z",
+      "thumbnail": "tpl-1776326070838-71a0.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "tpl-1776326070831-e5c5",
+      "title": "Direct access financial proposal template",
+      "description": "The Readiness Financial Proposal Template for Direct Access is intended to be completed and submitted by DAEs or countries along with the Direct Access Proposal, if they choose to pursue the Direct Access delivery modality. It provides critical information on budget requirements, cost categories, and the implementation and payment schedules for the Readiness support requested and ensures that proposals are comprehensive and aligned with the strategic priorities outlined in the 2024-2027 RPSP strategy.",
+      "file": "templates/direct-access-financial-proposal-template.pdf",
+      "size": "182.1 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-04-16T07:54:30.832Z",
+      "thumbnail": "tpl-1776326070831-e5c5.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "tpl-1773738027487-1cf7",
+      "title": "TOR for GCF Liaison Officer",
+      "description": "A standardised Terms of Reference (TOR) template for the GCF Liaison Officer under the GCF Placement Scheme. The GCF Liaison Officer under the Placement Scheme serves as the primary point of contact between the GCF Secretariat and the country, providing crucial support to the NDA or relevant agency on all GCF-related activities. This standardised ToR can be customised to suit the specific context and needs of the country in consultation with the GCF.",
+      "file": "templates/tor-for-gcf-liaison-officer.pdf",
+      "size": "59.7 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T09:00:27.488Z",
+      "thumbnail": "tpl-1773738027487-1cf7.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "tpl-1773738027483-92d5",
+      "title": "Direct access proposal template – DAE support window",
+      "description": "This proposal template is designed for direct access by Direct Access Entities (DAEs) for the DAE Support Window. To assist with completing this proposal template, the GCF provides the Guide for Direct Access Entities to Access Readiness Support.",
+      "file": "templates/direct-access-proposal-template-dae-support-window.pdf",
+      "size": "547.4 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T09:00:27.485Z",
+      "thumbnail": "tpl-1773738027483-92d5.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "tpl-1773738027405-cc81",
+      "title": "Confirmation of government designated agency letter template",
+      "description": "The Confirmation of Government Designated Agency Letter Template is used to formally confirm that a designated agency is eligible to act as the legal party to an agreement with the GCF and to receive funding directly. This template is designed for Countries if they choose to pursue the Direct Access delivery modality under their Country Support Window.",
+      "file": "templates/confirmation-of-government-designated-agency-letter-template.pdf",
+      "size": "21.2 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T09:00:27.481Z",
+      "thumbnail": "tpl-1773738027405-cc81.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "tpl-1773738027401-c92e",
+      "title": "Readiness and preparatory support completion report template",
+      "description": "Towards the end of the readiness grant implementation period, the grant recipient will prepare the completion report using this template, which should then be submitted to the GCF Secretariat along with a final audit report.",
+      "file": "templates/readiness-and-preparatory-support-completion-report-template.pdf",
+      "size": "753.4 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T09:00:27.403Z",
+      "thumbnail": "tpl-1773738027401-c92e.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "tpl-1773738027399-1373",
+      "title": "Readiness audit terms of reference template",
+      "description": "The audit terms of reference template serves as a guide in communicating the Green Climate Fund’s auditing and financial reporting requirements for the Readiness Programme to grant auditors",
+      "file": "templates/readiness-audit-terms-of-reference-template.pdf",
+      "size": "102.9 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T09:00:27.400Z",
+      "thumbnail": "tpl-1773738027399-1373.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "tpl-1773738027397-175f",
+      "title": "Readiness audit report template",
+      "description": "This template aims to provide an illustrative set of audited grant financial statements prepared in accordance with the International Public Sector Accounting Standards under the Cash Basis. The template serves as a guide to Delivery Partners, National Designated Authorities, consultants, and external auditors in preparing audit reports for all Readiness grants financed by the Green Climate Fund",
+      "file": "templates/readiness-audit-report-template.pdf",
+      "size": "341.2 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T09:00:27.398Z",
+      "thumbnail": "tpl-1773738027397-175f.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "tpl-1773738027394-d4dd",
+      "title": "Mini tender proposal template",
+      "description": "The mini-tender proposal template is used for competitive bidding among delivery partners pre-qualified and contracted through long-term agreements to deliver support under the 2024-2027 strategy for the GCF’s Readiness and Preparatory Support Programme. It aims to solicit the best offers to address either the Country Readiness Terms of Reference or the DAE Readiness Terms of Reference.",
+      "file": "templates/mini-tender-proposal-template.pdf",
+      "size": "324.3 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T09:00:27.396Z",
+      "thumbnail": "tpl-1773738027394-d4dd.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "tpl-1773738027391-4be4",
+      "title": "DAE Readiness TOR template",
+      "description": "The Terms of Reference (TOR) template serves to help defining the scope of support required by Direct Access Entities (DAE) through the Readiness and Preparatory Support Programme. This DAE TOR serves as a 'blueprint' or 'roadmap' for addressing its readiness needs through one or two strategically planned programmes over the medium term, in alignment with the 2024-2027 readiness strategy. If two programmes are chosen, a separate TOR must be developed for each. The TOR will be used to solicit competitive offers from pre-qualified delivery partners.",
+      "file": "templates/dae-readiness-tor-template.pdf",
+      "size": "138.2 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T09:00:27.392Z",
+      "thumbnail": "tpl-1773738027391-4be4.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "tpl-1773738027388-f873",
+      "title": "Country Readiness TOR template",
+      "description": "The Terms of Reference (TOR) template serves to help defining the scope of support required by the Country through the Readiness and Preparatory Support Programme. This Country Readiness TOR template is used to develop a 'blueprint' or 'roadmap' for addressing its readiness needs through one or two strategically planned programmes over the medium term, in alignment with the 2024-2027 readiness strategy. If two programmes are chosen, a separate TOR must be developed for each. A hybrid approach could be employed, wherein one programme is implemented through direct (national) access, while the second is delivered via a pre-qualified delivery partner. Each TOR will be used to solicit competitive offers from pre-qualified delivery partners or to be used by the countries in the development of Direct Access Proposals if they opt for direct access.",
+      "file": "templates/country-readiness-tor-template.pdf",
+      "size": "179.6 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T09:00:27.389Z",
+      "thumbnail": "tpl-1773738027388-f873.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "tpl-1773738027383-bd78",
+      "title": " Guide for Direct Access Entities to access Readiness support",
+      "description": "This guide is designed to provide details on accessing support from the GCF through its Readiness and Preparatory Support Programme (the Readiness Programme), in line with the newly adopted 2024-2027 readiness strategy, using the Direct Access Entities support financing modality.",
+      "file": "templates/guide-for-direct-access-entities-to-access-readiness-support.pdf",
+      "size": "157.9 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T09:00:27.386Z",
+      "thumbnail": "tpl-1773738027383-bd78.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "tpl-1773738027375-8afd",
+      "title": "Direct access proposal template - Country support window",
+      "description": "This proposal template is designed for direct access by Countries, through their National Designated Authorities (NDAs)/focal points for the Country Support Window. To assist with completing this proposal template, the GCF provides the Guide for Countries to Access Readiness Support. If applicable, Financial Management Capacity Assessment (FMCA) must be successfully completed prior to this readiness proposal. In case of the DAE accessing readiness support under the DAE window directly, there is no need to complete the FMCA questionnaire, as accreditation already verifies the entity’s financial capacity. ",
+      "file": "templates/direct-access-proposal-template-country-support-window.pdf",
+      "size": "174.8 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T09:00:27.376Z",
+      "thumbnail": "tpl-1773738027375-8afd.png",
+      "syncStatus": "success"
+    }
+  ],
+  "deliverable": [
+    {
+      "id": "del-1774877059504-158a",
+      "title": "NDA needs assessment report final 1 oct 2025",
+      "description": "This report assesses the capacity of the National Designated Authority for engaging with the GCF. It identifies institutional gaps and priority support needs. The recommendations provide guidance for targeted interventions to enhance GCF engagement.",
+      "file": "deliverable/nda-needs-assessment-report-final-1-oct-2025.pdf",
+      "size": "1.4 MB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-30T13:24:19.507Z",
+      "thumbnail": "del-1774877059504-158a.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "del-1773734273761-1078",
+      "title": "Module 3 fiduciary standards",
+      "description": "This module presents the fiduciary standards required for managing GCF projects, covering financial management, procurement, and risk assessment. It guides stakeholders on maintaining accountability and compliance. The material enhances understanding of GCF financial and operational safeguards.",
+      "file": "deliverable/fiduciary-standards.pdf",
+      "size": "3.9 MB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-30T13:12:41.001Z",
+      "thumbnail": "del-1773734273761-1078.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "del-1773734272377-fecf",
+      "title": "Module 1 introduction to key concepts to climate change and climate finance",
+      "description": "This module introduces the fundamental concepts of climate change and climate finance. It explains how climate funding supports mitigation and adaptation projects. The content prepares participants for deeper engagement with GCF procedures.",
+      "file": "deliverable/introduction-to-key-concepts-to-climate-change-and-climate-finance.pdf",
+      "size": "1.7 MB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-30T13:12:27.293Z",
+      "thumbnail": "del-1773734272377-fecf.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "del-1774875957200-4cd5",
+      "title": "Deliverable 3 Validation Workshop Slides",
+      "description": "This presentation contains the slides used during the Deliverable 3 validation workshop. It summarizes key findings, proposed recommendations, and discussion points shared with stakeholders. The slides facilitated feedback collection and validation of the project’s results and next steps",
+      "file": "deliverable/deliverable-3-validation-workshop-slides.pdf",
+      "size": "3.1 MB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-30T13:05:57.239Z",
+      "thumbnail": "del-1774875957200-4cd5.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "del-1773734272287-e0e7",
+      "title": "Institutional framework for NDA and climate finance committee",
+      "description": "This document defines the structure and responsibilities of Eritrea’s NDA and Climate Finance Committee. It outlines roles, reporting lines, and coordination mechanisms. The framework ensures effective governance and stakeholder alignment.",
+      "file": "deliverable/institutional-framework-for-nda-and-climate-finance-committee.pdf",
+      "size": "581.4 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-30T12:39:09.104Z",
+      "thumbnail": "del-1773734272287-e0e7.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "del-1773734272233-1f5a",
+      "title": "Eritrea GCF capacity building workshop report final 01/10/2025",
+      "description": "This report summarizes Eritrea’s GCF capacity-building workshop, highlighting key discussions, lessons learned, and participant feedback. It identifies gaps and opportunities to strengthen national climate finance readiness. The findings provide guidance for future training and project implementation.",
+      "file": "deliverable/eritrea-gcf-capacity-building-workshop-report-final-1oct2025.pdf",
+      "size": "1.6 MB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-30T12:37:07.457Z",
+      "thumbnail": "del-1773734272233-1f5a.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "del-1773734272271-afca",
+      "title": "Eritrea in person workshop concept note and agenda (19/10/2025)",
+      "description": "This document presents the objectives, agenda, and structure of the in-person GCF capacity-building workshop. It focuses on knowledge sharing and stakeholder engagement. The concept note guides workshop preparation and implementation.",
+      "file": "deliverable/eritrea-in-person-workshop-concept-note-and-agenda-19aug2025.pdf",
+      "size": "260.3 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-30T12:36:22.676Z",
+      "thumbnail": "del-1773734272271-afca.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "del-1773734272274-82c7",
+      "title": "Eritrea NDA TOR",
+      "description": "This document specifies the terms of reference for Eritrea’s National Designated Authority. It defines duties, responsibilities, and operational scope. The TOR ensures effective engagement with GCF-funded projects.",
+      "file": "deliverable/eritreanda-tor.pdf",
+      "size": "769.9 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-30T12:35:52.162Z",
+      "thumbnail": "del-1773734272274-82c7.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "del-1773734272279-ddf0",
+      "title": "GCF NOL examples",
+      "description": "This document provides examples of No Objection Letters (NOLs) required for GCF project approval. It illustrates proper formats, content, and submission procedures. The examples help NDAs and stakeholders ensure compliance with GCF processes.",
+      "file": "deliverable/gcf-nol-examples.pdf",
+      "size": "2.0 MB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-30T12:35:29.692Z",
+      "thumbnail": "del-1773734272279-ddf0.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "del-1773734272372-8162",
+      "title": "Methodological note Eritrea capacity building",
+      "description": "This note explains the methodology used to assess Eritrea’s capacity for GCF engagement. It describes data collection, analysis, and evaluation approaches. The methodology ensures evidence-based planning for capacity-building interventions.",
+      "file": "deliverable/methodological-note-eritrea-capacity-building.pdf",
+      "size": "733.0 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-30T12:34:18.591Z",
+      "thumbnail": "del-1773734272372-8162.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "del-1773734272428-9fd3",
+      "title": "Introduction to GCF",
+      "description": "This document provides an introduction to the Green Climate Fund, including its objectives, funding mechanisms, and project cycle. It serves as an orientation for stakeholders engaging with GCF projects. The module lays the foundation for understanding GCF operations and processes.",
+      "file": "deliverable/introduction-to-gcf.pdf",
+      "size": "3.9 MB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-30T12:32:46.011Z",
+      "thumbnail": "del-1773734272428-9fd3.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "del-1773734275098-4893",
+      "title": "Stakeholder map and draft institutional framework",
+      "description": "This document maps key stakeholders and proposes an institutional framework for Eritrea’s climate finance ecosystem. It clarifies roles, responsibilities, and coordination mechanisms. The framework supports effective governance and collaboration for GCF readiness.",
+      "file": "deliverable/stakeholder-map-and-draft-institutional-framework.pdf",
+      "size": "536.3 KB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T07:57:55.100Z",
+      "thumbnail": "del-1773734275098-4893.png",
+      "syncStatus": "success"
+    },
+    {
+      "id": "del-1773734272283-b276",
+      "title": "Guidelines for no procedures",
+      "description": "This guide provides instructions for issuing No Objection Letters (NOLs) for GCF projects. It explains processes, templates, and timelines to follow. The guidelines help standardize approvals and maintain compliance.",
+      "file": "deliverable/guidelines-for-no-procedures.pdf",
+      "size": "2.1 MB",
+      "date": "2026-06-09",
+      "remoteModified": "2026-03-17T07:57:52.286Z",
+      "thumbnail": "del-1773734272283-b276.png",
+      "syncStatus": "success"
+    }
+  ],
+  "workshops": [
+    {
+      "id": "4",
+      "title": "Official launch of the Readiness Eritrea project to strengthen the country’s climate engagement",
+      "description": "Asmara, September 15–18, 2025\r\n\r\nEritrea has taken a significant step forward in advancing its climate agenda with the official launch of the Readiness Eritrea project in Asmara. As a member country of the Sahara and Sahel Observatory (OSS), it is also strengthening its collaboration with the organization in pursuing its climate commitments. A training workshop brought together more than thirty experts from various ministries and national institutions. Together, they shared a common goal: to better understand climate change, its impacts, and, above all, to learn how to access international funding, particularly from the Green Climate Fund (GCF).\r\n\r\nThis workshop marks a crucial first step. It is not only about enhancing the knowledge of national stakeholders—especially the Designated National Authority (DNA)—regarding available financial mechanisms, but also about equipping them with concrete tools to develop strong projects aligned with GCF criteria. Participants were introduced to the scientific foundations of climate change, key GCF policies and guidelines, as well as practical tools such as the theory of change and climate rationale, which are essential for designing bankable projects.\r\n\r\nBeyond the technical presentations, the meeting also provided a space for exchange and collective learning. Representatives from ministries such as Agriculture, Marine Resources, Energy and Mines, Health, and Transport, along with organizations like the National Union of Eritrean Women and the National Union of Eritrean Youth and Students, worked side by side. This diversity of stakeholders enriched discussions and strengthened the spirit of collaboration around a shared challenge: enabling Eritrea to better mobilize climate finance to implement its national agenda and priorities.\r\n\r\nThe workshop also gave the Sahara and Sahel Observatory (OSS), the project’s implementing partner, an opportunity to share its experience in supporting African countries in their engagement with the GCF. OSS experts highlighted the project’s concrete objectives: to develop a GCF country programme, prepare and submit two high-quality concept notes, and identify national entities capable of directly accessing funding.\r\n\r\nBy bringing together so many national stakeholders around the same table, this training opens up new perspectives. It demonstrates that Eritrea has strong human and institutional potential to tackle the challenge of climate change. Beyond the skills acquired, a dynamic of trust and cooperation is beginning to take shape, paving the way for promising progress in implementing the country’s climate agenda and improving access to essential funding for resilience and sustainable development.",
+      "date": "2026-03-17T09:03:55.819Z",
+      "remoteDate": "2026-03-17T09:03:55.819Z",
+      "images": [
+        "workshop-1773738235819-fbd04a.jpg",
+        "workshop-1773738235821-0118a3.jpg",
+        "workshop-1773738235823-f52a20.jpg",
+        "workshop-1773738235825-173dc8.jpg",
+        "workshop-1773738235825-6b2227.jpg"
+      ],
+      "createdAt": "2026-03-17T09:03:55.819Z",
+      "createdBy": "admin",
+      "syncStatus": "success"
+    }
+  ],
+  "lastSync": "2026-06-09T15:22:44.053Z"
+}
