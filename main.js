@@ -455,12 +455,21 @@ function compareFiles(manifest, localCache) {
       // Special handling for workshops (use date instead of modified)
       let needsDownload;
       if (category === 'workshops') {
+        const workshopImagesMissing = (file.images || []).some(img =>
+          !fs.existsSync(path.join(WORKSHOP_IMAGES_DIR, path.basename(img)))
+        );
         needsDownload = !localFile || 
                         localFile.syncStatus === 'failed' ||
+                        workshopImagesMissing ||
                         new Date(file.date) > new Date(localFile.remoteDate || localFile.date);
       } else {
+        const documentMissing = !fs.existsSync(path.join(appPath, 'docs', category, file.name));
+        const thumbnailMissing = Boolean(file.thumbnail) &&
+          !fs.existsSync(path.join(THUMBNAILS_DIR, path.basename(file.thumbnail)));
         needsDownload = !localFile || 
                         localFile.syncStatus === 'failed' ||
+                        documentMissing ||
+                        thumbnailMissing ||
                         new Date(file.modified) > new Date(localFile.remoteModified || localFile.date);
       }
 
